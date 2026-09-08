@@ -1,0 +1,158 @@
+{
+  "planilhas": {
+    "p1_extracao": "1vZgI8ju2OcQit2oEEGPbK-pm19gulnpiFH91TEh3ecI",
+    "p2_controle": "1ESPchuMZHmXrDIyl5N8Kzy9i20Et0-9EkDVXe_DhSNs"
+  },
+  "abas": {
+    "p1_extracao/Página1": {
+      "arquivo": "p1_extracao__P_gina1.csv",
+      "gid": "149980211",
+      "chars": 82781
+    },
+    "p2_controle/⚙️ Config": {
+      "arquivo": "p2_controle__Config.csv",
+      "gid": "149980211",
+      "chars": 553
+    },
+    "p2_controle/✏️ Nomenclaturas": {
+      "arquivo": "p2_controle__Nomenclaturas.csv",
+      "gid": "21350203",
+      "chars": 3317
+    },
+    "p2_controle/📊 Painel Mensal": {
+      "arquivo": "p2_controle__Painel_Mensal.csv",
+      "gid": "21350203",
+      "chars": 959
+    },
+    "p2_controle/📊 Painel Anual": {
+      "arquivo": "p2_controle__Painel_Anual.csv",
+      "gid": "21350203",
+      "chars": 2968
+    },
+    "p2_controle/📈 Mar": {
+      "arquivo": "p2_controle__Mar.csv",
+      "gid": "21350203",
+      "chars": 5183
+    },
+    "p2_controle/📈 Jan": {
+      "arquivo": "p2_controle__Jan.csv",
+      "gid": "21350203",
+      "chars": 4854
+    },
+    "p2_controle/📋 Jan": {
+      "arquivo": "p2_controle__Jan.csv",
+      "gid": "21350203",
+      "chars": 1193
+    },
+    "p2_controle/📈 Fev": {
+      "arquivo": "p2_controle__Fev.csv",
+      "gid": "21350203",
+      "chars": 4824
+    },
+    "p2_controle/📋 Fev": {
+      "arquivo": "p2_controle__Fev.csv",
+      "gid": "21350203",
+      "chars": 1193
+    },
+    "p2_controle/📋 Mar": {
+      "arquivo": "p2_controle__Mar.csv",
+      "gid": "21350203",
+      "chars": 1193
+    },
+    "p2_controle/📈 Abr": {
+      "arquivo": "p2_controle__Abr.csv",
+      "gid": "21350203",
+      "chars": 5815
+    },
+    "p2_controle/📋 Abr": {
+      "arquivo": "p2_controle__Abr.csv",
+      "gid": "21350203",
+      "chars": 825
+    },
+    "p2_controle/📈 Mai": {
+      "arquivo": "p2_controle__Mai.csv",
+      "gid": "21350203",
+      "chars": 5996
+    },
+    "p2_controle/📋 Mai": {
+      "arquivo": "p2_controle__Mai.csv",
+      "gid": "21350203",
+      "chars": 1193
+    },
+    "p2_controle/📈 Jun": {
+      "arquivo": "p2_controle__Jun.csv",
+      "gid": "21350203",
+      "chars": 4854
+    },
+    "p2_controle/📋 Jun": {
+      "arquivo": "p2_controle__Jun.csv",
+      "gid": "21350203",
+      "chars": 1193
+    },
+    "p2_controle/📈 Jul": {
+      "arquivo": "p2_controle__Jul.csv",
+      "gid": "21350203",
+      "chars": 4854
+    },
+    "p2_controle/📋 Jul": {
+      "arquivo": "p2_controle__Jul.csv",
+      "gid": "21350203",
+      "chars": 1193
+    },
+    "p2_controle/📈 Ago": {
+      "arquivo": "p2_controle__Ago.csv",
+      "gid": "21350203",
+      "chars": 5271
+    },
+    "p2_controle/📈 Setembro": {
+      "arquivo": "p2_controle__Setembro.csv",
+      "gid": "21350203",
+      "chars": 5074
+    },
+    "p2_controle/📋 Ago": {
+      "arquivo": "p2_controle__Ago.csv",
+      "gid": "21350203",
+      "chars": 1193
+    },
+    "p2_controle/📈 Set": {
+      "arquivo": "p2_controle__Set.csv",
+      "gid": "21350203",
+      "chars": 4833
+    },
+    "p2_controle/📋 Set": {
+      "arquivo": "p2_controle__Set.csv",
+      "gid": "21350203",
+      "chars": 1193
+    },
+    "p2_controle/📈 Out": {
+      "arquivo": "p2_controle__Out.csv",
+      "gid": "21350203",
+      "chars": 4854
+    },
+    "p2_controle/📋 Out": {
+      "arquivo": "p2_controle__Out.csv",
+      "gid": "21350203",
+      "chars": 1193
+    },
+    "p2_controle/📈 Nov": {
+      "arquivo": "p2_controle__Nov.csv",
+      "gid": "21350203",
+      "chars": 4844
+    },
+    "p2_controle/📋 Nov": {
+      "arquivo": "p2_controle__Nov.csv",
+      "gid": "21350203",
+      "chars": 1193
+    },
+    "p2_controle/📈 Dez": {
+      "arquivo": "p2_controle__Dez.csv",
+      "gid": "21350203",
+      "chars": 4854
+    },
+    "p2_controle/📋 Dez": {
+      "arquivo": "p2_controle__Dez.csv",
+      "gid": "21350203",
+      "chars": 1193
+    }
+  }
+}
