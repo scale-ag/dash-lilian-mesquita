@@ -1,0 +1,33 @@
+name: Reconhecimento das planilhas (temporario - Fase 0)
+
+# Job TEMPORARIO de reconhecimento: so LE as duas planilhas do cliente e imprime
+# no log as abas/gids, todas as colunas e uma amostra de linhas. Nunca escreve
+# nada de volta e nao publica nada. Sai do repo assim que a Fase 0 terminar.
+#
+# Roda em push na branch de trabalho porque o sandbox do agente nao alcanca
+# docs.google.com — so o runner do GitHub Actions alcanca.
+on:
+  push:
+    branches: [ "claude/dashboard-lilian-mesquita-a6nmqm" ]
+    paths:
+      - "tools/descobrir_planilhas.py"
+      - ".github/workflows/descobrir.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  descobrir:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Reconhecimento (somente leitura das planilhas)
+        run: python tools/descobrir_planilhas.py --dump-csv
