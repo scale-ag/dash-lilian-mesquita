@@ -17,8 +17,7 @@ Gasto → Impressões → Alcance → Cliques no link → Visitas no Perfil → 
 
 Não há lead, MQL, venda nem faturamento nesta operação: é um funil de topo, cujo
 resultado final é seguidor no perfil. As métricas de custo são **CPM**, **CPC**,
-**Custo por Visita (CPV)** e **Custo por Seguidor (CPS)**; a **Frequência**
-(impressões ÷ alcance) é o termômetro de saturação do público.
+**Custo por Visita (CPV)** e **Custo por Seguidor (CPS)**.
 
 ## Fontes de dados (duas planilhas — não confundir)
 

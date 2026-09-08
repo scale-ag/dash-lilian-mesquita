@@ -65,12 +65,15 @@ Gasto → Impressões → Alcance → Cliques no link → Visitas no Perfil → 
 ```
 Não há lead, MQL, venda, faturamento nem ROAS nesta operação — nenhuma das duas
 planilhas tem essas etapas, e elas não existem na dashboard. Métricas de custo:
-**CPM · CPC · CPV · CPS**; **Frequência** (impressões ÷ alcance) é o termômetro
-de saturação do público.
+**CPM · CPC · CPV · CPS**.
 
-> **Cliques→Visita passa de 100%** e isso está certo: "cliques no link" é uma
-> métrica mais estreita que visita ao perfil (dá para tocar no nome do perfil
-> sem clicar no link). Serve como proporção, não como taxa de conversão fechada.
+> **Frequência, CPM sobre alcance e Cliques→Visita não são exibidos na
+> dashboard** (removidos: eram ruído para o gestor de tráfego olhar dia a dia).
+> A Rotina de Insights (aba Relatório) ainda enxerga `freq`/`txvis` em
+> `relatorios_dados.json` — servem só de insumo para o texto, nunca viram
+> coluna/KPI na interface. Se precisar reintroduzir alguma na tela, ver
+> `build/GUIA-RELATORIOS.md` para o racional de saturação de público que a
+> justificava.
 
 ### Imposto da mídia paga
 `TAX_FACTOR = 1.1385` (13,85%) em `build.py`. O toggle "Imposto Meta" nasce
@@ -122,8 +125,8 @@ e, abaixo, acrescenta 3 blocos novos + um painel de metas editável:
   "não definida"; `VOLUME_MIN_AMOSTRAL`/`N_DIAS_CORTE`). Editar recolore **CPC/CPS**
   na tabela de anúncios (verde ≤ meta · amarelo até +30% · vermelho acima) e ajusta
   o badge Em observação/Avaliável, **tudo ao vivo** (`METAS` + `renderRelAds()`).
-- **Tabela de anúncios** — 16 colunas + coluna **Status** (Anúncio · Status ·
-  Campanha · Conjunto · Gasto · Impr · CPM · Alcance · Freq · Cliques · CTR · CPC ·
+- **Tabela de anúncios** — 15 colunas + coluna **Status** (Anúncio · Status ·
+  Campanha · Conjunto · Gasto · Impr · CPM · Alcance · Cliques · CTR · CPC ·
   Visitas · CPV · Seguidores · CPS). Anúncio e Status ficam **sticky**.
   Ranking pelo **clique** — o resultado mais profundo que existe por criativo neste
   funil — com amostra relevante primeiro; sem amostra → badge **"Em observação"**.

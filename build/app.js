@@ -71,13 +71,13 @@ function segCoberto(){
    nível do DIA — não há quebra por campanha ou criativo. */
 function derive(a){
   const g=a.sp*taxf();
-  // Custo e taxa de conversão de Visitas/Seguidores são calculados SÓ sobre os
-  // dias que têm a contagem. A planilha de controle começa em 07/08, mas a
-  // mídia roda desde 03/06: dividir o gasto do período inteiro pelas visitas de
-  // agosto/setembro dava R$ 1,05 por visita em vez de R$ 0,32, e R$ 13,56 por
-  // seguidor em vez de R$ 4,11 — o mesmo vale para as taxas Cliques→Visita e
-  // Cliques→Seguidor, que precisam comparar a mesma janela de dias.
-  const gVis=(a.spVis!=null?a.spVis:a.sp)*taxf(), clVis=(a.clVis!=null?a.clVis:a.cl);
+  // Custo de Visitas/Seguidores é calculado SÓ sobre os dias que têm a
+  // contagem. A planilha de controle começa em 07/08, mas a mídia roda desde
+  // 03/06: dividir o gasto do período inteiro pelas visitas de agosto/setembro
+  // dava R$ 1,05 por visita em vez de R$ 0,32, e R$ 13,56 por seguidor em vez
+  // de R$ 4,11 — o mesmo vale para a taxa Cliques→Seguidor, que precisa
+  // comparar a mesma janela de dias.
+  const gVis=(a.spVis!=null?a.spVis:a.sp)*taxf();
   const gSeg=(a.spSeg!=null?a.spSeg:a.sp)*taxf(), clSeg=(a.clSeg!=null?a.clSeg:a.cl);
   // Visitas no Perfil e Seguidores vêm da planilha de controle, que registra por
   // DIA. Onde não há registro (junho/julho, antes de a planilha existir, ou
@@ -89,14 +89,12 @@ function derive(a){
   return {
     gasto:g, impr:a.im, alcance:a.rc, clicks:a.cl,
     cpm:a.im?g/a.im*1000:null,
-    freq:a.rc?a.im/a.rc:null,                  // impressões por pessoa alcançada
     ctr:a.im?a.cl/a.im:null,
     cpc:a.cl?g/a.cl:null,
-    cpa:a.rc?g/a.rc*1000:null,                 // custo por mil pessoas alcançadas
     // O custo por visita é recalculado sobre o gasto do GERENCIADOR (com
     // imposto), não copiado da coluna da planilha de controle: em agosto os
     // dois investimentos divergem, e a fonte de verdade do gasto é a Planilha 1.
-    vis, cpv:(vis?gVis/vis:null), txVis:(vis&&clVis?vis/clVis:null),
+    vis, cpv:(vis?gVis/vis:null),
     seg:temSeg?a.seg:null,
     cps:temSeg?gSeg/a.seg:null,
     txSeg:(temSeg&&clSeg)?a.seg/clSeg:null,    // cliques que viraram seguidor
@@ -462,20 +460,6 @@ function comboChart(id, d){
   });
 }
 
-/* Donut de FREQUÊNCIA: quanto das impressões foi para gente nova (alcance) e
-   quanto foi repetição para quem já tinha visto. Numa campanha de distribuição
-   é o sinal mais direto de saturação do público. */
-function donutFreq(id, alcance, impr){
-  destroy(id); const el=document.getElementById(id); if(!el) return;
-  const repet=Math.max(0,impr-alcance);
-  charts[id]=new Chart(el,{type:'doughnut',
-    data:{labels:['Alcance (pessoas únicas)','Impressões repetidas'],datasets:[{data:[alcance,repet],
-      backgroundColor:[cvar('--good'),cvar('--bad')],borderColor:cvar('--surface'),borderWidth:2}]},
-    options:{responsive:true,maintainAspectRatio:false,cutout:'68%',
-      plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.label+': '+intf(c.raw)+(impr?' ('+pct(c.raw/impr)+')':'')}}}}});
-  const el2=document.getElementById('mFreqVal'); if(el2) el2.textContent=alcance?numf(impr/alcance)+'x':'-';
-}
-
 /* CPC por dimensão (campanha/conjunto/anúncio) por dia — 1 linha por membro.
    Legenda é um painel HTML próprio (fora do canvas): a legenda nativa do
    Chart.js trunca nomes longos porque respeita a largura do canvas, e os nomes
@@ -568,10 +552,10 @@ function funilSteps(t,dv){
   return [
     ['Gasto Total', brl(dv.gasto), [], false, 'hl-gasto'],
     ['Impressões', intf(t.im), [['CPM',brl(dv.cpm)]]],
-    ['Alcance', intf(t.rc), [['Frequência',dv.freq!=null?numf(dv.freq)+'x':'-'],['CPM alcance',brl(dv.cpa)]]],
+    ['Alcance', intf(t.rc), []],
     ['Cliques no link', intf(t.cl), [['CTR',pct(dv.ctr)],['CPC',brl(dv.cpc)]]],
     ['Visitas no Perfil', dv.vis!=null?intf(dv.vis):NA_TAG,
-      [['Custo/Visita',dv.cpv!=null?brl(dv.cpv):NA_TAG],['Cliques→Visita',dv.txVis!=null?pct(dv.txVis):NA_TAG]], dv.vis==null],
+      [['Custo/Visita',dv.cpv!=null?brl(dv.cpv):NA_TAG]], dv.vis==null],
     ['Seguidores', dv.seg!=null?intf(dv.seg):NA_TAG,
       [['CPS',dv.cps!=null?brl(dv.cps):NA_TAG],['Cliques→Seguidor',dv.txSeg!=null?pct(dv.txSeg):NA_TAG]], dv.seg==null, 'hl-seg'],
   ];
@@ -606,7 +590,6 @@ function renderGeralCore(ids){
     {label:'Top anúncio (cliques)',val:topAd?intf(topAd.v):'-',aux:topAd?adShort(topAd.ad):'—'},
     {label:'Concentração top anúncio',val:pct(concTop),aux:'% dos cliques no melhor anúncio'},
     {label:'Anúncios ativos',val:intf(nAdsAtivos),aux:intf(nCampAtivas)+' campanhas c/ gasto'},
-    {label:'Frequência média',val:dv.freq!=null?numf(dv.freq)+'x':'-',aux:intf(t.rc)+' pessoas alcançadas'},
   ];
   document.getElementById(ids.kpis2).innerHTML=k2.map(kpiCard).join('');
   comboChart(ids.combo, dd);
@@ -642,7 +625,7 @@ const DAILY_COLS=[
   {key:'date',label:'Data',type:'date'},{key:'wd',label:'Dia',type:'dim',w:70},
   {key:'gasto',label:'Gasto',type:'brl',heat:'gasto'},
   {key:'im',label:'Impr.',type:'int'},{key:'cpm',label:'CPM',type:'brl'},
-  {key:'rc',label:'Alcance',type:'int',heat:'alcance'},{key:'freq',label:'Freq.',type:'num'},
+  {key:'rc',label:'Alcance',type:'int',heat:'alcance'},
   {key:'cl',label:'Cliques',type:'int',heat:'clicks'},{key:'ctr',label:'CTR',type:'pct',heat:'ctr'},{key:'cpc',label:'CPC',type:'brl'},
   {key:'vis',label:'Visitas',type:'int'},{key:'cpv',label:'CPV',type:'brl'},
   {key:'seg',label:'Seguidores',type:'int',heat:'seg'},{key:'cps',label:'CPS',type:'brl'},
@@ -650,7 +633,7 @@ const DAILY_COLS=[
 ];
 function dailyCells(x,d,isTotal){
   return {date:isTotal?null:x.d, wd:isTotal?'':weekday(x.d),
-    gasto:d.gasto, im:x.im, cpm:d.cpm, rc:x.rc, freq:d.freq,
+    gasto:d.gasto, im:x.im, cpm:d.cpm, rc:x.rc,
     cl:x.cl, ctr:d.ctr, cpc:d.cpc,
     vis:d.vis, cpv:d.cpv, seg:d.seg, cps:d.cps, txSeg:d.txSeg};
 }
@@ -728,7 +711,7 @@ const AD_COLS=[
   {key:'ad',label:'Anúncio',type:'dim',big:true,stk:'l1'},{key:'status',label:'Status',type:'dim',w:140},
   {key:'camp',label:'Campanha',type:'dim',big:true},{key:'adset',label:'Conjunto',type:'dim',big:true},
   {key:'gasto',label:'Gasto',type:'brl'},{key:'im',label:'Impr.',type:'int'},
-  {key:'cpm',label:'CPM',type:'brl'},{key:'rc',label:'Alcance',type:'int'},{key:'freq',label:'Freq.',type:'num'},
+  {key:'cpm',label:'CPM',type:'brl'},{key:'rc',label:'Alcance',type:'int'},
   {key:'cl',label:'Cliques',type:'int'},{key:'ctr',label:'CTR',type:'pct'},{key:'cpc',label:'CPC',type:'brl'},
   {key:'vis',label:'Visitas',type:'int'},{key:'cpv',label:'CPV',type:'brl'},
   {key:'seg',label:'Seguidores',type:'int'},{key:'cps',label:'CPS',type:'brl'},
@@ -736,7 +719,7 @@ const AD_COLS=[
 function adRowCells(ad,a,struct){
   const d=derive(a);
   return {ad, camp:struct.camp, adset:struct.adset,
-    gasto:d.gasto, im:a.im, cpm:d.cpm, rc:a.rc, freq:d.freq,
+    gasto:d.gasto, im:a.im, cpm:d.cpm, rc:a.rc,
     cl:a.cl, ctr:d.ctr, cpc:d.cpc,
     // Visitas no Perfil: sem fonte. Seguidores: existem só por DIA, não por
     // anúncio — a planilha de controle não quebra por criativo, então
@@ -944,8 +927,6 @@ function renderMeta(){
   const clByAd={}; fM.forEach(r=>{ clByAd[r.ad]=(clByAd[r.ad]||0)+r.cl; });
   hbar('mClAd', Object.entries(clByAd).map(([label,v])=>({label,v})).filter(x=>x.v>0),
        x=>x.v, ()=>cvar('--chart-seg'), 10, 'cliques');
-  // frequência: quanto das impressões foi para gente nova
-  donutFreq('mFreqDonut', t.rc, t.im);
   // Compilado dos anúncios: menor CPC no topo
   const adAggM=buildAgg(fM,'ad');
   const topRows=Object.entries(adAggM).map(([ad,a])=>{const d=derive(a);
@@ -972,14 +953,14 @@ function renderMeta(){
   const hcols=[
     {key:'dim',label:'',type:'dim',big:true,band:'l'},{key:'gasto',label:'Gasto',type:'brl',band:'l'},
     {key:'im',label:'Impr.',type:'int'},{key:'cpm',label:'CPM',type:'brl'},
-    {key:'rc',label:'Alcance',type:'int'},{key:'freq',label:'Freq.',type:'num'},
+    {key:'rc',label:'Alcance',type:'int'},
     {key:'cl',label:'Cliques',type:'int'},{key:'ctr',label:'CTR',type:'pct'},{key:'cpc',label:'CPC',type:'brl'},
     {key:'vis',label:'Visitas',type:'int'},{key:'cpv',label:'CPV',type:'brl'},
   ];
   function hierRows(map){ return Object.entries(map).map(([k,a])=>{const d=derive(a);
-    return {k, cells:{dim:k,gasto:d.gasto,im:a.im,cpm:d.cpm,rc:a.rc,freq:d.freq,
+    return {k, cells:{dim:k,gasto:d.gasto,im:a.im,cpm:d.cpm,rc:a.rc,
       cl:a.cl,ctr:d.ctr,cpc:d.cpc,vis:d.vis,cpv:d.cpv}};}); }
-  function totRowOf(tt){const d=derive(tt);return{dim:null,gasto:d.gasto,im:tt.im,cpm:d.cpm,rc:tt.rc,freq:d.freq,
+  function totRowOf(tt){const d=derive(tt);return{dim:null,gasto:d.gasto,im:tt.im,cpm:d.cpm,rc:tt.rc,
     cl:tt.cl,ctr:d.ctr,cpc:d.cpc,vis:d.vis,cpv:d.cpv};}
   const Sc=metaScope('C'), Sa=metaScope('A'), Sd=metaScope('D');
   const aggC=buildAgg(Sc.fM,'camp'), aggA=buildAgg(Sa.fM,'adset'), aggD=buildAgg(Sd.fM,'ad');
