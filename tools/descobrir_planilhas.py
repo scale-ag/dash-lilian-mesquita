@@ -102,7 +102,13 @@ def main() -> int:
         for nome in nomes:
             st, texto = csv_da_aba(sid, nome)
             print(f"    - {nome!r} -> HTTP {st} | {len(texto)} chars")
-            pacote[chave]["abas"][nome] = {"http": st, "gid": gids.get(nome), "csv": texto}
+            item = {"http": st, "gid": gids.get(nome), "csv": texto}
+            # Nas abas mensais os rotulos vivem em linhas mescladas no topo; a
+            # versao com cabecalho do gviz e' a unica que os devolve legiveis.
+            if chave == "p2_controle" and nome.startswith("\U0001F4C8"):
+                _, rot = csv_da_aba(sid, nome, headers=3)
+                item["rotulos"] = rot
+            pacote[chave]["abas"][nome] = item
 
     # Grava os CSVs em disco para o job commitar na branch de trabalho: e' assim
     # que eles chegam ao agente, que nao alcanca docs.google.com e precisa deles
@@ -118,6 +124,9 @@ def main() -> int:
             slug = re.sub(r"[^A-Za-z0-9]+", "_", nome).strip("_") or "aba"
             arq = destino / f"{chave}__{i:02d}_{slug}.csv"
             arq.write_text(info["csv"], encoding="utf-8")
+            if info.get("rotulos"):
+                (destino / f"{chave}__{i:02d}_{slug}__rotulos.csv").write_text(
+                    info["rotulos"], encoding="utf-8")
             indice[f"{chave}/{nome}"] = {"arquivo": arq.name, "gid": info.get("gid"),
                                          "chars": len(info["csv"])}
     (destino / "_indice.json").write_text(
