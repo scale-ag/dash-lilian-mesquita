@@ -102,16 +102,16 @@
   .three-col{grid-template-columns:360px minmax(0,1fr)}
   .funnel-grid{grid-template-columns:340px minmax(0,1fr); align-items:start}
   .funnel-charts{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px; align-content:start}
-  /* Mar02: três colunas de tamanho igual · Mar05: quatro gráficos na mesma linha */
-  .trio{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; align-items:stretch}
-  /* trio: os 3 cards com a MESMA altura (a tabela alinha com o gráfico/donut ao lado);
+  /* Mar05: quatro gráficos na mesma linha */
+  .duo{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px; align-items:stretch}
+  /* duo: os 2 cards com a MESMA altura (a tabela alinha com o gráfico ao lado);
      o conteúdo interno cresce para preencher, sem mudar a altura total da seção */
-  .trio > .card{display:flex; flex-direction:column; min-width:0}
-  .trio > .card > .chart-box, .trio > .card > .donut-wrap, .trio > .card > .tbl-wrap{flex:1 1 auto; min-height:0}
+  .duo > .card{display:flex; flex-direction:column; min-width:0}
+  .duo > .card > .chart-box, .duo > .card > .donut-wrap, .duo > .card > .tbl-wrap{flex:1 1 auto; min-height:0}
   .row4{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:16px; align-content:start}
   @media(max-width:1000px){.two-col,.three-col,.funnel-grid{grid-template-columns:1fr}}
   @media(max-width:1200px){.funnel-charts{grid-template-columns:1fr}}
-  @media(max-width:1200px){.trio{grid-template-columns:1fr} .row4{grid-template-columns:1fr 1fr}}
+  @media(max-width:1200px){.duo{grid-template-columns:1fr} .row4{grid-template-columns:1fr 1fr}}
   @media(max-width:640px){.row4{grid-template-columns:1fr}}
   .card{background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:16px; min-width:0}
   .card h3{margin:0 0 2px; font-size:14px}
