@@ -1,19 +1,16 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Reconhecimento READ-ONLY das planilhas do cliente (Fase 0).
+Reconhecimento READ-ONLY das planilhas do cliente (Fase 0) — v2, com diagnostico
+de acesso publico.
 
 Roda no runner do GitHub Actions (o sandbox do agente nao alcanca docs.google.com).
-NUNCA escreve nada de volta: so faz GET nos endpoints publicos de export/visualizacao.
+NUNCA escreve nada de volta: so faz GET nos endpoints publicos de export.
 
-Imprime no log do job:
-  - nome + gid de TODAS as abas das 2 planilhas;
-  - cabecalho completo (todas as colunas) de cada aba;
-  - N linhas de amostra por aba;
-  - valores distintos de Campaign Name (p/ deduzir a Sigla do Funil);
-  - o CSV inteiro em gzip+base64 quando couber (p/ testar o build offline).
-
-Este arquivo e temporario e sai do repo assim que a Fase 0 terminar.
+O runner NAO tem credencial Google. Se a planilha nao estiver com
+"qualquer pessoa com o link -> Leitor", todo GET volta a pagina de login em vez
+do dado — e o build de producao falharia do mesmo jeito. Este script mostra
+exatamente qual e' o caso.
 """
 from __future__ import annotations
 
@@ -21,143 +18,165 @@ import base64
 import csv
 import gzip
 import io
+import json
 import re
 import sys
 import urllib.error
+import urllib.parse
 import urllib.request
 
-UA = {"User-Agent": "Mozilla/5.0 (compatible; dash-discovery/1.0)"}
+UA = {"User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 "
+                    "(KHTML, like Gecko) Chrome/124.0 Safari/537.36"}
 
 PLANILHAS = [
     ("PLANILHA 1 - Extracao Dashboard (Meta Ads)", "1vZgI8ju2OcQit2oEEGPbK-pm19gulnpiFH91TEh3ecI"),
     ("PLANILHA 2 - Controle de trafego 2026",      "1ESPchuMZHmXrDIyl5N8Kzy9i20Et0-9EkDVXe_DhSNs"),
 ]
+# Abas nomeadas que o cliente mandou ler na Planilha 2 (via gviz, por NOME).
+ABAS_POR_NOME = ["\U0001F4C8 Ago", "\U0001F4C8 Setembro", "Ago", "Setembro"]
 
-MAX_B64_BYTES = 250_000   # acima disso, so amostra (nao despeja o CSV inteiro no log)
-SAMPLE_ROWS = 8
+MAX_B64_BYTES = 250_000
+SAMPLE_ROWS = 10
 
 
-def get(url: str, timeout: int = 90) -> tuple[int, bytes]:
+def get(url: str, timeout: int = 90):
+    """Devolve (status, url_final, corpo_bytes)."""
     req = urllib.request.Request(url, headers=UA)
     try:
         with urllib.request.urlopen(req, timeout=timeout) as r:
-            return r.status, r.read()
+            return r.status, r.geturl(), r.read()
     except urllib.error.HTTPError as e:
-        return e.code, e.read()[:2000]
+        return e.code, url, e.read()[:3000]
     except Exception as e:                                  # noqa: BLE001
-        print(f"    !! erro de rede: {type(e).__name__}: {e}")
-        return 0, b""
+        print(f"      !! erro de rede: {type(e).__name__}: {e}")
+        return 0, url, b""
+
+
+def eh_login(url_final: str, corpo: bytes) -> bool:
+    if "accounts.google.com" in url_final or "/ServiceLogin" in url_final:
+        return True
+    amostra = corpo[:60000].decode("utf-8", "replace")
+    return ("accounts.google.com/ServiceLogin" in amostra
+            or "Faça login" in amostra
+            or "To continue, sign in" in amostra
+            or "Sign in - Google Accounts" in amostra)
+
+
+def diagnostico_acesso(sid: str) -> bool:
+    """Testa se a planilha responde a export CSV sem credencial. True = publica."""
+    url = f"https://docs.google.com/spreadsheets/d/{sid}/export?format=csv&gid=0"
+    st, fin, corpo = get(url)
+    login = eh_login(fin, corpo)
+    print(f"      export?gid=0 -> HTTP {st} | {len(corpo)} bytes | login={login}")
+    print(f"      url final    : {fin[:150]}")
+    ct = corpo[:200].decode("utf-8", "replace").replace("\n", "\\n")
+    print(f"      inicio corpo : {ct!r}")
+    return st == 200 and not login
 
 
 def descobrir_abas(sid: str) -> list[tuple[str, str]]:
-    """Devolve [(nome_da_aba, gid), ...]. Tenta htmlview e depois a pagina /edit."""
+    """[(nome, gid), ...] via htmlview (menu de abas) e via /edit (bootstrap)."""
     achados: dict[str, str] = {}
-
-    st, body = get(f"https://docs.google.com/spreadsheets/d/{sid}/htmlview")
-    print(f"    htmlview -> HTTP {st} ({len(body)} bytes)")
-    if st == 200:
-        html = body.decode("utf-8", "replace")
-        # <li id="sheet-button-123456"...><a ...>Nome da aba</a>
-        for gid, rotulo in re.findall(
-            r'id="sheet-button-(\d+)"[^>]*>(?:<a[^>]*>)?(.*?)</(?:a|li)>', html, re.S
-        ):
-            nome = re.sub(r"<[^>]+>", "", rotulo).strip()
+    for caminho in ("htmlview", "edit"):
+        st, fin, corpo = get(f"https://docs.google.com/spreadsheets/d/{sid}/{caminho}")
+        html = corpo.decode("utf-8", "replace")
+        print(f"      /{caminho} -> HTTP {st} | {len(corpo)} bytes | login={eh_login(fin, corpo)}")
+        for gid, rot in re.findall(r'id="sheet-button-(\d+)"[^>]*>(?:<a[^>]*>)?(.*?)</(?:a|li)>', html, re.S):
+            nome = re.sub(r"<[^>]+>", "", rot).strip()
             if nome:
                 achados.setdefault(nome, gid)
-
-    if not achados:
-        st, body = get(f"https://docs.google.com/spreadsheets/d/{sid}/edit")
-        print(f"    /edit -> HTTP {st} ({len(body)} bytes)")
-        if st == 200:
-            html = body.decode("utf-8", "replace")
-            # bootstrapData traz pares {"...","<nome>",<gid>,...}
-            for nome, gid in re.findall(r'\{"name":"(.*?)","index":\d+,"sheetId":(\d+)', html):
-                achados.setdefault(nome.encode().decode("unicode_escape"), gid)
-            if not achados:
-                for gid, nome in re.findall(r'\[null,(\d+),"(.*?)"', html)[:60]:
-                    achados.setdefault(nome.encode().decode("unicode_escape"), gid)
-            if not achados:
-                print("    (nenhuma aba extraida do /edit — amostra do HTML p/ diagnostico:)")
-                print("    " + html[:1200].replace("\n", " ")[:1200])
-
+        for nome, gid in re.findall(r'"name":"((?:[^"\\]|\\.)*)","index":\d+,"sheetId":(\d+)', html):
+            try:
+                achados.setdefault(json.loads(f'"{nome}"'), gid)
+            except ValueError:
+                achados.setdefault(nome, gid)
+        # ultimo recurso: qualquer "#gid=NNN" citado na pagina
+        for gid in set(re.findall(r"[#&]gid=(\d+)", html)):
+            achados.setdefault(f"(gid {gid} — nome desconhecido)", gid)
+        if achados:
+            break
     return list(achados.items())
 
 
-def baixar_csv(sid: str, gid: str) -> tuple[int, bytes]:
-    return get(f"https://docs.google.com/spreadsheets/d/{sid}/export?format=csv&gid={gid}")
-
-
-def dump_aba(titulo: str, sid: str, nome: str, gid: str, despejar_csv: bool) -> None:
-    print(f"\n  --- ABA: {nome!r}   gid={gid} ---")
-    st, raw = baixar_csv(sid, gid)
-    print(f"    export csv -> HTTP {st} ({len(raw)} bytes)")
-    if st != 200 or not raw:
-        print("    !! nao foi possivel exportar esta aba (permissao? aba oculta?)")
-        return
-
+def mostrar_tabela(rotulo: str, raw: bytes, despejar: bool, tag: str) -> None:
     texto = raw.decode("utf-8", "replace")
     linhas = list(csv.reader(io.StringIO(texto)))
-    print(f"    linhas totais (inclui cabecalho): {len(linhas)}")
+    print(f"      linhas totais (inclui cabecalho): {len(linhas)}")
     if not linhas:
         return
-
-    # Cabecalho: a 1a linha com >=2 celulas nao vazias (abas de controle costumam
-    # ter titulo/merge nas primeiras linhas).
-    idx_cab = 0
-    for i, ln in enumerate(linhas[:15]):
+    idx = 0
+    for i, ln in enumerate(linhas[:20]):
         if sum(1 for c in ln if (c or "").strip()) >= 2:
-            idx_cab = i
+            idx = i
             break
-    print(f"    linha de cabecalho detectada: indice {idx_cab}")
-    print(f"    COLUNAS ({len(linhas[idx_cab])}):")
-    for i, c in enumerate(linhas[idx_cab]):
-        print(f"      [{i:02d}] {c!r}")
-
-    print(f"    AMOSTRA ({SAMPLE_ROWS} linhas apos o cabecalho):")
-    for ln in linhas[idx_cab + 1: idx_cab + 1 + SAMPLE_ROWS]:
-        print(f"      {ln}")
-
-    # Campaign Name distintos (p/ deduzir a Sigla do Funil)
-    cab_norm = [(c or "").strip().lower() for c in linhas[idx_cab]]
+    print(f"      linha de cabecalho detectada: indice {idx}")
+    print(f"      COLUNAS ({len(linhas[idx])}):")
+    for i, c in enumerate(linhas[idx]):
+        print(f"        [{i:02d}] {c!r}")
+    print(f"      AMOSTRA ({SAMPLE_ROWS} linhas apos o cabecalho):")
+    for ln in linhas[idx + 1: idx + 1 + SAMPLE_ROWS]:
+        print(f"        {ln}")
+    cab = [(c or "").strip().lower() for c in linhas[idx]]
     for alvo in ("campaign name", "campanha", "nome da campanha"):
-        if alvo in cab_norm:
-            j = cab_norm.index(alvo)
-            distintos = sorted({(l[j] or "").strip() for l in linhas[idx_cab + 1:]
-                                if j < len(l) and (l[j] or "").strip()})
-            print(f"    CAMPAIGN NAME distintos ({len(distintos)}):")
-            for d in distintos:
-                print(f"      * {d}")
+        if alvo in cab:
+            j = cab.index(alvo)
+            dist = sorted({(l[j] or "").strip() for l in linhas[idx + 1:]
+                           if j < len(l) and (l[j] or "").strip()})
+            print(f"      CAMPAIGN NAME distintos ({len(dist)}):")
+            for d in dist:
+                print(f"        * {d}")
             break
-
-    if despejar_csv:
+    if despejar:
         comp = gzip.compress(raw, 9)
         if len(comp) <= MAX_B64_BYTES:
             b64 = base64.b64encode(comp).decode()
-            print(f"    CSV_GZ_B64_INICIO gid={gid} ({len(comp)} bytes comprimidos)")
+            print(f"      CSV_GZ_B64_INICIO {tag} ({len(comp)} bytes comprimidos)")
             for k in range(0, len(b64), 200):
-                print("    B64 " + b64[k:k + 200])
-            print(f"    CSV_GZ_B64_FIM gid={gid}")
+                print("      B64 " + b64[k:k + 200])
+            print(f"      CSV_GZ_B64_FIM {tag}")
         else:
-            print(f"    (CSV grande demais p/ o log: {len(comp)} bytes comprimidos > {MAX_B64_BYTES})")
+            print(f"      (CSV grande demais p/ o log: {len(comp)} bytes > {MAX_B64_BYTES})")
 
 
 def main() -> int:
     despejar = "--dump-csv" in sys.argv
     for titulo, sid in PLANILHAS:
         print("\n" + "=" * 78)
-        print(f"{titulo}")
-        print(f"id: {sid}")
+        print(f"{titulo}\nid: {sid}")
         print("=" * 78)
+
+        print("\n  [1] Acesso publico (o runner nao tem login Google):")
+        publica = diagnostico_acesso(sid)
+        print(f"      => {'PUBLICA (link -> Leitor)' if publica else 'NAO PUBLICA — precisa liberar o compartilhamento'}")
+
+        print("\n  [2] Abas e gids:")
         abas = descobrir_abas(sid)
-        if not abas:
-            print("  !! NENHUMA ABA DESCOBERTA — a planilha provavelmente nao esta")
-            print("     acessivel por link publico. O build no Actions tambem falharia.")
-            continue
-        print(f"\n  ABAS ENCONTRADAS ({len(abas)}):")
+        if abas:
+            for nome, gid in abas:
+                print(f"      - {nome!r} -> gid={gid}")
+        else:
+            print("      (nenhuma aba descoberta)")
+
+        print("\n  [3] Leitura por gid:")
         for nome, gid in abas:
-            print(f"    - {nome!r}  ->  gid={gid}")
-        for nome, gid in abas:
-            dump_aba(titulo, sid, nome, gid, despejar)
+            print(f"\n    --- ABA {nome!r} gid={gid} ---")
+            st, fin, raw = get(f"https://docs.google.com/spreadsheets/d/{sid}/export?format=csv&gid={gid}")
+            print(f"      export csv -> HTTP {st} | {len(raw)} bytes | login={eh_login(fin, raw)}")
+            if st == 200 and raw and not eh_login(fin, raw):
+                mostrar_tabela(nome, raw, despejar, f"sid={sid[:8]} gid={gid}")
+
+        print("\n  [4] Leitura por NOME de aba (gviz) — util quando o gid nao aparece:")
+        for nome in ABAS_POR_NOME:
+            url = (f"https://docs.google.com/spreadsheets/d/{sid}/gviz/tq"
+                   f"?tqx=out:csv&sheet={urllib.parse.quote(nome)}")
+            st, fin, raw = get(url)
+            login = eh_login(fin, raw)
+            print(f"\n    --- gviz sheet={nome!r} -> HTTP {st} | {len(raw)} bytes | login={login} ---")
+            if st == 200 and raw and not login:
+                mostrar_tabela(nome, raw, despejar, f"sid={sid[:8]} sheet={nome}")
+            elif raw:
+                print(f"      inicio corpo: {raw[:200].decode('utf-8', 'replace')!r}")
+
     print("\n== reconhecimento concluido ==")
     return 0
 
