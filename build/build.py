@@ -279,36 +279,85 @@ def process_media(rows):
 # --------------------------------------------------------------------------- #
 # Posicao das colunas nas abas mensais. O cabecalho ocupa varias linhas mescladas
 # e nao sobrevive ao export, entao a leitura e' POSICIONAL. Layout conferido no
-# reconhecimento (bloco "META — Seguidores"):
-#   [01] Data · [12] Invest. (R$) · [13] Seguid. · [14] CPS
+# reconhecimento:
+#   [01] Data
+#   [12] META — Seguidores: Invest. (R$) · [13] Seguid. · [14] CPS
+#   [15] Meta - Visitas no Perfil do Instagram: Visitas ao perfil · [16] Custo por Visita
+#
+# Esta planilha e' editada a mao e JA mudou de layout uma vez (o bloco de
+# Visitas no Perfil foi inserido depois, deslocando as colunas seguintes).
+# valida_layout_controle() confere as identidades aritmeticas de cada bloco e
+# grita no log se as posicoes sairem do lugar, em vez de publicar numero errado.
 COL_CTRL_DATA = 1
 COL_CTRL_INVEST = 12
 COL_CTRL_SEGUIDORES = 13
+COL_CTRL_CPS = 14
+COL_CTRL_VISITAS = 15
+COL_CTRL_CPVISITA = 16
+
+
+def valida_layout_controle(aba, rows):
+    """Confere que as colunas do bloco ainda estao onde o build espera.
+
+    Cada bloco da planilha traz o custo ja calculado ao lado do volume, entao
+    da' para verificar a posicao pela propria aritmetica: CPS deve ser
+    invest/seguidores e o custo por visita deve ser invest/visitas. Se as
+    colunas tiverem sido deslocadas por mais um bloco inserido, essas contas
+    param de fechar e o build avisa, em vez de publicar numero errado."""
+    conf = {"seguidores": [COL_CTRL_SEGUIDORES, COL_CTRL_CPS],
+            "visitas": [COL_CTRL_VISITAS, COL_CTRL_CPVISITA]}
+    placar = {k: [0, 0] for k in conf}
+    for row in rows:
+        if not parse_date(cell(row, COL_CTRL_DATA)):
+            continue
+        inv = to_float(cell(row, COL_CTRL_INVEST))
+        if not inv:
+            continue
+        for nome, (col_vol, col_custo) in conf.items():
+            vol = to_float(cell(row, col_vol))
+            custo = to_float(cell(row, col_custo))
+            if not vol:
+                continue
+            ok = abs(inv / vol - custo) <= 0.02
+            placar[nome][0 if ok else 1] += 1
+    for nome, (ok, ruim) in placar.items():
+        if ruim and ruim >= ok:
+            print(f"  !! ATENCAO: em {aba!r} a coluna de {nome} nao confere "
+                  f"({ok} linha(s) batem, {ruim} divergem). O layout da planilha "
+                  f"provavelmente mudou — reveja COL_CTRL_* em build.py.", file=sys.stderr)
+    return placar
 
 
 def process_controle(abas_rows):
-    """Le as abas mensais e devolve [{d, seg, inv_ctrl}, ...], um registro por dia.
+    """Le as abas mensais e devolve [{d, vis, seg, inv_ctrl}, ...], um por dia.
 
     "inv_ctrl" e' o investimento lancado a mao pelo gestor. NAO alimenta nenhum
     calculo da dashboard — fica so no payload para o log de conferencia contra o
-    gasto real do gerenciador (Planilha 1). Dias sem seguidor E sem investimento
-    sao descartados (a aba ja vem com o mes inteiro pre-preenchido de zeros)."""
+    gasto real do gerenciador (Planilha 1); o custo por visita e por seguidor
+    exibidos sao recalculados sobre o gasto da Planilha 1, com imposto. Dias sem
+    nenhum dos tres valores sao descartados (a aba ja vem com o mes inteiro
+    pre-preenchido de zeros)."""
     por_dia: dict[str, dict] = {}
     for aba, rows in abas_rows:
+        valida_layout_controle(aba, rows)
         for row in rows:
             d = parse_date(cell(row, COL_CTRL_DATA))
             if not d:
                 continue
             seg = to_float(cell(row, COL_CTRL_SEGUIDORES))
+            vis = to_float(cell(row, COL_CTRL_VISITAS))
             inv = to_float(cell(row, COL_CTRL_INVEST))
-            if not seg and not inv:
+            if not seg and not vis and not inv:
                 continue
-            # Se o mesmo dia aparecer em duas abas, vence o registro com seguidor
-            # (a aba residual "Set" traz investimento sem seguidor nos mesmos dias).
+            # Se o mesmo dia aparecer em duas abas, vence o registro que tem
+            # contagem (a aba residual "Set" traz investimento sem seguidor nem
+            # visita nos mesmos dias da "Setembro").
             ant = por_dia.get(d)
-            if ant and ant["seg"] and not seg:
+            if ant and (ant["seg"] or ant["vis"]) and not (seg or vis):
                 continue
-            por_dia[d] = {"d": d, "seg": seg, "inv_ctrl": round(inv, 2), "aba": aba}
+            por_dia[d] = {"d": d, "vis": vis, "visOk": vis > 0,
+                          "seg": seg, "segOk": seg > 0,
+                          "inv_ctrl": round(inv, 2), "aba": aba}
     return [por_dia[d] for d in sorted(por_dia)]
 
 
@@ -368,11 +417,13 @@ def process(media_rows, controle_abas):
             "meta_cps": META_CPS,
             "volume_min_amostral": VOLUME_MIN_AMOSTRAL,
             "n_dias_corte": N_DIAS_CORTE,
-            # dia a partir do qual ha contagem de seguidores (antes disso a
-            # planilha de controle nao existia) — o front usa para nao exibir
-            # "0 seguidores" onde o certo e' "sem dado".
-            "seg_date_min": seg[0]["d"] if seg else None,
-            "seg_date_max": seg[-1]["d"] if seg else None,
+            # janela coberta pela planilha de controle: fora dela "0" nao e'
+            # zero, e' ausencia de dado — o front usa isso para exibir "sem
+            # dado" em vez de um custo por visita/seguidor infinito.
+            "seg_date_min": next((s["d"] for s in seg if s["segOk"]), None),
+            "seg_date_max": next((s["d"] for s in reversed(seg) if s["segOk"]), None),
+            "vis_date_min": next((s["d"] for s in seg if s["visOk"]), None),
+            "vis_date_max": next((s["d"] for s in reversed(seg) if s["visOk"]), None),
         },
         "media": media,
         "seg": seg,
@@ -453,14 +504,26 @@ def main():
     im = sum(m["im"] for m in data["media"])
     cl = sum(m["cl"] for m in data["media"])
     sg = sum(s["seg"] for s in data["seg"])
+    vs = sum(s["vis"] for s in data["seg"])
     print("== build ok ==", file=sys.stderr)
     print(f"  periodo     : {b['date_min']} -> {b['date_max']}", file=sys.stderr)
     print(f"  midia       : {len(data['media'])} linhas | R$ {sp:,.2f} | "
           f"{im:,.0f} impressoes | {cl:,.0f} cliques", file=sys.stderr)
-    print(f"  seguidores  : {sg:,.0f} em {len(data['seg'])} dia(s) "
-          f"({b['seg_date_min']} -> {b['seg_date_max']})", file=sys.stderr)
-    print(f"  CPS medio   : R$ {(sp * TAX_FACTOR / sg):,.2f}" if sg else
-          "  CPS medio   : -", file=sys.stderr)
+    print(f"  visitas     : {vs:,.0f} ({b['vis_date_min']} -> {b['vis_date_max']})",
+          file=sys.stderr)
+    print(f"  seguidores  : {sg:,.0f} ({b['seg_date_min']} -> {b['seg_date_max']})",
+          file=sys.stderr)
+    # Custo medio sobre o gasto do MESMO recorte de dias que tem contagem — usar
+    # o gasto do periodo inteiro inflaria o custo com junho/julho, que a planilha
+    # de controle nao cobre.
+    def gasto_em(ini, fim):
+        if not ini or not fim:
+            return 0.0
+        return sum(m["sp"] for m in data["media"] if ini <= m["d"] <= fim)
+    gv = gasto_em(b["vis_date_min"], b["vis_date_max"]) * TAX_FACTOR
+    gs = gasto_em(b["seg_date_min"], b["seg_date_max"]) * TAX_FACTOR
+    print(f"  CPV medio   : R$ {(gv / vs):,.2f}" if vs else "  CPV medio   : -", file=sys.stderr)
+    print(f"  CPS medio   : R$ {(gs / sg):,.2f}" if sg else "  CPS medio   : -", file=sys.stderr)
     print(f"  out         : {args.out}", file=sys.stderr)
 
 

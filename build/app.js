@@ -71,6 +71,14 @@ function segCoberto(){
    nível do DIA — não há quebra por campanha ou criativo. */
 function derive(a){
   const g=a.sp*taxf();
+  // Custo e taxa de conversão de Visitas/Seguidores são calculados SÓ sobre os
+  // dias que têm a contagem. A planilha de controle começa em 07/08, mas a
+  // mídia roda desde 03/06: dividir o gasto do período inteiro pelas visitas de
+  // agosto/setembro dava R$ 1,05 por visita em vez de R$ 0,32, e R$ 13,56 por
+  // seguidor em vez de R$ 4,11 — o mesmo vale para as taxas Cliques→Visita e
+  // Cliques→Seguidor, que precisam comparar a mesma janela de dias.
+  const gVis=(a.spVis!=null?a.spVis:a.sp)*taxf(), clVis=(a.clVis!=null?a.clVis:a.cl);
+  const gSeg=(a.spSeg!=null?a.spSeg:a.sp)*taxf(), clSeg=(a.clSeg!=null?a.clSeg:a.cl);
   // Visitas no Perfil e Seguidores vêm da planilha de controle, que registra por
   // DIA. Onde não há registro (junho/julho, antes de a planilha existir, ou
   // qualquer recorte por campanha/anúncio) o valor é null — "sem dado" — e não
@@ -88,10 +96,10 @@ function derive(a){
     // O custo por visita é recalculado sobre o gasto do GERENCIADOR (com
     // imposto), não copiado da coluna da planilha de controle: em agosto os
     // dois investimentos divergem, e a fonte de verdade do gasto é a Planilha 1.
-    vis, cpv:(vis?g/vis:null), txVis:(vis&&a.cl?vis/a.cl:null),
+    vis, cpv:(vis?gVis/vis:null), txVis:(vis&&clVis?vis/clVis:null),
     seg:temSeg?a.seg:null,
-    cps:temSeg?g/a.seg:null,
-    txSeg:(temSeg&&a.cl)?a.seg/a.cl:null,      // cliques que viraram seguidor
+    cps:temSeg?gSeg/a.seg:null,
+    txSeg:(temSeg&&clSeg)?a.seg/clSeg:null,    // cliques que viraram seguidor
   };
 }
 
@@ -100,27 +108,38 @@ function derive(a){
    agregado como "sem contagem de seguidor" e derive() devolve null em vez de 0. */
 function buildAgg(fM,dim){
   const m={};
-  const get=k=>m[k]||(m[k]={sp:0,im:0,cl:0,rc:0,vis:0,visOk:false,seg:0,segOk:false});
+  const get=k=>m[k]||(m[k]={sp:0,im:0,cl:0,rc:0,
+    vis:0,visOk:false,spVis:0,clVis:0, seg:0,segOk:false,spSeg:0,clSeg:0});
   fM.forEach(r=>{const a=get(r[dim]); a.sp+=r.sp; a.im+=r.im; a.cl+=r.cl; a.rc+=r.rc;});
   return m;
 }
 function totals(fM,fS){
   let sp=0,im=0,cl=0,rc=0; fM.forEach(r=>{sp+=r.sp;im+=r.im;cl+=r.cl;rc+=r.rc;});
-  const vis=fS.reduce((s,r)=>s+(r.vis||0),0);
-  const seg=fS.reduce((s,r)=>s+(r.seg||0),0);
+  // gasto e cliques recortados nos dias que têm cada contagem (ver derive)
+  const diasVis=new Set(fS.filter(r=>r.visOk).map(r=>r.d));
+  const diasSeg=new Set(fS.filter(r=>r.segOk).map(r=>r.d));
+  let spVis=0,clVis=0,spSeg=0,clSeg=0;
+  fM.forEach(r=>{ if(diasVis.has(r.d)){ spVis+=r.sp; clVis+=r.cl; }
+                  if(diasSeg.has(r.d)){ spSeg+=r.sp; clSeg+=r.cl; } });
   return {sp,im,cl,rc,
-    vis, visOk:fS.some(r=>r.visOk),
-    seg, segOk:fS.some(r=>r.segOk)};
+    vis:fS.reduce((s,r)=>s+(r.vis||0),0), visOk:diasVis.size>0, spVis, clVis,
+    seg:fS.reduce((s,r)=>s+(r.seg||0),0), segOk:diasSeg.size>0, spSeg, clSeg};
 }
 /* Série diária: mídia e seguidores casam pela DATA. Dias sem registro na
    planilha de controle ficam com segOk:false (sem dado), não com zero. */
 function daily(fM,fS){
   const days={};
-  const g=d=>days[d]||(days[d]={d, sp:0,im:0,cl:0,rc:0,vis:0,visOk:false,seg:0,segOk:false});
+  const g=d=>days[d]||(days[d]={d, sp:0,im:0,cl:0,rc:0,
+    vis:0,visOk:false,spVis:0,clVis:0, seg:0,segOk:false,spSeg:0,clSeg:0});
   fM.forEach(r=>{if(!r.d)return; const a=g(r.d); a.sp+=r.sp; a.im+=r.im; a.cl+=r.cl; a.rc+=r.rc;});
   fS.forEach(r=>{if(!r.d)return; const a=g(r.d);
     a.vis+=r.vis||0; if(r.visOk) a.visOk=true;
     a.seg+=r.seg||0; if(r.segOk) a.segOk=true;});
+  // no dia, o recorte é o próprio dia: se ele tem contagem, é o gasto dele
+  Object.values(days).forEach(a=>{
+    if(a.visOk){ a.spVis=a.sp; a.clVis=a.cl; }
+    if(a.segOk){ a.spSeg=a.sp; a.clSeg=a.cl; }
+  });
   return Object.values(days).sort((a,b)=>a.d<b.d?-1:1);
 }
 
