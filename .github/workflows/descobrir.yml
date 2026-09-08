@@ -29,5 +29,8 @@ jobs:
         with:
           python-version: "3.12"
 
+      - name: Dependencias (openpyxl le os nomes das abas do export XLSX)
+        run: python -m pip install --quiet openpyxl
+
       - name: Reconhecimento (somente leitura das planilhas)
-        run: python tools/descobrir_planilhas.py --dump-csv
+        run: python tools/descobrir_planilhas.py
