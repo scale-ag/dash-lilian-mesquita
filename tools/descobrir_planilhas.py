@@ -111,9 +111,12 @@ def main() -> int:
     destino.mkdir(parents=True, exist_ok=True)
     indice = {}
     for chave, sp in pacote.items():
-        for nome, info in sp["abas"].items():
+        # O indice entra no nome do arquivo porque o slug sozinho colide: os
+        # emojis somem na normalizacao e "graficos Ago"/"lista Ago" viram o
+        # mesmo "Ago", com uma aba sobrescrevendo a outra.
+        for i, (nome, info) in enumerate(sp["abas"].items()):
             slug = re.sub(r"[^A-Za-z0-9]+", "_", nome).strip("_") or "aba"
-            arq = destino / f"{chave}__{slug}.csv"
+            arq = destino / f"{chave}__{i:02d}_{slug}.csv"
             arq.write_text(info["csv"], encoding="utf-8")
             indice[f"{chave}/{nome}"] = {"arquivo": arq.name, "gid": info.get("gid"),
                                          "chars": len(info["csv"])}

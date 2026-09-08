@@ -40,7 +40,7 @@ jobs:
       # com os dados reais. Saem do repo junto com o resto da Fase 0.
       - name: Commitar as amostras na branch de trabalho
         run: |
-          git add tools/amostras
+          git add -f tools/amostras
           if git diff --cached --quiet -- tools/amostras; then
             echo "Sem mudancas nas amostras — nada a commitar."
             exit 0
