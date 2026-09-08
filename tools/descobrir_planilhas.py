@@ -79,11 +79,14 @@ def gids_por_nome(sid: str, nomes: list[str]) -> dict[str, str]:
     return out
 
 
-def csv_da_aba(sid: str, nome: str) -> tuple[int, str]:
-    """gviz com headers=0: devolve TODAS as linhas como dados (preserva cabecalho
-    de varias linhas, que o gviz fundiria numa so por padrao)."""
+def csv_da_aba(sid: str, nome: str, headers: int = 0) -> tuple[int, str]:
+    """headers=0 devolve TODAS as linhas como dados (preserva o cabecalho de
+    varias linhas, que o gviz fundiria numa so por padrao). Com headers>0 o gviz
+    funde as linhas mescladas do topo num unico cabecalho — atrapalha ler os
+    dados, mas e' a unica forma de obter os ROTULOS das colunas. Por isso as
+    abas mensais sao baixadas das duas maneiras."""
     url = (f"https://docs.google.com/spreadsheets/d/{sid}/gviz/tq"
-           f"?tqx=out:csv&headers=0&sheet={urllib.parse.quote(nome)}")
+           f"?tqx=out:csv&headers={headers}&sheet={urllib.parse.quote(nome)}")
     st, raw = get(url)
     if st != 200 or b"accounts.google.com" in raw[:4000]:
         return st, ""

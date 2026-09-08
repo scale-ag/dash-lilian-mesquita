@@ -64,14 +64,20 @@ function segCoberto(){
    Não há lead, MQL, venda nem faturamento nesta operação — nenhuma das duas
    planilhas tem essas etapas, então elas não existem na dashboard.
 
-   "Visitas no Perfil" é o OBJETIVO das campanhas (aparece no Campaign Name),
-   mas a métrica em si não está em nenhuma das duas planilhas. Fica como null
-   ("sem dado") até a fonte ser indicada — o slot já está ligado no funil, nas
-   tabelas e nos KPIs, então basta preencher `vis` no payload para acender. */
+   "Visitas no Perfil" é o objetivo das campanhas (aparece no Campaign Name) e
+   também uma métrica real: a planilha de controle passou a trazer as colunas
+   "Visitas ao perfil" e "Custo por Visita no Perfil" no bloco Meta — Visitas no
+   Perfil do Instagram, com dado desde 01/09. Como Seguidores, ela existe só no
+   nível do DIA — não há quebra por campanha ou criativo. */
 function derive(a){
   const g=a.sp*taxf();
-  const vis=(a.vis!=null?a.vis:null);          // Visitas no Perfil — sem fonte hoje
+  // Visitas no Perfil e Seguidores vêm da planilha de controle, que registra por
+  // DIA. Onde não há registro (junho/julho, antes de a planilha existir, ou
+  // qualquer recorte por campanha/anúncio) o valor é null — "sem dado" — e não
+  // zero: zero faria o custo por visita/seguidor explodir para infinito.
+  const temVis=a.visOk!==false && a.vis>0;
   const temSeg=a.segOk!==false && a.seg>0;
+  const vis=temVis?a.vis:null;
   return {
     gasto:g, impr:a.im, alcance:a.rc, clicks:a.cl,
     cpm:a.im?g/a.im*1000:null,
@@ -79,6 +85,9 @@ function derive(a){
     ctr:a.im?a.cl/a.im:null,
     cpc:a.cl?g/a.cl:null,
     cpa:a.rc?g/a.rc*1000:null,                 // custo por mil pessoas alcançadas
+    // O custo por visita é recalculado sobre o gasto do GERENCIADOR (com
+    // imposto), não copiado da coluna da planilha de controle: em agosto os
+    // dois investimentos divergem, e a fonte de verdade do gasto é a Planilha 1.
     vis, cpv:(vis?g/vis:null), txVis:(vis&&a.cl?vis/a.cl:null),
     seg:temSeg?a.seg:null,
     cps:temSeg?g/a.seg:null,
@@ -91,22 +100,27 @@ function derive(a){
    agregado como "sem contagem de seguidor" e derive() devolve null em vez de 0. */
 function buildAgg(fM,dim){
   const m={};
-  const get=k=>m[k]||(m[k]={sp:0,im:0,cl:0,rc:0,seg:0,segOk:false});
+  const get=k=>m[k]||(m[k]={sp:0,im:0,cl:0,rc:0,vis:0,visOk:false,seg:0,segOk:false});
   fM.forEach(r=>{const a=get(r[dim]); a.sp+=r.sp; a.im+=r.im; a.cl+=r.cl; a.rc+=r.rc;});
   return m;
 }
 function totals(fM,fS){
   let sp=0,im=0,cl=0,rc=0; fM.forEach(r=>{sp+=r.sp;im+=r.im;cl+=r.cl;rc+=r.rc;});
+  const vis=fS.reduce((s,r)=>s+(r.vis||0),0);
   const seg=fS.reduce((s,r)=>s+(r.seg||0),0);
-  return {sp,im,cl,rc,seg,segOk:fS.length>0};
+  return {sp,im,cl,rc,
+    vis, visOk:fS.some(r=>r.visOk),
+    seg, segOk:fS.some(r=>r.segOk)};
 }
 /* Série diária: mídia e seguidores casam pela DATA. Dias sem registro na
    planilha de controle ficam com segOk:false (sem dado), não com zero. */
 function daily(fM,fS){
   const days={};
-  const g=d=>days[d]||(days[d]={d, sp:0,im:0,cl:0,rc:0,seg:0,segOk:false});
+  const g=d=>days[d]||(days[d]={d, sp:0,im:0,cl:0,rc:0,vis:0,visOk:false,seg:0,segOk:false});
   fM.forEach(r=>{if(!r.d)return; const a=g(r.d); a.sp+=r.sp; a.im+=r.im; a.cl+=r.cl; a.rc+=r.rc;});
-  fS.forEach(r=>{if(!r.d)return; const a=g(r.d); a.seg+=r.seg||0; a.segOk=true;});
+  fS.forEach(r=>{if(!r.d)return; const a=g(r.d);
+    a.vis+=r.vis||0; if(r.visOk) a.visOk=true;
+    a.seg+=r.seg||0; if(r.segOk) a.segOk=true;});
   return Object.values(days).sort((a,b)=>a.d<b.d?-1:1);
 }
 
@@ -527,10 +541,10 @@ const GERAL_IDS={funnel:'geralFunnel',kpis2:'geralKpis2',combo:'gCombo',obj:'gOb
 const REL_IDS  ={funnel:'relFunnel', kpis2:'relKpis2', combo:'rCombo',obj:'rObj',pub:'rPub',plat:'rPlat',ad:'rAd',daily:'rDaily'};
 function renderGeral(){ renderGeralCore(GERAL_IDS); }
 
-/* Etapas do funil de distribuição, na ordem em que o tráfego caminha.
-   "Visitas no Perfil" fica marcada como sem dado enquanto a fonte não for
-   indicada — é o objetivo declarado das campanhas, mas nenhuma das duas
-   planilhas traz a métrica. */
+/* Etapas do funil de distribuição, na ordem em que o tráfego caminha. Visitas
+   no Perfil e Seguidores vêm da planilha de controle e só existem por DIA:
+   fora da janela que ela cobre, e em qualquer recorte por criativo, aparecem
+   como "sem dado" em vez de zero. */
 function funilSteps(t,dv){
   return [
     ['Gasto Total', brl(dv.gasto), [], false, 'hl-gasto'],
