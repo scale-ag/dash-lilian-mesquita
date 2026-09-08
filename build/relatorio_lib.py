@@ -1,11 +1,16 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Funções puras de datas/agregação compartilhadas entre `gerar_relatorios.py`
-(fallback manual, determinístico) e `coletar_dados_relatorio.py` (coleta de
-números para a Routine do Claude escrever os Insights). Nenhuma lógica de
+Funções puras de datas/agregação usadas por `coletar_dados_relatorio.py`
+(coleta de números para a Routine do Claude escrever os Insights). Nenhuma lógica de
 texto/interpretação mora aqui — só aritmética sobre os registros brutos de
-`build.py` (`leads[]`/`meta[]`).
+`build.py` (`media[]`/`seg[]`).
+
+Funil de DISTRIBUIÇÃO DE CONTEÚDO: Gasto → Impressões → Alcance → Cliques →
+Visitas no Perfil → Seguidores. Visitas e Seguidores vêm da planilha de
+controle e só existem por DIA (sem quebra por campanha/anúncio) e só dentro da
+janela que ela cobre — por isso o custo e a taxa de conversão dessas duas
+etapas são calculados sobre o gasto/cliques APENAS dos dias com contagem.
 """
 from __future__ import annotations
 
@@ -71,8 +76,15 @@ def in_range(row_date: str | None, start: date, end: date) -> bool:
     return start <= rd <= end
 
 
-def agg(meta: list[dict], leads: list[dict], start: date, end: date, camp: str | None = None,
+def agg(media: list[dict], seg: list[dict], start: date, end: date, camp: str | None = None,
         adset: str | None = None, ad: str | None = None) -> dict:
+    """Agrega a mídia no recorte pedido e casa com a contagem diária de visitas
+    e seguidores.
+
+    Filtrar por campanha/conjunto/anúncio NÃO filtra visitas/seguidores: a
+    planilha de controle registra por dia, sem quebra por criativo, então
+    atribuir essas contagens a um anúncio seria invenção. Num recorte por
+    dimensão as duas etapas saem como None."""
     def keep(r):
         if not in_range(r["d"], start, end):
             return False
@@ -84,25 +96,43 @@ def agg(meta: list[dict], leads: list[dict], start: date, end: date, camp: str |
             return False
         return True
 
-    m = [r for r in meta if keep(r)]
-    l = [r for r in leads if keep(r)]
+    m = [r for r in media if keep(r)]
     spend = sum(r["sp"] for r in m) * bp.TAX_FACTOR
     impr = sum(r["im"] for r in m)
     clicks = sum(r["cl"] for r in m)
-    n_leads = len(l)
-    n_mqls = sum(r["q"] for r in l)
-    return {"spend": spend, "impr": impr, "clicks": clicks, "leads": n_leads, "mqls": n_mqls}
+    reach = sum(r["rc"] for r in m)
+
+    por_dimensao = camp is not None or adset is not None or ad is not None
+    s = [r for r in seg if in_range(r["d"], start, end)] if not por_dimensao else []
+    dias_vis = {r["d"] for r in s if r.get("visOk")}
+    dias_seg = {r["d"] for r in s if r.get("segOk")}
+    # gasto/cliques restritos aos dias que têm cada contagem — sem isso o custo
+    # por visita/seguidor herdaria o gasto de dias que a planilha não cobre.
+    m_todos = [r for r in media if in_range(r["d"], start, end)]
+    spend_vis = sum(r["sp"] for r in m_todos if r["d"] in dias_vis) * bp.TAX_FACTOR
+    clicks_vis = sum(r["cl"] for r in m_todos if r["d"] in dias_vis)
+    spend_seg = sum(r["sp"] for r in m_todos if r["d"] in dias_seg) * bp.TAX_FACTOR
+    clicks_seg = sum(r["cl"] for r in m_todos if r["d"] in dias_seg)
+
+    return {"spend": spend, "impr": impr, "clicks": clicks, "reach": reach,
+            "visitas": sum(r["vis"] for r in s) if dias_vis else None,
+            "seguidores": sum(r["seg"] for r in s) if dias_seg else None,
+            "spend_vis": spend_vis, "clicks_vis": clicks_vis,
+            "spend_seg": spend_seg, "clicks_seg": clicks_seg}
 
 
 def derived(a: dict) -> dict:
-    spend, impr, clicks, leads, mqls = a["spend"], a["impr"], a["clicks"], a["leads"], a["mqls"]
+    spend, impr, clicks, reach = a["spend"], a["impr"], a["clicks"], a["reach"]
+    visitas, seguidores = a.get("visitas"), a.get("seguidores")
     return {
         "cpm": (spend / impr * 1000) if impr else None,
         "ctr": (clicks / impr) if impr else None,
-        "cpl": (spend / leads) if leads else None,
-        "convform": (leads / clicks) if clicks else None,
-        "txmql": (mqls / leads) if leads else None,
-        "cpmql": (spend / mqls) if mqls else None,
+        "cpc": (spend / clicks) if clicks else None,
+        "freq": (impr / reach) if reach else None,
+        "cpv": (a["spend_vis"] / visitas) if visitas else None,
+        "txvis": (visitas / a["clicks_vis"]) if visitas and a["clicks_vis"] else None,
+        "cps": (a["spend_seg"] / seguidores) if seguidores else None,
+        "txseg": (seguidores / a["clicks_seg"]) if seguidores and a["clicks_seg"] else None,
         **a,
     }
 
@@ -153,7 +183,7 @@ def previous_period(key: str, start: date, end: date, today: date,
     return p_start, p_end, "período imediatamente anterior, mesma duração"
 
 
-RATE_METRICS = {"ctr", "convform", "txmql"}
+RATE_METRICS = {"ctr", "txvis", "txseg"}
 MATERIAL_PCT = 0.10     # variação relativa mínima p/ considerar mudança relevante
 MATERIAL_PP = 0.03      # variação em pontos percentuais mínima p/ métricas de taxa
 
@@ -162,8 +192,8 @@ def compare(cur: dict, prev: dict | None) -> dict:
     """Compara duas agregações `derived()` métrica a métrica. Só marca
     `material=True` quando a variação passa os limiares mínimos — evita
     listar oscilações irrelevantes como se fossem alerta (regra §7)."""
-    metrics = ["spend", "impr", "clicks", "leads", "mqls", "cpm", "ctr", "cpl",
-               "convform", "txmql", "cpmql"]
+    metrics = ["spend", "impr", "clicks", "reach", "visitas", "seguidores",
+               "cpm", "ctr", "cpc", "freq", "cpv", "txvis", "cps", "txseg"]
     out = {}
     for m in metrics:
         cv, pv = cur.get(m), (prev or {}).get(m)
@@ -174,7 +204,8 @@ def compare(cur: dict, prev: dict | None) -> dict:
             row["delta_pct"] = round((cv - pv) / pv, 4) if pv else None
             if m in RATE_METRICS:
                 row["delta_pp"] = round((cv - pv) * 100, 2)
-            higher_is_better = m not in ("spend", "cpm", "cpl", "cpmql")
+            # frequência alta = público saturando, então entra junto dos custos
+            higher_is_better = m not in ("spend", "cpm", "cpc", "cpv", "cps", "freq")
             if abs(cv - pv) < 1e-9:
                 row["direcao"] = "estavel"
             else:
@@ -212,7 +243,7 @@ def _classificacao(nota: float) -> str:
     return "Crítico grave"
 
 
-def funnel_health(cur: dict, baseline: dict, meta_cpmql, meta_cac,
+def funnel_health(cur: dict, baseline: dict, meta_cpc, meta_cps,
                    volume_min: int, sample_windows: list[dict]) -> dict:
     """`cur` e `baseline` são dicts `derived()` do período atual e de uma
     janela de referência (normalmente 30d). `sample_windows` é uma lista de
@@ -228,36 +259,47 @@ def funnel_health(cur: dict, baseline: dict, meta_cpmql, meta_cac,
     else:
         sub["aquisicao"] = None
 
-    # Conversão da página: sem fonte de Page Views/ConvLP conectada ao dashboard.
-    sub["conversao_pagina"] = None
-
-    # Qualificação: TxMQL/CPMQL vs. meta (se definida) ou vs. baseline da conta.
-    if cur.get("cpmql") is not None:
-        ref = meta_cpmql if meta_cpmql is not None else baseline.get("cpmql")
-        if ref:
-            cpmql_var = (cur["cpmql"] - ref) / ref
-            sub["qualificacao"] = round(_clamp(10 - cpmql_var * 10), 1)
-        else:
-            sub["qualificacao"] = None
+    # Saturação do público: frequência (impressões por pessoa alcançada). Até
+    # ~1,5x o público ainda está sendo renovado; daí para cima o mesmo criativo
+    # começa a repetir para quem já viu, que é o desgaste típico deste funil.
+    if cur.get("freq") is not None:
+        sub["saturacao_publico"] = round(_clamp(10 - max(0.0, cur["freq"] - 1.5) * 5), 1)
     else:
-        sub["qualificacao"] = None
+        sub["saturacao_publico"] = None
 
-    # Vendas: sem fonte comercial (agendamentos/reuniões/vendas) conectada.
-    sub["vendas"] = None
+    # Custo por clique vs. meta (se definida) ou vs. baseline de 30 dias.
+    if cur.get("cpc") is not None:
+        ref = meta_cpc if meta_cpc is not None else baseline.get("cpc")
+        sub["custo_clique"] = round(_clamp(10 - ((cur["cpc"] - ref) / ref) * 10), 1) if ref else None
+    else:
+        sub["custo_clique"] = None
 
-    # Consistência: quanto a Tx-MQL varia entre as janelas de amostra (7/14/30d)
-    # — baixa variação = leitura mais confiável entre janelas.
-    txmqls = [w["txmql"] for w in sample_windows if w.get("txmql") is not None]
-    if len(txmqls) >= 2 and max(txmqls) > 0:
-        spread = (max(txmqls) - min(txmqls)) / max(txmqls)
+    # Conversão em perfil: quanto do clique vira visita ao perfil.
+    if cur.get("txvis") is not None and baseline.get("txvis"):
+        sub["conversao_perfil"] = round(_clamp(10 * cur["txvis"] / baseline["txvis"]), 1)
+    else:
+        sub["conversao_perfil"] = None
+
+    # Resultado final do funil: custo por seguidor vs. meta ou baseline.
+    if cur.get("cps") is not None:
+        ref = meta_cps if meta_cps is not None else baseline.get("cps")
+        sub["custo_seguidor"] = round(_clamp(10 - ((cur["cps"] - ref) / ref) * 10), 1) if ref else None
+    else:
+        sub["custo_seguidor"] = None
+
+    # Consistência: quanto o CTR varia entre as janelas de amostra (7/14/30d) —
+    # baixa variação = leitura mais confiável entre janelas.
+    ctrs = [w["ctr"] for w in sample_windows if w.get("ctr") is not None]
+    if len(ctrs) >= 2 and max(ctrs) > 0:
+        spread = (max(ctrs) - min(ctrs)) / max(ctrs)
         sub["consistencia"] = round(_clamp(10 - spread * 10), 1)
     else:
         sub["consistencia"] = None
 
-    # Confiabilidade dos dados: volume de MQLs no período vs. volume mínimo
+    # Confiabilidade dos dados: volume de cliques no período vs. volume mínimo
     # amostral configurado no painel da aba Relatório.
-    mqls = cur.get("mqls") or 0
-    sub["confiabilidade_dados"] = round(_clamp(10 * mqls / volume_min if volume_min else 10), 1)
+    clicks = cur.get("clicks") or 0
+    sub["confiabilidade_dados"] = round(_clamp(10 * clicks / volume_min if volume_min else 10), 1)
 
     disponiveis = {k: v for k, v in sub.items() if v is not None}
     if not disponiveis:
@@ -281,7 +323,7 @@ def funnel_health(cur: dict, baseline: dict, meta_cpmql, meta_cac,
 
 
 # --------------------------------------------------------------------------- #
-# Formatação (usada pelos templates de texto do gerar_relatorios.py)
+# Formatação (moeda/percentual dos números já prontos do bloco de WhatsApp)
 # --------------------------------------------------------------------------- #
 def money(v) -> str:
     if v is None:

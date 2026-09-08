@@ -1,55 +1,71 @@
-# AGENTS.md — TEMPLATE de dashboard de captura de leads (High Ticket)
+# AGENTS.md — Dashboard de Distribuição de Conteúdo · Lilian Mesquita
 
 > Contexto completo em **`CLAUDE.md`** (mesma pasta) — leia-o antes de mexer no
 > projeto. Este arquivo é um resumo para agentes/ferramentas que seguem a
 > convenção `AGENTS.md`.
->
-> **Este é um TEMPLATE limpo.** Todos os valores do cliente estão como
-> `<<PREENCHER: descrição>>`.
 
-## ✅ CHECKLIST DE NOVO CLIENTE (fazer em ordem)
+## O que este projeto é
 
-1. **`build/build.py` — constantes do topo:** `SPREADSHEET_ID`, `GID_CONVERSAS`
-   (fonte principal), `GID_LEADS` (legado, só contado), `GID_META`, `GID_SALES`,
-   `CLIENT_NAME`, `MAIN_PRODUCT`, `MAIN_PRODUCT_PREFIX`, `TAX_FACTOR`.
-2. **`build/build.py` — critério de MQL:** ajustar `is_medico()` e os aliases da
-   coluna de qualificação em `process()` ao cabeçalho da aba Conversas do cliente.
-3. **`build/app.js`:** revisar os rótulos fixos `'MQLs (...)'` e o agrupamento de
-   "faixa"/especialidade (o critério de `build.py` não propaga sozinho a esses textos).
-4. **`build/template.html`:** preencher `<title>` e o logo (`logo-main`/`logo-sub`).
-5. **`build/identidade-visual.css`:** cores, se o cliente tiver identidade própria.
-6. **`README.md` / `CLAUDE.md` / `SETUP-CRON.md`:** owner/repo do GitHub, URL do
-   GitHub Pages, nome do cliente, planilha/gids.
-7. **`build/GUIA-RELATORIOS.md`:** preencher o "Contexto do funil".
-8. **GitHub Pages + Actions:** confirmar `build/` + `.github/workflows/deploy.yml`
-   na `main` (ativa `workflow_dispatch`); rodar o workflow uma vez.
-9. **cron-job.org:** seguir `SETUP-CRON.md` — token fine-grained novo (Actions:
-   read/write, só neste repo), nunca reaproveitar um token exposto em chat.
-10. **Insights de Tráfego (opcional):** `build/relatorios.json` e
-    `build/relatorios_dados.json` começam vazios (`{}`). Ativar: deixar `briefing.yml`
-    gerar os números + criar a **Routine do Claude** (`create_trigger` apontando para
-    este repo) que redige `relatorios.json` na `main`. **Não vem pronta** — recriar por cliente.
-11. **Testar local** com CSVs de amostra antes de publicar (3 páginas, tema
-    claro/escuro, multi-seleção).
+App de BI estático (HTML/CSS/JS puro + Chart.js via CDN) publicado no GitHub
+Pages em **https://scale-ag.github.io/dash-lilian-mesquita/**, reconstruído a
+cada ~30 min por GitHub Actions. Somente leitura das planilhas.
 
-> **Fora do escopo deste template:** não há Cloudflare Worker nem chamada paga à
-> API da Anthropic. A automação de Insights é uma Routine agendada do Claude Code
-> (item 10). Qualquer outra camada é desenvolvimento novo.
+Funil: `Gasto → Impressões → Alcance → Cliques no link → Visitas no Perfil →
+Seguidores`. **Não há lead, MQL, venda, faturamento nem ROAS** — se você
+encontrar esses termos em algum texto, é resíduo do template de onde este repo
+nasceu e deve ser corrigido.
 
-## Engine (não muda entre clientes)
-`build/template.html`, `build/app.js`, `build/estilos.css`,
-`.github/workflows/deploy.yml`, `.github/workflows/briefing.yml`,
-`build/relatorio_lib.py`, `build/coletar_dados_relatorio.py`,
-`build/gerar_relatorios.py`, `build/GUIA-INTERPRETACAO-METRICAS.md`,
-`GUIA-REPLICACAO.md` — tabelas, filtros, gráficos, heatmap, tema claro/escuro,
-coleta/redação dos Insights. Ver `GUIA-REPLICACAO.md` para os detalhes de
-implementação (filtro cruzado, engine de tabela, gráficos Chart.js).
+## As 5 regras que mais quebram este projeto
 
-> `template.html` e `app.js` são engine, mas carregam o nome do cliente em pontos
-> pontuais (título/logo e um comentário) — já marcados como `<<PREENCHER>>`.
+1. **Duas planilhas, papéis distintos.** A *Extração Dashboard* (Planilha 1) é a
+   fonte de verdade de gasto/impressões/alcance/cliques e a única com quebra por
+   campanha/conjunto/anúncio. A *Controle de tráfego* (Planilha 2) entra só com
+   Visitas ao perfil e Seguidores. Nunca busque investimento na 2 nem visita na 1.
+2. **Visitas e Seguidores existem só por DIA.** A Planilha 2 não quebra por
+   criativo. Em qualquer recorte por estrutura essas etapas voltam `null` —
+   atribuí-las a um anúncio seria invenção. Por anúncio, o resultado mais
+   profundo é o **clique**.
+3. **Custos das duas últimas etapas usam só os dias com contagem.** A Planilha 2
+   começa em 07/08; a mídia roda desde 03/06. Dividir o gasto do período inteiro
+   pelas visitas de agosto/setembro dava R$ 1,05 por visita em vez de R$ 0,32.
+4. **A Planilha 2 é editada à mão e já mudou de layout.** A leitura é posicional
+   (`COL_CTRL_*` em `build.py`); `valida_layout_controle()` confere a aritmética
+   de cada bloco e avisa no log se as colunas saírem do lugar.
+5. **A aba `📈 Set` não é lida** — é resíduo do template e conflita com a
+   `📈 Setembro`.
 
-## Específico do cliente (troca a cada replicação)
-`build/build.py`, `build/identidade-visual.css` (cores, se aplicável),
-`build/relatorios.json` + `build/relatorios_dados.json` (conteúdo — começam vazios),
-`build/GUIA-RELATORIOS.md` (contexto do funil), `README.md`, `CLAUDE.md`,
-`SETUP-CRON.md`.
+## Onde mexer
+
+| Quero mudar | Arquivo |
+|---|---|
+| Planilha, aba, posição de coluna, imposto, metas default | `build/build.py` (constantes do topo) |
+| Métricas, funil, KPIs, tabelas, gráficos, filtro cruzado | `build/app.js` |
+| Só cores | `build/identidade-visual.css` |
+| Layout/componentes | `build/estilos.css` |
+| Título, logo, estrutura das 3 páginas | `build/template.html` |
+| Números que alimentam os Insights | `build/coletar_dados_relatorio.py` + `build/relatorio_lib.py` |
+| Como os Insights são redigidos | `build/GUIA-RELATORIOS.md` + `build/GUIA-INTERPRETACAO-METRICAS.md` |
+
+`render()` em `build.py` costura `template.html` + `identidade-visual.css` +
+`estilos.css` + `app.js` nos placeholders `__STYLES__`/`__APP_JS__`. O
+`build.py` **não agrega**: exporta as linhas cruas (`media[]`/`seg[]`) e toda a
+lógica roda no navegador.
+
+## Testar
+
+```bash
+python build/build.py --media-file midia.csv \
+  --seg-file ago.csv --seg-file setembro.csv --out dist/index.html
+```
+
+O sandbox de agente não alcança `docs.google.com` (o proxy nega o CONNECT) nem o
+CDN do Chart.js — use CSVs locais, e para validar a página num navegador
+substitua o Chart.js por um stub. O runner do GitHub Actions alcança tudo.
+
+## Insights de Tráfego (opcional, ainda não ativado)
+
+`build/relatorios.json` e `build/relatorios_dados.json` começam vazios (`{}`) e a
+aba Relatório mostra "os insights ainda não foram gerados". Para ativar:
+`briefing.yml` já gera os números 1×/dia; falta criar a **Routine do Claude**
+(`create_trigger` apontando para este repo) que lê esse JSON + os dois guias e
+escreve `relatorios.json` na `main`. Não vem pronta.

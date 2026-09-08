@@ -73,21 +73,32 @@ os Insights.
 
 ## Contexto do funil
 
-**Funil de High Ticket (<<PREENCHER: nome do cliente>>)** — <<PREENCHER: descrição
-curta do cliente/oferta>>. Funil de captura via WhatsApp com venda 1:1 (comercial
-fecha por conversa/reunião, não carrinho direto): o anúncio no Meta Ads leva
-a uma página de captura com botão do WhatsApp; ao clicar, o lead chama no
-WhatsApp Business do cliente e o webhook de mensageria dispara na 1ª mensagem,
-que cai na aba **Conversas** (fonte principal de leads deste dashboard). O
-critério de qualificação (MQL) é <<PREENCHER: critério de MQL do cliente, ex.
-"o lead ser médico">> — se qualificado, segue a conversa com o comercial até a
-venda (registrada na aba de Compradores e cruzada de volta ao anúncio por telefone).
+**Funil de Distribuição de Conteúdo (Lilian Mesquita)** — tráfego pago no
+Instagram cujo objetivo é levar gente ao perfil e converter em seguidor. Não há
+lead, MQL, venda nem faturamento nesta operação: o funil termina em seguidor.
 
 ```
-Impressões → Cliques/abertura do WhatsApp → Leads → MQLs → Vendas → Faturamento
+Gasto → Impressões → Alcance → Cliques no link → Visitas no Perfil → Seguidores
 ```
 
-- **MQL** = coluna de qualificação (<<PREENCHER: nome da coluna de MQL>>) == "Sim" (ver `build.py` → `is_medico`).
+- **Custos:** CPM · CPC · CPV (custo por visita ao perfil) · CPS (custo por seguidor).
+- **Frequência** (impressões ÷ alcance) é o termômetro de saturação: até ~1,5x o
+  público ainda se renova; acima disso o criativo repete para quem já viu.
+- **Visitas no Perfil e Seguidores só existem por DIA.** A planilha de controle
+  não quebra por campanha/conjunto/anúncio — em qualquer recorte por estrutura
+  essas duas etapas vêm `null`. **Nunca atribua visita ou seguidor a um
+  criativo**: por anúncio, o resultado mais profundo é o CLIQUE.
+- **CPV e CPS são calculados só sobre os dias que têm contagem** (a planilha de
+  controle começa em 07/08, a mídia roda desde 03/06). Os números já vêm assim
+  em `relatorios_dados.json` — não recalcule.
+- **Cliques→Visita pode passar de 100%** e não é erro: "cliques no link" é uma
+  métrica mais estreita que visita ao perfil. Trate como proporção, não como
+  taxa de conversão fechada.
+- **Sigla do funil: `E1-DIST`** (única na conta). Nomenclatura de campanha:
+  `SIGLA | ETAPA | PÚBLICO | OBJETIVO | BUDGET | DATA | DESCRIÇÃO`.
+- **Gasto vem sempre do gerenciador** (Planilha 1), nunca do investimento
+  lançado à mão na planilha de controle — em agosto os dois divergem.
+
 - **Agendamento** = o lead qualificado marcou horário de reunião com o comercial.
 - **Reunião Realizada** = a reunião de fato aconteceu (o lead compareceu). O
   inverso disso é o **No‑Show** (agendou e não compareceu) — a métrica de alerta

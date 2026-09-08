@@ -10,7 +10,7 @@ Na **primeira execução** o próprio workflow **habilita o GitHub Pages**
 automaticamente (`actions/configure-pages` com `enablement: true`). Depois de rodar
 uma vez, a página fica no ar em:
 
-**`https://<<PREENCHER: owner do GitHub>>.github.io/<<PREENCHER: nome do repositório>>/`**
+**https://scale-ag.github.io/dash-lilian-mesquita/**
 
 Se preferir disparar a primeira execução na mão: aba **Actions** → *Build & Deploy
 Dashboard* → **Run workflow**.
@@ -18,7 +18,7 @@ Dashboard* → **Run workflow**.
 ## Passo 2 — Token do GitHub (fine-grained)
 
 GitHub → *Settings* → *Developer settings* → **Fine-grained tokens** → *Generate*:
-- Repository access: **Only select repositories → `<<PREENCHER: nome do repositório>>`**
+- Repository access: **Only select repositories → `scale-ag/dash-lilian-mesquita`**
 - Permissions → **Actions: Read and write**
 - (opcional) validade longa
 
@@ -32,7 +32,7 @@ Crie um job e preencha **exatamente** (um valor por vez):
 
 ### URL
 ```
-https://api.github.com/repos/<<PREENCHER: owner>>/<<PREENCHER: repositório>>/actions/workflows/deploy.yml/dispatches
+https://api.github.com/repos/scale-ag/dash-lilian-mesquita/actions/workflows/deploy.yml/dispatches
 ```
 
 ### Método (Request method)
@@ -45,18 +45,42 @@ POST
 A cada 30 minutos  (Every 30 minutes)
 ```
 
-### Headers (chave → valor), um por linha
+### Headers — 4 headers, cada um com nome e valor em blocos separados
+
+**Header 1 — nome**
 ```
-Accept: application/vnd.github+json
+Accept
 ```
+**Header 1 — valor**
 ```
-Authorization: Bearer <<PREENCHER: TOKEN fine-grained do GitHub — nunca comitar>>
+application/vnd.github+json
 ```
+
+**Header 2 — nome**
 ```
-X-GitHub-Api-Version: 2022-11-28
+Authorization
 ```
+**Header 2 — valor** (troque `TOKEN_AQUI` pelo seu token fine-grained)
 ```
-Content-Type: application/json
+Bearer TOKEN_AQUI
+```
+
+**Header 3 — nome**
+```
+X-GitHub-Api-Version
+```
+**Header 3 — valor**
+```
+2022-11-28
+```
+
+**Header 4 — nome**
+```
+Content-Type
+```
+**Header 4 — valor**
+```
+application/json
 ```
 
 ### Request body
@@ -80,4 +104,8 @@ Content-Type: application/json
 - A página lê as planilhas **somente leitura**; nunca escreve nelas.
 - O `schedule` nativo (`*/30 * * * *`) fica como **backup**; o GitHub costuma
   atrasar agendamentos, por isso o cron-job.org é a fonte principal de pontualidade.
-- Trocar o critério de qualificação, gids ou colunas: edite `build/build.py`.
+- Trocar planilha, aba ou posição das colunas: edite as constantes do topo de
+  `build/build.py` (`SPREADSHEET_MEDIA`, `ABA_MEDIA`, `SPREADSHEET_CONTROLE`,
+  `ABAS_CONTROLE`, `COL_CTRL_*`). A planilha de controle é editada à mão e já
+  mudou de layout uma vez; `valida_layout_controle()` avisa no log do build se as
+  colunas saírem do lugar.

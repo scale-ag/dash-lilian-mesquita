@@ -1,89 +1,95 @@
-# Dashboard de Captura de Leads · <<PREENCHER: nome do cliente>>
+# Dashboard de Distribuição de Conteúdo · Lilian Mesquita
 
-Dashboard **100% na nuvem** do Funil de High Ticket de **<<PREENCHER: nome do
-cliente>>** que cruza a aba **Conversas** (leads via WhatsApp/mensageria) com o
-investimento de mídia paga (**Meta Ads**) e com a lista de **Compradores**,
-calcula os **Leads Qualificados (MQLs)** e as **Vendas/Faturamento** atribuídos
-por anúncio, e é publicada no **GitHub Pages**. Reconstrói sozinha a cada
-~30 min, disparada pelo **cron-job.org** — sem depender de nenhum PC ligado.
+Dashboard **100% na nuvem** do funil de **Distribuição de conteúdo** de
+**Lilian Mesquita**: um app de BI estático (HTML/CSS/JS puro + Chart.js via CDN)
+publicado no GitHub Pages, que cruza o gerenciador de mídia paga com a planilha
+de controle de tráfego e se reconstrói sozinho a cada ~30 min.
 
-**URL pública:** `https://<<PREENCHER: owner do GitHub>>.github.io/<<PREENCHER: nome do repositório>>/`
+**URL pública:** https://scale-ag.github.io/dash-lilian-mesquita/
 
----
+Somente leitura das planilhas — a dashboard nunca escreve nelas.
 
-## O que ela mostra
-
-- **KPIs**: Gasto Total, Leads Totais, CPL, **MQLs** (critério do cliente), CPMQL, Tx-MQL, Impressões, Cliques, CTR, CPC, CPM.
-- **Evolução diária**: gasto/dia, leads × MQLs/dia, CPL × CPMQL/dia.
-- **Qualificação & origem**: leads por faixa/critério (qualificado destacado), por origem (mídia paga vs. orgânico), por profissão e por plataforma.
-- **Cruzamento por campanha**: gasto (mídia paga) × leads/MQLs (lista) → CPL, CPMQL e Tx-MQL calculados.
-- **Tabela de leads qualificados** (e-mail e telefone **mascarados**, pois a página é pública).
-- **Toggle de imposto da mídia paga** (opcional) e **modo claro/escuro**.
-- **Aba Relatório**: painel de metas editável + Top/Piores Anúncios + Insights de Tráfego (texto, preenchido manualmente ou por automação própria — ver `build/GUIA-RELATORIOS.md`).
-
-## Critério de Lead Qualificado (MQL)
-
-Coluna de qualificação do cliente (<<PREENCHER: nome da coluna de MQL, ex. "É médico?">>)
-== "Sim". Lógica em `build.py` → `is_medico` (renomeie/ajuste ao critério do cliente).
-
-## Fontes de dados (somente leitura)
-
-Planilha central `<<PREENCHER: nome da planilha central>>`
-(`<<PREENCHER: SPREADSHEET_ID>>`):
-
-| Aba | gid | Uso |
-|-----|-----|-----|
-| Conversas (fonte principal) | `<<PREENCHER: GID_CONVERSAS>>` | fonte **principal** de leads (webhook/mensageria) — usada em todos os gráficos/cards/tabelas |
-| Leads (legado) | `<<PREENCHER: GID_LEADS>>` | popup/form antigo — só contada (total), não entra em cálculo algum |
-| Meta Ads | `<<PREENCHER: GID_META>>` | gasto, impressões, cliques |
-| New Subscriptions (Compradores) | `<<PREENCHER: GID_SALES>>` | cruzada por telefone com a Conversas → Vendas/Faturamento por anúncio |
-
-O build lê essas abas via **export CSV público** (`.../export?format=csv&gid=...`).
-**Nada é escrito de volta** nas planilhas.
-
----
-
-## Arquitetura
+## Funil
 
 ```
-cron-job.org  ──(POST workflow_dispatch a cada 30 min)──▶  GitHub Actions
-                                                              │
-                          build/build.py  lê os CSVs ◀────────┘
-                                 │  cruza dados + calcula MQLs
-                                 ▼
-                          dist/index.html  ──▶  deploy  ──▶  GitHub Pages (URL pública)
+Gasto → Impressões → Alcance → Cliques no link → Visitas no Perfil → Seguidores
 ```
 
-- `build/build.py` — baixa os CSVs, cruza os dados, gera `dist/index.html`.
-- `build/template.html` — layout/gráficos/tema (Chart.js via CDN).
-- `.github/workflows/deploy.yml` — roda o build e publica no Pages.
+Não há lead, MQL, venda nem faturamento nesta operação: é um funil de topo, cujo
+resultado final é seguidor no perfil. As métricas de custo são **CPM**, **CPC**,
+**Custo por Visita (CPV)** e **Custo por Seguidor (CPS)**; a **Frequência**
+(impressões ÷ alcance) é o termômetro de saturação do público.
 
-**Cache-bust:** a página usa `Cache-Control: no-cache`, mostra o horário do último
-build, tem botão **Atualizar** e se recarrega sozinha (`?t=timestamp`) ~30 min após
-aberta — sempre pegando a versão mais nova.
+## Fontes de dados (duas planilhas — não confundir)
 
-## Rodar localmente (opcional)
+| # | Planilha | Aba(s) lida(s) | O que vem dela |
+|---|----------|----------------|----------------|
+| 1 | [Extração Dashboard](https://docs.google.com/spreadsheets/d/1vZgI8ju2OcQit2oEEGPbK-pm19gulnpiFH91TEh3ecI) | `Página1` | Data · Campaign Name · Ad Set Name · Ad Name · Impressões · Cliques no link · Amount Spent · Alcance |
+| 2 | [Controle de tráfego — 2026](https://docs.google.com/spreadsheets/d/1ESPchuMZHmXrDIyl5N8Kzy9i20Et0-9EkDVXe_DhSNs) | `📈 Ago` e `📈 Setembro` | Visitas ao perfil · Custo por Visita · Seguidores · CPS (bloco `META — Seguidores` + `Meta - Visitas no Perfil do Instagram`) |
+
+Regras que valem em todo o projeto:
+
+- **A Planilha 1 é a fonte de verdade do investimento.** Gasto, impressões,
+  alcance e cliques saem só dela, e é a única com quebra por
+  campanha/conjunto/anúncio. Em agosto o investimento lançado à mão na Planilha 2
+  não reconcilia com o gerenciador — o build loga a diferença dia a dia, mas
+  nunca usa o número do controle em nenhum cálculo.
+- **Visitas ao perfil e Seguidores existem só por DIA.** A Planilha 2 não quebra
+  por criativo, então essas duas etapas somem de qualquer tabela ou filtro por
+  campanha/conjunto/anúncio (aparecem como "sem dado", nunca como zero).
+- **Fora da janela coberta pela Planilha 2** (antes de 07/08) o valor é ausência
+  de dado, não zero — por isso o custo por visita/seguidor é calculado só sobre o
+  gasto dos dias que têm contagem.
+- A aba `📈 Set` da Planilha 2 é resíduo do template e **não é lida**: ela
+  conflita com a `📈 Setembro`, que é a que o gestor preenche.
+
+A leitura é feita pelo endpoint `gviz` **por nome de aba** (não por gid): estas
+planilhas não expõem o menu de abas no HTML, então descobrir gid é pouco
+confiável, enquanto o nome da aba é estável e visível para o gestor.
+
+### Imposto da mídia
+`TAX_FACTOR = 1.1385` (13,85%) em `build/build.py`. O toggle **Imposto Meta**
+nasce ativo e aplica o fator em todo o gasto e derivados (CPM, CPC, CPV, CPS);
+desligá-lo mostra o gasto sem imposto.
+
+### Nomenclatura das campanhas
+`SIGLA | ETAPA | PÚBLICO | OBJETIVO | BUDGET | DATA DE UPLOAD | DESCRIÇÃO`
+(definida na aba `✏️ Nomenclaturas` da Planilha 2). Exemplo:
+
+```
+LM | E1-DIST |  | ENGJ | ABO | 2026-06-02 | Visitas no Perfil
+```
+
+Sigla do cliente `LM`; **sigla do funil `E1-DIST`** (Etapa 1 — Distribuição), a
+única em uso na conta.
+
+## Páginas
+
+1. **Visão Geral** — funil vertical + KPIs secundários, evolução diária
+   (cliques/seguidores em barras, gasto/CPC/CPS em linha), distribuição do
+   investimento por objetivo/público/posicionamento, cliques por anúncio e
+   tabela diária com heatmap.
+2. **Captura mídia paga** — mesmo funil, donut de frequência, compilado de
+   anúncios por CPC, três tabelas hierárquicas (Campanha → Conjunto → Anúncio)
+   com filtro cruzado bidirecional, e a tabela de seguidores por dia.
+3. **Relatório** — espelha a Visão Geral, com painel de metas editável
+   (CPC/CPS, salvo no navegador), tabela de anúncios com status de amostra e os
+   Insights de Tráfego.
+
+## Rodar local
 
 ```bash
-python build/build.py --out dist/index.html            # busca os CSVs ao vivo
-# ou, com arquivos locais para teste:
-python build/build.py --conversas-file conversas.csv --meta-file meta.csv \
-  --sales-file compradores.csv --leads-file leads.csv --out dist/index.html
+python build/build.py --media-file midia.csv \
+  --seg-file ago.csv --seg-file setembro.csv --out dist/index.html
 ```
 
----
+O sandbox do agente não alcança `docs.google.com`; use CSVs locais para testar.
+O runner do GitHub Actions tem internet e busca os CSVs ao vivo.
 
-## Ativação (uma vez) e cron-job.org
+## Automação
 
-O disparo por `workflow_dispatch` só funciona quando o workflow está na branch
-**`main`**. Veja **`SETUP-CRON.md`** para o passo a passo e os valores exatos
-(URL, headers e body, com marcadores a preencher) a colar no cron-job.org.
-
-> ⚠️ **Segurança:** nunca comite tokens no repositório. Gere um token
-> *fine-grained*, só com **Actions: read/write** neste repositório, e use-o
-> apenas no cron-job.org (ou em GitHub Secrets, se aplicável).
-
-## Como usar este template para um novo cliente
-
-Veja o **CHECKLIST DE NOVO CLIENTE** no topo de `CLAUDE.md` (ou `AGENTS.md`) e
-o passo a passo completo em `GUIA-REPLICACAO.md`.
+- `.github/workflows/deploy.yml` — roda o build e publica no Pages
+  (`workflow_dispatch` + `schedule` + `push` em `build/**`).
+- `.github/workflows/briefing.yml` — roda `coletar_dados_relatorio.py` 1×/dia e
+  commita `build/relatorios_dados.json` (só números, sem IA).
+- Disparo externo a cada 30 min pelo cron-job.org — ver [SETUP-CRON.md](SETUP-CRON.md).

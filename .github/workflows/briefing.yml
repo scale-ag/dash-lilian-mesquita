@@ -2,7 +2,7 @@ name: Coletar dados brutos do Relatório (pré-Insights)
 
 # Roda a coleta DETERMINÍSTICA (build/coletar_dados_relatorio.py) que agrega
 # só números (sem interpretação/texto) a partir dos mesmos dados do dashboard
-# (mídia paga x Leads) em build/relatorios_dados.json. NÃO chama nenhuma API
+# (mídia paga x visitas/seguidores) em build/relatorios_dados.json. NÃO chama nenhuma API
 # de IA/Anthropic — roda de graça no runner do GitHub Actions.
 #
 # É o insumo lido, ~9 minutos depois (23h59 BRT), por uma Routine do Claude
