@@ -19,10 +19,9 @@ Somente leitura: apenas GETs em endpoints publicos de export. Nunca escreve.
 """
 from __future__ import annotations
 
-import base64
-import gzip
 import io
 import json
+import pathlib
 import re
 import urllib.error
 import urllib.parse
@@ -105,14 +104,23 @@ def main() -> int:
             print(f"    - {nome!r} -> HTTP {st} | {len(texto)} chars")
             pacote[chave]["abas"][nome] = {"http": st, "gid": gids.get(nome), "csv": texto}
 
-    blob = json.dumps(pacote, ensure_ascii=False).encode("utf-8")
-    comp = gzip.compress(blob, 9)
-    b64 = base64.b64encode(comp).decode()
-    print(f"\nPACOTE_JSON_GZ_B64 ({len(blob)} crus -> {len(comp)} gz -> {len(b64)} b64)")
-    print("PACOTE_INICIO")
-    for k in range(0, len(b64), 480):
-        print(b64[k:k + 480])
-    print("PACOTE_FIM")
+    # Grava os CSVs em disco para o job commitar na branch de trabalho: e' assim
+    # que eles chegam ao agente, que nao alcanca docs.google.com e precisa deles
+    # para montar e testar o build offline.
+    destino = pathlib.Path("tools/amostras")
+    destino.mkdir(parents=True, exist_ok=True)
+    indice = {}
+    for chave, sp in pacote.items():
+        for nome, info in sp["abas"].items():
+            slug = re.sub(r"[^A-Za-z0-9]+", "_", nome).strip("_") or "aba"
+            arq = destino / f"{chave}__{slug}.csv"
+            arq.write_text(info["csv"], encoding="utf-8")
+            indice[f"{chave}/{nome}"] = {"arquivo": arq.name, "gid": info.get("gid"),
+                                         "chars": len(info["csv"])}
+    (destino / "_indice.json").write_text(
+        json.dumps({"planilhas": {k: v["sid"] for k, v in pacote.items()}, "abas": indice},
+                   ensure_ascii=False, indent=2), encoding="utf-8")
+    print(f"\n{len(indice)} aba(s) gravadas em {destino}/")
     return 0
 
 

@@ -15,7 +15,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   descobrir:
@@ -34,3 +34,18 @@ jobs:
 
       - name: Reconhecimento (somente leitura das planilhas)
         run: python tools/descobrir_planilhas.py
+
+      # Os CSVs voltam para a branch de trabalho porque o sandbox do agente nao
+      # alcanca docs.google.com: e' a unica forma de ele montar e testar o build
+      # com os dados reais. Saem do repo junto com o resto da Fase 0.
+      - name: Commitar as amostras na branch de trabalho
+        run: |
+          git add tools/amostras
+          if git diff --cached --quiet -- tools/amostras; then
+            echo "Sem mudancas nas amostras — nada a commitar."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git commit -m "Fase 0: amostras das planilhas coletadas pelo runner"
+          git push origin HEAD:claude/dashboard-lilian-mesquita-a6nmqm
