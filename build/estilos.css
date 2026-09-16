@@ -102,12 +102,12 @@
   .three-col{grid-template-columns:360px minmax(0,1fr)}
   .funnel-grid{grid-template-columns:340px minmax(0,1fr); align-items:start}
   .funnel-charts{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px; align-content:start}
-  /* Mar02: três colunas de tamanho igual · Mar05: quatro gráficos na mesma linha */
+  /* três colunas de tamanho igual · quatro gráficos na mesma linha */
   .trio{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; align-items:stretch}
-  /* trio: os 3 cards com a MESMA altura (a tabela alinha com o gráfico/donut ao lado);
+  /* trio: os 3 cards com a MESMA altura (a tabela alinha com os gráficos ao lado);
      o conteúdo interno cresce para preencher, sem mudar a altura total da seção */
   .trio > .card{display:flex; flex-direction:column; min-width:0}
-  .trio > .card > .chart-box, .trio > .card > .donut-wrap, .trio > .card > .tbl-wrap{flex:1 1 auto; min-height:0}
+  .trio > .card > .chart-box, .trio > .card > .tbl-wrap{flex:1 1 auto; min-height:0}
   .row4{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:16px; align-content:start}
   @media(max-width:1000px){.two-col,.three-col,.funnel-grid{grid-template-columns:1fr}}
   @media(max-width:1200px){.funnel-charts{grid-template-columns:1fr}}
@@ -200,11 +200,6 @@
   /* cabeçalho denso: fonte menor, sem espaçamento e podendo quebrar (não corta o nome) */
   table.dt.dt-fit thead th{font-size:10px; letter-spacing:0; white-space:normal; line-height:1.12; padding:6px 4px; vertical-align:bottom}
   table.dt.dt-fit thead th .rsz{display:none}   /* sem redimensionar quando é fit-to-width */
-  /* Donut de taxa de qualificação (Mar02) com rótulo central */
-  .donut-wrap{position:relative; height:190px}
-  .donut-center{position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; pointer-events:none}
-  .donut-center .dc-val{font-size:24px; font-weight:800; line-height:1}
-  .donut-center .dc-lbl{font-size:10.5px; color:var(--muted); text-transform:uppercase; letter-spacing:.05em; margin-top:2px}
   .tag-q{color:var(--good); font-weight:700}
   .pair-chart{border-top:1px solid var(--border); padding:8px 10px 10px; display:flex; flex-direction:column; gap:6px}
   .pair-chart .pc-title{font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:.05em; padding:0 4px; flex:0 0 auto}
