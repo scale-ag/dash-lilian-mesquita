@@ -73,7 +73,7 @@
           <div class="panel">
             <div class="panel-chart"><h3>Evolução diária</h3><p class="hint">Cliques e Seguidores (barras) · Gasto (linha vermelha) · CPC (linha) · CPS (linha amarela)</p><div class="chart-box"><canvas id="gCombo"></canvas></div></div>
             <div class="tbl-wrap tbl-normal"><table class="dt" id="gDaily"></table></div>
-            <p class="note" style="padding:10px 15px 12px">Gasto, impressões, alcance e cliques vêm da planilha <b>Extração Dashboard</b> (gerenciador). Seguidores vêm da planilha de <b>Controle de tráfego</b>. Heatmap por coluna (Gasto · Alcance · Cliques · CTR · Seguidores) · último dia no topo · clique numa data para filtrar (Ctrl = várias). Valores em R$.</p>
+            <p class="note" style="padding:10px 15px 12px">Gasto, impressões e cliques vêm da planilha <b>Extração Dashboard</b> (gerenciador). Visitas e Seguidores vêm da planilha de <b>Controle de tráfego</b>. Heatmap por coluna (Gasto · Cliques · CTR · Visitas · Seguidores) · último dia no topo · clique numa data para filtrar (Ctrl = várias). Valores em R$.</p>
           </div>
         </div>
 
@@ -103,9 +103,10 @@
           </div>
         </div>
 
-        <h2 class="sec-title">Anúncios · cliques</h2>
-        <div class="duo">
+        <h2 class="sec-title">Anúncios · cliques · distribuição do investimento</h2>
+        <div class="trio">
           <div class="card"><h3>Cliques por anúncio</h3><p class="hint">Top 10 criativos</p><div class="chart-box chart-sm"><canvas id="mClAd"></canvas></div></div>
+          <div class="card"><h3>Investimento por conjunto</h3><p class="hint">Top 10 · com imposto quando o toggle está ativo</p><div class="chart-box chart-sm"><canvas id="mSpAdset"></canvas></div></div>
           <div class="card" style="padding:0"><div style="padding:14px 15px 4px"><h3>Compilado dos Anúncios</h3><p class="hint" style="margin:0">Menor CPC no topo</p></div><div class="tbl-wrap" style="max-height:214px;padding:0 0 10px"><table class="dt" id="mTopCpc"></table></div></div>
         </div>
 
@@ -137,6 +138,9 @@
             <div class="chart-legend" id="chAdLegend"></div>
           </div>
         </div>
+
+        <h2 class="sec-title">Conferência da extração</h2>
+        <div class="card" id="confBox"></div>
 
         <h2 class="sec-title">Seguidores por dia <span class="pill q" id="segCount"></span></h2>
         <div class="card" style="padding:0">
@@ -183,7 +187,7 @@
           <div class="panel">
             <div class="panel-chart"><h3>Evolução diária</h3><p class="hint">Cliques e Seguidores (barras) · Gasto (linha vermelha) · CPC (linha) · CPS (linha amarela)</p><div class="chart-box"><canvas id="rCombo"></canvas></div></div>
             <div class="tbl-wrap tbl-normal"><table class="dt" id="rDaily"></table></div>
-            <p class="note" style="padding:10px 15px 12px">Gasto, impressões, alcance e cliques vêm da planilha <b>Extração Dashboard</b> (gerenciador). Seguidores vêm da planilha de <b>Controle de tráfego</b>. Heatmap por coluna (Gasto · Alcance · Cliques · CTR · Seguidores) · último dia no topo · clique numa data para filtrar (Ctrl = várias). Valores em R$.</p>
+            <p class="note" style="padding:10px 15px 12px">Gasto, impressões e cliques vêm da planilha <b>Extração Dashboard</b> (gerenciador). Visitas e Seguidores vêm da planilha de <b>Controle de tráfego</b>. Heatmap por coluna (Gasto · Cliques · CTR · Visitas · Seguidores) · último dia no topo · clique numa data para filtrar (Ctrl = várias). Valores em R$.</p>
           </div>
         </div>
 

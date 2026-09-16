@@ -10,15 +10,15 @@ App de BI estático (HTML/CSS/JS puro + Chart.js via CDN) publicado no GitHub
 Pages em **https://scale-ag.github.io/dash-lilian-mesquita/**, reconstruído a
 cada ~30 min por GitHub Actions. Somente leitura das planilhas.
 
-Funil: `Gasto → Impressões → Alcance → Cliques no link → Visitas no Perfil →
+Funil: `Gasto → Impressões → Cliques no link → Visitas no Perfil →
 Seguidores`. **Não há lead, MQL, venda, faturamento nem ROAS** — se você
 encontrar esses termos em algum texto, é resíduo do template de onde este repo
 nasceu e deve ser corrigido.
 
-## As 5 regras que mais quebram este projeto
+## As 6 regras que mais quebram este projeto
 
 1. **Duas planilhas, papéis distintos.** A *Extração Dashboard* (Planilha 1) é a
-   fonte de verdade de gasto/impressões/alcance/cliques e a única com quebra por
+   fonte de verdade de gasto/impressões/cliques e a única com quebra por
    campanha/conjunto/anúncio. A *Controle de tráfego* (Planilha 2) entra só com
    Visitas ao perfil e Seguidores. Nunca busque investimento na 2 nem visita na 1.
 2. **Visitas e Seguidores existem só por DIA.** A Planilha 2 não quebra por
@@ -33,6 +33,18 @@ nasceu e deve ser corrigido.
    de cada bloco e avisa no log se as colunas saírem do lugar.
 5. **A aba `📈 Set` não é lida** — é resíduo do template e conflita com a
    `📈 Setembro`.
+6. **Nunca some alcance.** A Planilha 1 tem uma coluna de alcance, mas alcance é
+   deduplicado (o Meta conta pessoas) e as linhas são por anúncio × dia — somar
+   não devolve alcance, nem entre dias nem entre anúncios. A soma de agosto/2026
+   dava 29.833 contra 22.333 reais, e a frequência derivada caía de 1,53 para
+   1,06. A coluna não é lida; se alguém pedir a métrica de volta, ela precisa vir
+   já deduplicada pelo Meta, de uma nova fonte.
+
+> **A dashboard só é tão completa quanto a Planilha 1.** Em agosto/2026 a
+> extração tinha R$ 770,42 / 31.611 impressões contra R$ 819,23 / 34.170 no
+> gerenciador. O build loga os totais por mês e as linhas descartadas por data
+> inválida, e o bloco "Conferência da extração" (aba de mídia paga) mostra isso
+> na página — antes de suspeitar do cálculo, confira a extração.
 
 ## Onde mexer
 

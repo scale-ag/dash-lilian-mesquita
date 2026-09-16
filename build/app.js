@@ -1,7 +1,7 @@
 const DATA = JSON.parse(document.getElementById('payload').textContent);
 /* Duas fontes, propositalmente separadas (ver build/build.py):
    MEDIA — Planilha 1 "Extração Dashboard": uma linha por dia×campanha×conjunto×
-     anúncio, com gasto/impressões/cliques/alcance. É a ÚNICA fonte de gasto e a
+     anúncio, com gasto/impressões/cliques. É a ÚNICA fonte de gasto e a
      única que tem quebra por anúncio.
    SEG   — Planilha 2 "Controle de tráfego": uma linha por DIA, só com a contagem
      de seguidores. Não tem quebra por campanha/anúncio — seguidor só existe no
@@ -60,7 +60,7 @@ function segCoberto(){
 
 /* ---------------- aggregation ----------------
    O funil deste cliente é de DISTRIBUIÇÃO DE CONTEÚDO:
-     Gasto → Impressões → Alcance → Cliques → Visitas no Perfil → Seguidores
+     Gasto → Impressões → Cliques → Visitas no Perfil → Seguidores
    Não há lead, MQL, venda nem faturamento nesta operação — nenhuma das duas
    planilhas tem essas etapas, então elas não existem na dashboard.
 
@@ -69,14 +69,24 @@ function segCoberto(){
    "Visitas ao perfil" e "Custo por Visita no Perfil" no bloco Meta — Visitas no
    Perfil do Instagram, com dado desde 01/09. Como Seguidores, ela existe só no
    nível do DIA — não há quebra por campanha ou criativo. */
+/* Alcance e Frequência NÃO existem aqui, de propósito.
+   Alcance é uma métrica DEDUPLICADA: o Meta conta pessoas, não eventos. As
+   linhas da planilha são por anúncio × dia, e somar alcance não devolve
+   alcance — nem entre dias (quem viu em 12 dias é contado 12 vezes) nem entre
+   anúncios (as mesmas pessoas veem criativos diferentes). Em agosto/2026 a
+   soma dava 29.833 pessoas contra 22.333 reais no gerenciador (+34%), e a
+   frequência derivada dela caía de 1,53 para 1,06 — justamente o número que
+   diz se o público está saturando. Reconstruir isso exigiria um alcance já
+   deduplicado pelo Meta para o período inteiro, que nenhuma das duas planilhas
+   fornece. */
 function derive(a){
   const g=a.sp*taxf();
-  // Custo de Visitas/Seguidores é calculado SÓ sobre os dias que têm a
-  // contagem. A planilha de controle começa em 07/08, mas a mídia roda desde
-  // 03/06: dividir o gasto do período inteiro pelas visitas de agosto/setembro
-  // dava R$ 1,05 por visita em vez de R$ 0,32, e R$ 13,56 por seguidor em vez
-  // de R$ 4,11 — o mesmo vale para a taxa Cliques→Seguidor, que precisa
-  // comparar a mesma janela de dias.
+  // Custo e taxa de conversão de Visitas/Seguidores são calculados SÓ sobre os
+  // dias que têm a contagem. A planilha de controle começa em 07/08, mas a
+  // mídia roda desde 03/06: dividir o gasto do período inteiro pelas visitas de
+  // agosto/setembro dava R$ 1,05 por visita em vez de R$ 0,32, e R$ 13,56 por
+  // seguidor em vez de R$ 4,11 — o mesmo vale para a taxa Cliques→Seguidor,
+  // que precisa comparar a mesma janela de dias.
   const gVis=(a.spVis!=null?a.spVis:a.sp)*taxf();
   const gSeg=(a.spSeg!=null?a.spSeg:a.sp)*taxf(), clSeg=(a.clSeg!=null?a.clSeg:a.cl);
   // Visitas no Perfil e Seguidores vêm da planilha de controle, que registra por
@@ -87,7 +97,7 @@ function derive(a){
   const temSeg=a.segOk!==false && a.seg>0;
   const vis=temVis?a.vis:null;
   return {
-    gasto:g, impr:a.im, alcance:a.rc, clicks:a.cl,
+    gasto:g, impr:a.im, clicks:a.cl,
     cpm:a.im?g/a.im*1000:null,
     ctr:a.im?a.cl/a.im:null,
     cpc:a.cl?g/a.cl:null,
@@ -106,43 +116,43 @@ function derive(a){
    agregado como "sem contagem de seguidor" e derive() devolve null em vez de 0. */
 function buildAgg(fM,dim){
   const m={};
-  const get=k=>m[k]||(m[k]={sp:0,im:0,cl:0,rc:0,
-    vis:0,visOk:false,spVis:0,clVis:0, seg:0,segOk:false,spSeg:0,clSeg:0});
-  fM.forEach(r=>{const a=get(r[dim]); a.sp+=r.sp; a.im+=r.im; a.cl+=r.cl; a.rc+=r.rc;});
+  const get=k=>m[k]||(m[k]={sp:0,im:0,cl:0,
+    vis:0,visOk:false,spVis:0, seg:0,segOk:false,spSeg:0,clSeg:0});
+  fM.forEach(r=>{const a=get(r[dim]); a.sp+=r.sp; a.im+=r.im; a.cl+=r.cl;});
   return m;
 }
 function totals(fM,fS){
-  let sp=0,im=0,cl=0,rc=0; fM.forEach(r=>{sp+=r.sp;im+=r.im;cl+=r.cl;rc+=r.rc;});
+  let sp=0,im=0,cl=0; fM.forEach(r=>{sp+=r.sp;im+=r.im;cl+=r.cl;});
   // gasto e cliques recortados nos dias que têm cada contagem (ver derive)
   const diasVis=new Set(fS.filter(r=>r.visOk).map(r=>r.d));
   const diasSeg=new Set(fS.filter(r=>r.segOk).map(r=>r.d));
-  let spVis=0,clVis=0,spSeg=0,clSeg=0;
-  fM.forEach(r=>{ if(diasVis.has(r.d)){ spVis+=r.sp; clVis+=r.cl; }
+  let spVis=0,spSeg=0,clSeg=0;
+  fM.forEach(r=>{ if(diasVis.has(r.d)){ spVis+=r.sp; }
                   if(diasSeg.has(r.d)){ spSeg+=r.sp; clSeg+=r.cl; } });
-  return {sp,im,cl,rc,
-    vis:fS.reduce((s,r)=>s+(r.vis||0),0), visOk:diasVis.size>0, spVis, clVis,
+  return {sp,im,cl,
+    vis:fS.reduce((s,r)=>s+(r.vis||0),0), visOk:diasVis.size>0, spVis,
     seg:fS.reduce((s,r)=>s+(r.seg||0),0), segOk:diasSeg.size>0, spSeg, clSeg};
 }
 /* Série diária: mídia e seguidores casam pela DATA. Dias sem registro na
    planilha de controle ficam com segOk:false (sem dado), não com zero. */
 function daily(fM,fS){
   const days={};
-  const g=d=>days[d]||(days[d]={d, sp:0,im:0,cl:0,rc:0,
-    vis:0,visOk:false,spVis:0,clVis:0, seg:0,segOk:false,spSeg:0,clSeg:0});
-  fM.forEach(r=>{if(!r.d)return; const a=g(r.d); a.sp+=r.sp; a.im+=r.im; a.cl+=r.cl; a.rc+=r.rc;});
+  const g=d=>days[d]||(days[d]={d, sp:0,im:0,cl:0,
+    vis:0,visOk:false,spVis:0, seg:0,segOk:false,spSeg:0,clSeg:0});
+  fM.forEach(r=>{if(!r.d)return; const a=g(r.d); a.sp+=r.sp; a.im+=r.im; a.cl+=r.cl;});
   fS.forEach(r=>{if(!r.d)return; const a=g(r.d);
     a.vis+=r.vis||0; if(r.visOk) a.visOk=true;
     a.seg+=r.seg||0; if(r.segOk) a.segOk=true;});
   // no dia, o recorte é o próprio dia: se ele tem contagem, é o gasto dele
   Object.values(days).forEach(a=>{
-    if(a.visOk){ a.spVis=a.sp; a.clVis=a.cl; }
+    if(a.visOk){ a.spVis=a.sp; }
     if(a.segOk){ a.spSeg=a.sp; a.clSeg=a.cl; }
   });
   return Object.values(days).sort((a,b)=>a.d<b.d?-1:1);
 }
 
 /* ---------------- generic interactive table ---------------- */
-/* cfg: {id, cols:[{key,label,type,dim?,heat?:'gasto'|'clicks'|'seg'|'alcance'|'ctr',cls?}], rows:[{k,cells:{}, raw?}],
+/* cfg: {id, cols:[{key,label,type,dim?,heat?:'gasto'|'clicks'|'seg'|'vis'|'ctr',cls?}], rows:[{k,cells:{}, raw?}],
         total:{}, selectable, selSet, onSelect } */
 // medição de texto (canvas) p/ auto-largura de coluna — "caiba o nome inteiro" (dim)
 // e auto-ajuste em duplo-clique na borda, como Google Sheets / Looker Studio.
@@ -404,10 +414,10 @@ function renderSplitTable(cfg){
    só a OPACIDADE varia com o valor (maior valor = mais vibrante).
    As variáveis CSS mantêm os nomes do template (gasto/leads/mqls/vendas/roas);
    aqui elas são reaproveitadas para as métricas deste funil, uma cor por
-   métrica: Gasto=vermelho · Cliques=azul · Seguidores=ciano · Alcance=verde ·
+   métrica: Gasto=vermelho · Cliques=azul · Seguidores=ciano · Visitas=verde ·
    CTR=amarelo. */
 const HEAT_HUE={gasto:'--heat-gasto', clicks:'--heat-cliques', seg:'--heat-seg',
-                alcance:'--heat-alcance', ctr:'--heat-ctr'};
+                vis:'--heat-visitas', ctr:'--heat-ctr'};
 function heat(v,lo,hi,kind){
   if(v==null||!isFinite(v)||hi===lo||!HEAT_HUE[kind]) return 'transparent';
   const t=Math.max(0,Math.min(1,(v-lo)/(hi-lo)));
@@ -534,6 +544,39 @@ function hbar(id, items, valFn, colorFn, top, unit){
 const barLabels=unit=>({id:'barLabels',afterDatasetsDraw(ch){const{ctx}=ch;ctx.save();ctx.font='600 11px Segoe UI,system-ui';ctx.fillStyle=cmuted();ctx.textBaseline='middle';
   ch.getDatasetMeta(0).data.forEach((el,i)=>{const v=ch.data.datasets[0].data[i]; if(!v)return; ctx.fillText(unit==='R$'?brl(v):intf(v),el.x+5,el.y);});ctx.restore();}});
 
+/* ---------------- Conferência da extração ----------------
+   A dashboard só pode ser tão completa quanto a Planilha 1, e daqui não há
+   como checar contra o gerenciador. Duas coisas são possíveis e valem a pena:
+   avisar quando a extração parou de receber dias novos, e deixar os totais do
+   mês à mão para o gestor bater com o Meta em segundos. */
+const CONF = DATA.conferencia || {};
+function diasEntre(a,b){ return Math.round((new Date(b+'T00:00:00')-new Date(a+'T00:00:00'))/86400000); }
+function renderConferencia(){
+  const host=document.getElementById('confBox'); if(!host) return;
+  const alertas=[];
+  // A extração roda 1×/dia; 2 dias sem linha nova já é atraso, não latência.
+  const atraso = CONF.midia_date_max ? diasEntre(CONF.midia_date_max, B.today) : null;
+  if(atraso!=null && atraso>=2)
+    alertas.push(`A extração de mídia não recebe um dia novo desde <b>${brdate(CONF.midia_date_max)}</b> `
+      +`(${atraso} dias). Os números abaixo estão congelados nessa data.`);
+  if(CONF.linhas_ignoradas)
+    alertas.push(`<b>${intf(CONF.linhas_ignoradas)}</b> linha(s) da planilha de mídia foram descartadas por data `
+      +`inválida, somando <b>${brl(CONF.gasto_ignorado)}</b> que não entram em nenhum número desta página.`);
+
+  const meses=(CONF.meses||[]).slice().reverse();
+  const linhas=meses.map(m=>`<tr><td>${m.mes}</td><td>${brl(m.sp)}</td><td>${intf(m.im)}</td>`
+    +`<td>${intf(m.cl)}</td><td>${brl(m.im?m.sp/m.im*1000:null)}</td></tr>`).join('');
+
+  host.innerHTML =
+    (alertas.length?`<div class="conf-alert">${alertas.map(a=>`<p>${a}</p>`).join('')}</div>`:'')
+    + `<table class="conf-tbl"><thead><tr><th>Mês</th><th>Gasto</th><th>Impressões</th><th>Cliques</th><th>CPM</th></tr></thead>`
+    + `<tbody>${linhas}</tbody></table>`
+    + `<p class="note">Valores <b>sem imposto</b>, exatamente como estão na planilha <b>Extração Dashboard</b> — `
+    + `é o que você compara com o "Valor gasto" do gerenciador no mesmo mês. Divergência aqui é problema da `
+    + `extração, não da dashboard: confira se ela reescreve os dias já gravados (o Meta ajusta números por até `
+    + `72h) e se não filtra anúncios arquivados.</p>`;
+}
+
 /* ---------------- KPI cards ---------------- */
 function kpiCard(k){ return `<div class="kpi ${k.hero?'hero':''}"><div class="kl"><span>${k.label}</span>${k.pill?`<span class="pill q">${k.pill}</span>`:''}</div><div class="kv">${k.val}</div><div class="ka">${k.aux||''}</div></div>`; }
 
@@ -547,12 +590,13 @@ function renderGeral(){ renderGeralCore(GERAL_IDS); }
 /* Etapas do funil de distribuição, na ordem em que o tráfego caminha. Visitas
    no Perfil e Seguidores vêm da planilha de controle e só existem por DIA:
    fora da janela que ela cobre, e em qualquer recorte por criativo, aparecem
-   como "sem dado" em vez de zero. */
+   como "sem dado" em vez de zero.
+   Não há etapa de Alcance: ver a nota em derive() — alcance é deduplicado e
+   não pode ser reconstruído somando as linhas diárias por anúncio. */
 function funilSteps(t,dv){
   return [
     ['Gasto Total', brl(dv.gasto), [], false, 'hl-gasto'],
     ['Impressões', intf(t.im), [['CPM',brl(dv.cpm)]]],
-    ['Alcance', intf(t.rc), []],
     ['Cliques no link', intf(t.cl), [['CTR',pct(dv.ctr)],['CPC',brl(dv.cpc)]]],
     ['Visitas no Perfil', dv.vis!=null?intf(dv.vis):NA_TAG,
       [['Custo/Visita',dv.cpv!=null?brl(dv.cpv):NA_TAG]], dv.vis==null],
@@ -590,6 +634,7 @@ function renderGeralCore(ids){
     {label:'Top anúncio (cliques)',val:topAd?intf(topAd.v):'-',aux:topAd?adShort(topAd.ad):'—'},
     {label:'Concentração top anúncio',val:pct(concTop),aux:'% dos cliques no melhor anúncio'},
     {label:'Anúncios ativos',val:intf(nAdsAtivos),aux:intf(nCampAtivas)+' campanhas c/ gasto'},
+    {label:'Impressões por dia (média)',val:intf(t.im/nDays),aux:intf(t.im)+' no período'},
   ];
   document.getElementById(ids.kpis2).innerHTML=k2.map(kpiCard).join('');
   comboChart(ids.combo, dd);
@@ -625,15 +670,14 @@ const DAILY_COLS=[
   {key:'date',label:'Data',type:'date'},{key:'wd',label:'Dia',type:'dim',w:70},
   {key:'gasto',label:'Gasto',type:'brl',heat:'gasto'},
   {key:'im',label:'Impr.',type:'int'},{key:'cpm',label:'CPM',type:'brl'},
-  {key:'rc',label:'Alcance',type:'int',heat:'alcance'},
   {key:'cl',label:'Cliques',type:'int',heat:'clicks'},{key:'ctr',label:'CTR',type:'pct',heat:'ctr'},{key:'cpc',label:'CPC',type:'brl'},
-  {key:'vis',label:'Visitas',type:'int'},{key:'cpv',label:'CPV',type:'brl'},
+  {key:'vis',label:'Visitas',type:'int',heat:'vis'},{key:'cpv',label:'CPV',type:'brl'},
   {key:'seg',label:'Seguidores',type:'int',heat:'seg'},{key:'cps',label:'CPS',type:'brl'},
   {key:'txSeg',label:'Cl→Seg',type:'pct'},
 ];
 function dailyCells(x,d,isTotal){
   return {date:isTotal?null:x.d, wd:isTotal?'':weekday(x.d),
-    gasto:d.gasto, im:x.im, cpm:d.cpm, rc:x.rc,
+    gasto:d.gasto, im:x.im, cpm:d.cpm,
     cl:x.cl, ctr:d.ctr, cpc:d.cpc,
     vis:d.vis, cpv:d.cpv, seg:d.seg, cps:d.cps, txSeg:d.txSeg};
 }
@@ -711,7 +755,7 @@ const AD_COLS=[
   {key:'ad',label:'Anúncio',type:'dim',big:true,stk:'l1'},{key:'status',label:'Status',type:'dim',w:140},
   {key:'camp',label:'Campanha',type:'dim',big:true},{key:'adset',label:'Conjunto',type:'dim',big:true},
   {key:'gasto',label:'Gasto',type:'brl'},{key:'im',label:'Impr.',type:'int'},
-  {key:'cpm',label:'CPM',type:'brl'},{key:'rc',label:'Alcance',type:'int'},
+  {key:'cpm',label:'CPM',type:'brl'},
   {key:'cl',label:'Cliques',type:'int'},{key:'ctr',label:'CTR',type:'pct'},{key:'cpc',label:'CPC',type:'brl'},
   {key:'vis',label:'Visitas',type:'int'},{key:'cpv',label:'CPV',type:'brl'},
   {key:'seg',label:'Seguidores',type:'int'},{key:'cps',label:'CPS',type:'brl'},
@@ -719,11 +763,11 @@ const AD_COLS=[
 function adRowCells(ad,a,struct){
   const d=derive(a);
   return {ad, camp:struct.camp, adset:struct.adset,
-    gasto:d.gasto, im:a.im, cpm:d.cpm, rc:a.rc,
+    gasto:d.gasto, im:a.im, cpm:d.cpm,
     cl:a.cl, ctr:d.ctr, cpc:d.cpc,
-    // Visitas no Perfil: sem fonte. Seguidores: existem só por DIA, não por
-    // anúncio — a planilha de controle não quebra por criativo, então
-    // atribuir seguidor a um anúncio seria invenção. Ficam "-" de propósito.
+    // Visitas e Seguidores existem só por DIA, não por anúncio — a planilha de
+    // controle não quebra por criativo, então atribuir qualquer um dos dois a
+    // um anúncio seria invenção. Ficam "-" de propósito.
     vis:null, cpv:null, seg:null, cps:null,
     _cpc:d.cpc, _cps:null, status:null};
 }
@@ -927,6 +971,11 @@ function renderMeta(){
   const clByAd={}; fM.forEach(r=>{ clByAd[r.ad]=(clByAd[r.ad]||0)+r.cl; });
   hbar('mClAd', Object.entries(clByAd).map(([label,v])=>({label,v})).filter(x=>x.v>0),
        x=>x.v, ()=>cvar('--chart-seg'), 10, 'cliques');
+  // investimento por conjunto (top 10) — ocupa o lugar do antigo donut de
+  // frequência, que dependia de somar alcance (ver a nota em derive())
+  const spByAdset=buildAgg(fM,'adset');
+  hbar('mSpAdset', Object.entries(spByAdset).map(([label,a])=>({label,v:+(a.sp*taxf()).toFixed(2)}))
+       .filter(x=>x.v>0), x=>x.v, ()=>cvar('--chart-gasto'), 10, 'R$');
   // Compilado dos anúncios: menor CPC no topo
   const adAggM=buildAgg(fM,'ad');
   const topRows=Object.entries(adAggM).map(([ad,a])=>{const d=derive(a);
@@ -953,14 +1002,13 @@ function renderMeta(){
   const hcols=[
     {key:'dim',label:'',type:'dim',big:true,band:'l'},{key:'gasto',label:'Gasto',type:'brl',band:'l'},
     {key:'im',label:'Impr.',type:'int'},{key:'cpm',label:'CPM',type:'brl'},
-    {key:'rc',label:'Alcance',type:'int'},
     {key:'cl',label:'Cliques',type:'int'},{key:'ctr',label:'CTR',type:'pct'},{key:'cpc',label:'CPC',type:'brl'},
     {key:'vis',label:'Visitas',type:'int'},{key:'cpv',label:'CPV',type:'brl'},
   ];
   function hierRows(map){ return Object.entries(map).map(([k,a])=>{const d=derive(a);
-    return {k, cells:{dim:k,gasto:d.gasto,im:a.im,cpm:d.cpm,rc:a.rc,
+    return {k, cells:{dim:k,gasto:d.gasto,im:a.im,cpm:d.cpm,
       cl:a.cl,ctr:d.ctr,cpc:d.cpc,vis:d.vis,cpv:d.cpv}};}); }
-  function totRowOf(tt){const d=derive(tt);return{dim:null,gasto:d.gasto,im:tt.im,cpm:d.cpm,rc:tt.rc,
+  function totRowOf(tt){const d=derive(tt);return{dim:null,gasto:d.gasto,im:tt.im,cpm:d.cpm,
     cl:tt.cl,ctr:d.ctr,cpc:d.cpc,vis:d.vis,cpv:d.cpv};}
   const Sc=metaScope('C'), Sa=metaScope('A'), Sd=metaScope('D');
   const aggC=buildAgg(Sc.fM,'camp'), aggA=buildAgg(Sa.fM,'adset'), aggD=buildAgg(Sd.fM,'ad');
@@ -977,6 +1025,8 @@ function renderMeta(){
 
   // Seguidores por dia — a única granularidade em que a métrica existe.
   // Fica no fim da página como o "detalhe" da etapa final do funil.
+  renderConferencia();
+
   const segDias=daily(mediaActive(),segActive()).filter(x=>x.segOk).slice().reverse();
   document.getElementById('segCount').textContent=
     intf(segDias.reduce((s,x)=>s+x.seg,0))+' seguidores em '+segDias.length+' dia(s)';
