@@ -225,6 +225,16 @@
   .chart-legend .cl-name{color:var(--ink); white-space:nowrap}
   .chart-legend .cl-val{padding-left:14px; color:var(--muted); font-variant-numeric:tabular-nums; flex:0 0 auto; font-size:10.5px; white-space:nowrap}
 
+  /* Conferência da extração (aba de mídia paga) */
+  .conf-alert{background:var(--step-gasto-bg); border-left:3px solid var(--step-gasto-bd);
+    border-radius:6px; padding:10px 12px; margin-bottom:12px}
+  .conf-alert p{margin:0; font-size:12px; color:var(--ink); line-height:1.5}
+  .conf-alert p + p{margin-top:6px}
+  .conf-tbl{border-collapse:collapse; font-size:12.5px}
+  .conf-tbl th{text-align:left; font-size:11px; font-weight:700; color:var(--muted);
+    text-transform:uppercase; letter-spacing:.03em; padding:4px 18px 6px 0; border-bottom:1px solid var(--border)}
+  .conf-tbl td{padding:5px 18px 5px 0; color:var(--ink); font-variant-numeric:tabular-nums; white-space:nowrap}
+
   .note{font-size:11.5px; color:var(--muted); margin-top:10px}
   .foot{margin-top:26px; font-size:11.5px; color:var(--muted); border-top:1px solid var(--border); padding-top:12px}
 

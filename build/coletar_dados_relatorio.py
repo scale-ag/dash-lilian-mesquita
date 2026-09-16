@@ -44,10 +44,9 @@ def daily_series(media: list[dict], seg: list[dict], start, end, camp=None, adse
             out.append({
                 "d": cur.strftime("%Y-%m-%d"),
                 "spend": round(a["spend"], 2), "impr": a["impr"], "clicks": a["clicks"],
-                "reach": a["reach"], "visitas": a["visitas"], "seguidores": a["seguidores"],
+                "visitas": a["visitas"], "seguidores": a["seguidores"],
                 "cpm": _r(a["cpm"]), "ctr": _r(a["ctr"], 4), "cpc": _r(a["cpc"]),
-                "freq": _r(a["freq"]), "cpv": _r(a["cpv"]), "txvis": _r(a["txvis"], 4),
-                "cps": _r(a["cps"]), "txseg": _r(a["txseg"], 4),
+                "cpv": _r(a["cpv"]), "cps": _r(a["cps"]), "txseg": _r(a["txseg"], 4),
             })
         cur += timedelta(days=1)
     return out
@@ -60,9 +59,9 @@ def _r(v, nd=2):
 def totais_dict(a: dict) -> dict:
     return {
         "spend": round(a["spend"], 2), "impr": a["impr"], "clicks": a["clicks"],
-        "reach": a["reach"], "visitas": a["visitas"], "seguidores": a["seguidores"],
+        "visitas": a["visitas"], "seguidores": a["seguidores"],
         "cpm": _r(a["cpm"]), "ctr": _r(a["ctr"], 4), "cpc": _r(a["cpc"]),
-        "freq": _r(a["freq"]), "cpv": _r(a["cpv"]), "txvis": _r(a["txvis"], 4),
+        "cpv": _r(a["cpv"]),
         "cps": _r(a["cps"]), "txseg": _r(a["txseg"], 4),
     }
 
@@ -121,7 +120,6 @@ def consolidado_criativos(por_anuncio: list[dict]) -> list[dict]:
         spend = sum(o["spend"] for o in occs)
         clicks = sum(o["clicks"] for o in occs)
         impr = sum(o["impr"] for o in occs)
-        reach = sum(o["reach"] for o in occs)
         # Clique é o resultado mais profundo que existe POR CRIATIVO neste
         # funil: visitas e seguidores só são contados por dia, sem quebra por
         # anúncio, então a comparação entre estruturas é feita pelo CPC.
@@ -132,11 +130,10 @@ def consolidado_criativos(por_anuncio: list[dict]) -> list[dict]:
             "anuncio": ad,
             "n_estruturas": len(occs),
             "estruturas": [{"campanha": o["campanha"], "conjunto": o["conjunto"]} for o in occs],
-            "spend": round(spend, 2), "impr": impr, "clicks": clicks, "reach": reach,
+            "spend": round(spend, 2), "impr": impr, "clicks": clicks,
             "cpm": round(spend / impr * 1000, 2) if impr else None,
             "ctr": round(clicks / impr, 4) if impr else None,
             "cpc": round(spend / clicks, 2) if clicks else None,
-            "freq": round(impr / reach, 2) if reach else None,
             "melhor_estrutura": (
                 {"campanha": melhor["campanha"], "conjunto": melhor["conjunto"], "cpc": melhor["cpc"]}
                 if melhor else None
@@ -158,12 +155,11 @@ def whatsapp_numeros(label: str, start, end, cur: dict, saude: dict) -> dict:
         "periodo_label": label,
         "periodo_range": f"{start.strftime('%d/%m/%Y')} a {end.strftime('%d/%m/%Y')}",
         "gasto": money(cur["spend"]), "cpm": money(cur["cpm"]), "ctr": pct(cur["ctr"]),
-        "impressoes": num(cur["impr"]), "alcance": num(cur["reach"]),
-        "frequencia": ("—" if cur["freq"] is None else f"{cur['freq']:.2f}x".replace(".", ",")),
+        "impressoes": num(cur["impr"]),
         "cliques": num(cur["clicks"]), "cpc": money(cur["cpc"]),
         "visitas_perfil": num(cur["visitas"]), "custo_por_visita": money(cur["cpv"]),
         "seguidores": num(cur["seguidores"]), "custo_por_seguidor": money(cur["cps"]),
-        "conv_clique_visita": pct(cur["txvis"]), "conv_clique_seguidor": pct(cur["txseg"]),
+        "conv_clique_seguidor": pct(cur["txseg"]),
         "saude_funil": (
             f"{saude['nota']:.1f}/10 — {saude['classificacao']}" + (" (provisória)" if saude["provisoria"] else "")
             if saude["nota"] is not None else "Nota provisória — dados insuficientes"
@@ -245,8 +241,11 @@ def main():
                  "escrever build/relatorios.json (Insights de Tráfego). Sem interpretação/texto "
                  "aqui, só aritmética.",
         "observacoes": [
-            "Gasto, impressões, alcance e cliques vêm do gerenciador (Planilha 1) — é a fonte "
+            "Gasto, impressões e cliques vêm do gerenciador (Planilha 1) — é a fonte "
             "de verdade do investimento.",
+            "Não há alcance nem frequência: alcance é deduplicado pelo Meta e as linhas da "
+            "planilha são por anúncio × dia, então somar não devolve alcance. Não estime "
+            "saturação de público a partir destes números.",
             "Visitas ao perfil e seguidores vêm da planilha de controle (Planilha 2) e existem "
             "só por DIA: não há quebra por campanha, conjunto ou anúncio. Em qualquer recorte "
             "por estrutura essas duas etapas voltam null — não as atribua a um criativo.",

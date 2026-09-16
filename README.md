@@ -12,25 +12,31 @@ Somente leitura das planilhas — a dashboard nunca escreve nelas.
 ## Funil
 
 ```
-Gasto → Impressões → Alcance → Cliques no link → Visitas no Perfil → Seguidores
+Gasto → Impressões → Cliques no link → Visitas no Perfil → Seguidores
 ```
 
 Não há lead, MQL, venda nem faturamento nesta operação: é um funil de topo, cujo
 resultado final é seguidor no perfil. As métricas de custo são **CPM**, **CPC**,
-**Custo por Visita (CPV)** e **Custo por Seguidor (CPS)**; a **Frequência**
-(impressões ÷ alcance) é o termômetro de saturação do público.
+**Custo por Visita (CPV)** e **Custo por Seguidor (CPS)**.
+
+> **Não há Alcance nem Frequência.** A Planilha 1 traz uma coluna de alcance,
+> mas alcance é deduplicado — o Meta conta pessoas, não eventos — e as linhas
+> são por anúncio × dia. Somar não devolve alcance, nem entre dias nem entre
+> anúncios: em agosto/2026 a soma dava 29.833 contra 22.333 reais, e a
+> frequência caía de 1,53 para 1,06. Como toda view da dashboard é agregada,
+> não existe lugar onde o número seria válido, então a coluna não é lida.
 
 ## Fontes de dados (duas planilhas — não confundir)
 
 | # | Planilha | Aba(s) lida(s) | O que vem dela |
 |---|----------|----------------|----------------|
-| 1 | [Extração Dashboard](https://docs.google.com/spreadsheets/d/1vZgI8ju2OcQit2oEEGPbK-pm19gulnpiFH91TEh3ecI) | `Página1` | Data · Campaign Name · Ad Set Name · Ad Name · Impressões · Cliques no link · Amount Spent · Alcance |
+| 1 | [Extração Dashboard](https://docs.google.com/spreadsheets/d/1vZgI8ju2OcQit2oEEGPbK-pm19gulnpiFH91TEh3ecI) | `Página1` | Data · Campaign Name · Ad Set Name · Ad Name · Impressões · Cliques no link · Amount Spent |
 | 2 | [Controle de tráfego — 2026](https://docs.google.com/spreadsheets/d/1ESPchuMZHmXrDIyl5N8Kzy9i20Et0-9EkDVXe_DhSNs) | `📈 Ago` e `📈 Setembro` | Visitas ao perfil · Custo por Visita · Seguidores · CPS (bloco `META — Seguidores` + `Meta - Visitas no Perfil do Instagram`) |
 
 Regras que valem em todo o projeto:
 
 - **A Planilha 1 é a fonte de verdade do investimento.** Gasto, impressões,
-  alcance e cliques saem só dela, e é a única com quebra por
+  e cliques saem só dela, e é a única com quebra por
   campanha/conjunto/anúncio. Em agosto o investimento lançado à mão na Planilha 2
   não reconcilia com o gerenciador — o build loga a diferença dia a dia, mas
   nunca usa o número do controle em nenhum cálculo.

@@ -20,7 +20,7 @@ de mídia paga com a planilha de controle de tráfego e se atualiza sozinho a ca
 
 | # | Planilha | Aba(s) lida(s) | Colunas usadas |
 |---|----------|----------------|----------------|
-| 1 | **Extração Dashboard** `1vZgI8ju2OcQit2oEEGPbK-pm19gulnpiFH91TEh3ecI` | `Página1` | `[0]` Data · `[1]` Campaign Name · `[2]` Ad Set Name · `[3]` Ad Name · `[4]` Impressões · `[5]` Cliques no link · `[6]` Amount Spent · `[7]` Alcance |
+| 1 | **Extração Dashboard** `1vZgI8ju2OcQit2oEEGPbK-pm19gulnpiFH91TEh3ecI` | `Página1` | `[0]` Data · `[1]` Campaign Name · `[2]` Ad Set Name · `[3]` Ad Name · `[4]` Impressões · `[5]` Cliques no link · `[6]` Amount Spent · (`[7]` Alcance e `[8]` CPM existem mas **não são lidas** — ver abaixo) |
 | 2 | **Lilian Mesquita \| Controle de tráfego - 2026** `1ESPchuMZHmXrDIyl5N8Kzy9i20Et0-9EkDVXe_DhSNs` | `📈 Ago` e `📈 Setembro` | `[1]` Data · `[12]` Invest. · `[13]` Seguid. · `[14]` CPS · `[15]` Visitas ao perfil · `[16]` Custo por Visita |
 
 Leitura pelo endpoint **gviz por NOME de aba**, não por gid:
@@ -37,7 +37,7 @@ isso o gviz funde os cabeçalhos mesclados das abas mensais numa linha só.
 ### Regras que valem em todo o projeto
 
 - **A Planilha 1 é a fonte de verdade do investimento.** Gasto, impressões,
-  alcance e cliques saem só dela, e é a única com quebra por
+  e cliques saem só dela, e é a única com quebra por
   campanha/conjunto/anúncio. Em agosto o investimento lançado à mão na Planilha 2
   **não reconcilia** com o gerenciador (razão P2/P1 de 0,80 a 2,17 por dia,
   ~R$ 146 de diferença); em setembro as duas batem ao centavo.
@@ -61,16 +61,30 @@ isso o gviz funde os cabeçalhos mesclados das abas mensais numa linha só.
 
 ### Funil
 ```
-Gasto → Impressões → Alcance → Cliques no link → Visitas no Perfil → Seguidores
+Gasto → Impressões → Cliques no link → Visitas no Perfil → Seguidores
 ```
 Não há lead, MQL, venda, faturamento nem ROAS nesta operação — nenhuma das duas
 planilhas tem essas etapas, e elas não existem na dashboard. Métricas de custo:
-**CPM · CPC · CPV · CPS**; **Frequência** (impressões ÷ alcance) é o termômetro
-de saturação do público.
+**CPM · CPC · CPV · CPS**.
 
-> **Cliques→Visita passa de 100%** e isso está certo: "cliques no link" é uma
-> métrica mais estreita que visita ao perfil (dá para tocar no nome do perfil
-> sem clicar no link). Serve como proporção, não como taxa de conversão fechada.
+> **Não há Alcance nem Frequência, e isso é deliberado.** A coluna 7 da
+> Planilha 1 é o alcance, mas alcance é **deduplicado**: o Meta conta pessoas,
+> não eventos. As linhas são por anúncio × dia, e somar alcance não devolve
+> alcance — nem entre dias (quem viu em 12 dias é contado 12 vezes) nem entre
+> anúncios (as mesmas pessoas veem criativos diferentes). Em agosto/2026 a soma
+> dava 29.833 pessoas contra 22.333 reais no gerenciador (+34%), e a frequência
+> derivada caía de **1,53 para 1,06** — justo o número que diz se o público está
+> saturando. Como nenhuma view exibe uma linha crua, não há onde o valor seria
+> válido; a coluna não é lida. Para ressuscitar a métrica seria preciso um
+> alcance já deduplicado pelo Meta para o período inteiro, vindo de uma nova
+> fonte.
+
+> **Não há taxa Cliques→Visita.** Ela dava mais de 100% (123,7% em todo o
+> período) porque "cliques no link" é mais estreito que visita ao perfil — dá
+> para tocar no nome do perfil sem clicar no link. A razão entre os dois não é
+> uma taxa de conversão e induzia leitura errada, então saiu. O que resta da
+> etapa é o **Custo/Visita (CPV)**, que é sólido. `Cliques→Seguidor` continua,
+> porque ali o numerador é de fato um subconjunto plausível.
 
 ### Imposto da mídia paga
 `TAX_FACTOR = 1.1385` (13,85%) em `build.py`. O toggle "Imposto Meta" nasce
@@ -123,7 +137,7 @@ e, abaixo, acrescenta 3 blocos novos + um painel de metas editável:
   na tabela de anúncios (verde ≤ meta · amarelo até +30% · vermelho acima) e ajusta
   o badge Em observação/Avaliável, **tudo ao vivo** (`METAS` + `renderRelAds()`).
 - **Tabela de anúncios** — 16 colunas + coluna **Status** (Anúncio · Status ·
-  Campanha · Conjunto · Gasto · Impr · CPM · Alcance · Freq · Cliques · CTR · CPC ·
+  Campanha · Conjunto · Gasto · Impr · CPM · Cliques · CTR · CPC ·
   Visitas · CPV · Seguidores · CPS). Anúncio e Status ficam **sticky**.
   Ranking pelo **clique** — o resultado mais profundo que existe por criativo neste
   funil — com amostra relevante primeiro; sem amostra → badge **"Em observação"**.
@@ -158,17 +172,27 @@ O gerador determinístico `build/gerar_relatorios.py` que vinha no template foi
 produziriam prosa errada para este funil. Se um fallback sem IA voltar a ser
 necessário, ele precisa ser reescrito para as métricas de distribuição.
 
-Funil completo: `Gasto → Impressões → Alcance → Cliques → Visitas no Perfil →
+Funil completo: `Gasto → Impressões → Cliques → Visitas no Perfil →
 Seguidores`. Visitas e Seguidores aparecem "-" fora da janela que a planilha de
 controle cobre e em qualquer recorte por campanha/conjunto/anúncio.
+
+### Conferência da extração (aba de mídia paga)
+A dashboard só pode ser tão completa quanto a Planilha 1, e daqui não há acesso
+ao Meta para checar. O build loga os **totais por mês** (gasto/impressões/
+cliques) e conta as **linhas descartadas por data inválida** — que antes sumiam
+em silêncio, levando gasto junto. Os mesmos números vão no payload
+(`DATA.conferencia`) e o bloco `#confBox` os exibe, com alerta quando a extração
+passa 2 dias sem receber um dia novo. Referência real: em agosto/2026 a
+Planilha 1 tinha R$ 770,42 / 31.611 impressões contra R$ 819,23 / 34.170 no
+gerenciador (−6,0% e −7,5%) — divergência da extração, não do build.
 
 > **Layout modular:** o front-end é separado em `identidade-visual.css` + `estilos.css`
 > + `app.js`, costurados por `render()` nos placeholders `__STYLES__`/`__APP_JS__`.
 > Página 1 usa **funil vertical** + KPIs secundários. Topbar tem **seletor de
 > período em calendário** (default "Este mês"). **Heatmap** = cor FIXA por
 > métrica (só opacidade varia): **Gasto=vermelho · Cliques=azul · Seguidores=ciano
-> · Alcance=verde · CTR=amarelo**
-> (`--heat-gasto/cliques/seg/alcance/ctr`).
+> · Visitas=verde · CTR=amarelo**
+> (`--heat-gasto/cliques/seg/visitas/ctr`).
 
 O `build.py` **não agrega**: exporta as linhas cruas e TODA a lógica (filtros de
 data, filtro cruzado, KPIs, tabelas, gráficos, heatmap, imposto) roda no navegador.

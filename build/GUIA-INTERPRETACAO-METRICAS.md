@@ -1,5 +1,26 @@
 # GUIA — Interpretação de Métricas de Funil High Ticket
 
+> ## ⚠️ Este guia é de OUTRO funil — use só o que se aplica
+>
+> Veio do template de captura de leads High Ticket. A operação da Lilian
+> Mesquita é **distribuição de conteúdo**:
+> `Gasto → Impressões → Cliques no link → Visitas no Perfil → Seguidores`.
+>
+> **Não existem** Lead, MQL, Agendamento, Reunião, No-Show, Venda, CAC,
+> Faturamento, Ticket nem ROAS — nem nos dados, nem na dashboard. **Não existem
+> Alcance nem Frequência**: alcance é deduplicado pelo Meta e as linhas da fonte
+> são por anúncio × dia, então somar não devolve alcance. Não estime saturação
+> de público; o sinal disponível para desgaste de criativo é **CPM subindo e/ou
+> CTR caindo** ao longo dos dias.
+>
+> **O que aproveitar daqui:** as leituras de CPM, CTR e CPC, o princípio de
+> diagnóstico probabilístico, as regras de volume mínimo amostral e tempo de
+> maturação, e a disciplina de apontar a etapa que perdeu eficiência em vez de
+> mandar "reduzir o custo". **O que ignorar:** tudo que dependa de etapa
+> comercial ou de qualificação de lead.
+>
+> Este cabeçalho sai quando o guia for reescrito para o funil de distribuição.
+
 > Referência **durável** para quem redige os Insights de Tráfego (a Routine do
 > Claude, ou qualquer pessoa preenchendo `build/relatorios.json` manualmente).
 > Como cada execução automática é uma sessão nova, sem memória da conversa que

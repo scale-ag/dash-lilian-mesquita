@@ -1,10 +1,28 @@
 # GUIA — Insights de Tráfego da aba Relatório
 
+> ## ⚠️ Leia antes de tudo: este guia ainda tem resíduo do template
+>
+> Este arquivo nasceu de um template de **captura de leads High Ticket**. A
+> seção "Contexto do funil" abaixo e as "Fórmulas fundamentais" já foram
+> reescritas para o funil real da Lilian Mesquita, mas **o resto do texto ainda
+> fala em Lead, MQL, CPMQL, Agendamento, Reunião, Venda, CAC, Faturamento e
+> ROAS**. Nada disso existe nesta operação.
+>
+> O funil é `Gasto → Impressões → Cliques no link → Visitas no Perfil →
+> Seguidores`; as métricas são CPM, CTR, CPC, CPV e CPS. **Não existe alcance
+> nem frequência nos dados** (alcance é deduplicado pelo Meta e as linhas da
+> fonte são por anúncio × dia — somar não devolve alcance).
+>
+> Onde o guia disser "MQL", leia **Visita no Perfil**; onde disser "Venda" ou
+> "CAC", leia **Seguidor** e **CPS**. Qualquer instrução sobre etapa comercial
+> (agendamento, reunião, no-show, ticket, ROAS) **não se aplica — ignore**.
+> Este cabeçalho sai quando o corpo do guia for reescrito.
+
 > Texto lido de `build/relatorios.json` pela aba **Relatório** (seção "Insights
 > de Tráfego"). **Não faz nenhuma chamada de API no build nem no navegador** —
 > a página só exibe o texto já pronto. Os números vêm dos mesmos dados do site
-> (mídia paga × Leads); quem escreve o texto (hoje, uma Routine do Claude —
-> ver seção abaixo) apenas **interpreta e redige**.
+> (mídia paga × contagem diária de visitas e seguidores); quem escreve o texto
+> (hoje, uma Routine do Claude — ver seção abaixo) apenas **interpreta e redige**.
 > A aba Relatório espelha a Visão Geral e, abaixo, mostra **Top Anúncios ·
 > Piores Anúncios · Insights de Tráfego**.
 >
@@ -78,12 +96,15 @@ Instagram cujo objetivo é levar gente ao perfil e converter em seguidor. Não h
 lead, MQL, venda nem faturamento nesta operação: o funil termina em seguidor.
 
 ```
-Gasto → Impressões → Alcance → Cliques no link → Visitas no Perfil → Seguidores
+Gasto → Impressões → Cliques no link → Visitas no Perfil → Seguidores
 ```
 
 - **Custos:** CPM · CPC · CPV (custo por visita ao perfil) · CPS (custo por seguidor).
-- **Frequência** (impressões ÷ alcance) é o termômetro de saturação: até ~1,5x o
-  público ainda se renova; acima disso o criativo repete para quem já viu.
+- **NÃO existe alcance nem frequência nos dados.** Alcance é deduplicado pelo
+  Meta e as linhas da fonte são por anúncio × dia — somar não devolve alcance.
+  **Não estime saturação de público**, não escreva "frequência" e não deduza
+  desgaste de criativo a partir de impressões ÷ alguma coisa. O sinal disponível
+  para desgaste é CPM subindo e/ou CTR caindo ao longo dos dias.
 - **Visitas no Perfil e Seguidores só existem por DIA.** A planilha de controle
   não quebra por campanha/conjunto/anúncio — em qualquer recorte por estrutura
   essas duas etapas vêm `null`. **Nunca atribua visita ou seguidor a um
@@ -91,51 +112,47 @@ Gasto → Impressões → Alcance → Cliques no link → Visitas no Perfil → 
 - **CPV e CPS são calculados só sobre os dias que têm contagem** (a planilha de
   controle começa em 07/08, a mídia roda desde 03/06). Os números já vêm assim
   em `relatorios_dados.json` — não recalcule.
-- **Cliques→Visita pode passar de 100%** e não é erro: "cliques no link" é uma
-  métrica mais estreita que visita ao perfil. Trate como proporção, não como
-  taxa de conversão fechada.
+- **Não existe taxa Cliques→Visita.** Ela passava de 100% porque "cliques no
+  link" é mais estreito que visita ao perfil, então a razão entre os dois não é
+  uma conversão. Foi retirada — não a recalcule nem a mencione. A etapa de
+  Visitas no Perfil é lida pelo **CPV**.
 - **Sigla do funil: `E1-DIST`** (única na conta). Nomenclatura de campanha:
   `SIGLA | ETAPA | PÚBLICO | OBJETIVO | BUDGET | DATA | DESCRIÇÃO`.
 - **Gasto vem sempre do gerenciador** (Planilha 1), nunca do investimento
   lançado à mão na planilha de controle — em agosto os dois divergem.
 
-- **Agendamento** = o lead qualificado marcou horário de reunião com o comercial.
-- **Reunião Realizada** = a reunião de fato aconteceu (o lead compareceu). O
-  inverso disso é o **No‑Show** (agendou e não compareceu) — a métrica de alerta
-  mais importante entre Agendamento e Venda.
-
-> **Estado atual dos dados:** enquanto só houver mídia paga × Leads, o funil
-> vai até **MQL**. As etapas seguintes (Agendamentos, Reuniões Realizadas, Vendas,
-> Faturamento) e as métricas derivadas aparecem como “-” até chegar a lista do
-> comercial/vendas. Quando os campos `agendamentos`/`reunioes`/`vendas`/
-> `fat` forem somados por linha em `buildAgg/daily/totals` (`build/app.js`),
-> **toda a UI acende sozinha** (funil, tabelas, Top/Piores).
+> **Estado atual dos dados:** o funil termina em **Seguidores**. Não existe
+> etapa comercial (agendamento, reunião, venda) nesta operação e nenhuma delas
+> deve aparecer no texto.
 
 ## Fórmulas fundamentais
 
-- **Tx MQL** = MQLs ÷ Leads · **CPMQL** = Investimento ÷ MQLs
-- **Tx Agendamento** = Agendamentos ÷ MQLs · **CPAG** = Investimento ÷ Agendamentos
-- **Tx NS** = No-Shows÷ Agendamentos · **CPNS** = Investimento ÷ No-Shows
-- **No‑Show** = 1 − (Reuniões Realizadas ÷ Agendamentos) · **CPRR** = Investimento ÷ Reuniões Realizadas
-- **Tx Venda** = Vendas ÷ Reuniões Realizadas · **CAC** = Investimento ÷ Vendas
-- **ROAS** = Faturamento ÷ Investimento · **Ticket** = Faturamento ÷ Vendas
-- Conversões acumuladas úteis: Lead→Agendamento, Lead→Reunião Realizada, Lead→Venda,
-  MQL→Reunião Realizada, MQL→Venda, Agendamento→Venda.
+- **CPM** = Investimento ÷ Impressões × 1000
+- **CTR** = Cliques no link ÷ Impressões · **CPC** = Investimento ÷ Cliques
+- **CPV** = Investimento ÷ Visitas no Perfil
+- **CPS** = Investimento ÷ Seguidores · **Cliques→Seguidor** = Seguidores ÷ Cliques
 
-Regra de ouro: **acumulativas somam** (impressões, cliques, leads, MQLs, gasto);
-**derivadas recalculam dos totais** (nunca some percentuais).
+Nos dois últimos pares, o investimento e os cliques são os **dos dias que têm
+contagem**, não os do período inteiro — os valores em `relatorios_dados.json` já
+vêm assim.
+
+Regra de ouro: **acumulativas somam** (impressões, cliques, gasto, visitas,
+seguidores); **derivadas recalculam dos totais** (nunca some percentuais). E
+**alcance não é acumulativo** — é deduplicado, não some nem entre dias nem entre
+anúncios; por isso não está nos dados.
 
 ## Princípio de interpretação
 
 Trate cada métrica como **diagnóstico probabilístico**, nunca regra absoluta.
 Uma métrica ruim raramente identifica sozinha a causa. Leia **sempre** com a etapa
 anterior e a posterior, o histórico, o **volume da amostra** e o **tempo de
-maturação**. O objetivo não é o menor CPL nem o maior volume de leads — é gerar
-leads qualificados que avancem no funil até a venda.
+maturação**. O objetivo não é o menor CPC nem o maior volume de cliques — é
+ganhar seguidor a um custo que se sustente.
 
-**CPMQL, CPAG, CPRR, CAC e ROAS são resultados acumulados (efeito), não causas.**
-Ao ver um deles ruim, aponte a **etapa** que perdeu eficiência — não recomende
-"reduzir o CAC/CPRR/ROAS" de forma abstrata.
+**CPV e CPS são resultados acumulados (efeito), não causas.** Ao ver um deles
+ruim, aponte a **etapa** que perdeu eficiência — CPM (leilão/criativo), CTR
+(interesse), CPV ou Cliques→Seguidor (perfil e conteúdo) — não
+recomende "reduzir o CPS" de forma abstrata.
 
 ### Leitura por etapa (resumo)
 - **CTR** (Cliques/Impressões): interesse do criativo. CTR baixo **pode ser bom**

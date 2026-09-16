@@ -6,7 +6,7 @@ Funções puras de datas/agregação usadas por `coletar_dados_relatorio.py`
 texto/interpretação mora aqui — só aritmética sobre os registros brutos de
 `build.py` (`media[]`/`seg[]`).
 
-Funil de DISTRIBUIÇÃO DE CONTEÚDO: Gasto → Impressões → Alcance → Cliques →
+Funil de DISTRIBUIÇÃO DE CONTEÚDO: Gasto → Impressões → Cliques →
 Visitas no Perfil → Seguidores. Visitas e Seguidores vêm da planilha de
 controle e só existem por DIA (sem quebra por campanha/anúncio) e só dentro da
 janela que ela cobre — por isso o custo e a taxa de conversão dessas duas
@@ -100,7 +100,6 @@ def agg(media: list[dict], seg: list[dict], start: date, end: date, camp: str | 
     spend = sum(r["sp"] for r in m) * bp.TAX_FACTOR
     impr = sum(r["im"] for r in m)
     clicks = sum(r["cl"] for r in m)
-    reach = sum(r["rc"] for r in m)
 
     por_dimensao = camp is not None or adset is not None or ad is not None
     s = [r for r in seg if in_range(r["d"], start, end)] if not por_dimensao else []
@@ -114,7 +113,7 @@ def agg(media: list[dict], seg: list[dict], start: date, end: date, camp: str | 
     spend_seg = sum(r["sp"] for r in m_todos if r["d"] in dias_seg) * bp.TAX_FACTOR
     clicks_seg = sum(r["cl"] for r in m_todos if r["d"] in dias_seg)
 
-    return {"spend": spend, "impr": impr, "clicks": clicks, "reach": reach,
+    return {"spend": spend, "impr": impr, "clicks": clicks,
             "visitas": sum(r["vis"] for r in s) if dias_vis else None,
             "seguidores": sum(r["seg"] for r in s) if dias_seg else None,
             "spend_vis": spend_vis, "clicks_vis": clicks_vis,
@@ -122,15 +121,16 @@ def agg(media: list[dict], seg: list[dict], start: date, end: date, camp: str | 
 
 
 def derived(a: dict) -> dict:
-    spend, impr, clicks, reach = a["spend"], a["impr"], a["clicks"], a["reach"]
+    """Sem alcance nem frequencia: alcance e' deduplicado pelo Meta e as linhas
+    da planilha sao por anuncio x dia — somar nao devolve alcance. Ver a nota em
+    build.py::process_media."""
+    spend, impr, clicks = a["spend"], a["impr"], a["clicks"]
     visitas, seguidores = a.get("visitas"), a.get("seguidores")
     return {
         "cpm": (spend / impr * 1000) if impr else None,
         "ctr": (clicks / impr) if impr else None,
         "cpc": (spend / clicks) if clicks else None,
-        "freq": (impr / reach) if reach else None,
         "cpv": (a["spend_vis"] / visitas) if visitas else None,
-        "txvis": (visitas / a["clicks_vis"]) if visitas and a["clicks_vis"] else None,
         "cps": (a["spend_seg"] / seguidores) if seguidores else None,
         "txseg": (seguidores / a["clicks_seg"]) if seguidores and a["clicks_seg"] else None,
         **a,
@@ -183,7 +183,7 @@ def previous_period(key: str, start: date, end: date, today: date,
     return p_start, p_end, "período imediatamente anterior, mesma duração"
 
 
-RATE_METRICS = {"ctr", "txvis", "txseg"}
+RATE_METRICS = {"ctr", "txseg"}
 MATERIAL_PCT = 0.10     # variação relativa mínima p/ considerar mudança relevante
 MATERIAL_PP = 0.03      # variação em pontos percentuais mínima p/ métricas de taxa
 
@@ -192,8 +192,8 @@ def compare(cur: dict, prev: dict | None) -> dict:
     """Compara duas agregações `derived()` métrica a métrica. Só marca
     `material=True` quando a variação passa os limiares mínimos — evita
     listar oscilações irrelevantes como se fossem alerta (regra §7)."""
-    metrics = ["spend", "impr", "clicks", "reach", "visitas", "seguidores",
-               "cpm", "ctr", "cpc", "freq", "cpv", "txvis", "cps", "txseg"]
+    metrics = ["spend", "impr", "clicks", "visitas", "seguidores",
+               "cpm", "ctr", "cpc", "cpv", "cps", "txseg"]
     out = {}
     for m in metrics:
         cv, pv = cur.get(m), (prev or {}).get(m)
@@ -204,8 +204,7 @@ def compare(cur: dict, prev: dict | None) -> dict:
             row["delta_pct"] = round((cv - pv) / pv, 4) if pv else None
             if m in RATE_METRICS:
                 row["delta_pp"] = round((cv - pv) * 100, 2)
-            # frequência alta = público saturando, então entra junto dos custos
-            higher_is_better = m not in ("spend", "cpm", "cpc", "cpv", "cps", "freq")
+            higher_is_better = m not in ("spend", "cpm", "cpc", "cpv", "cps")
             if abs(cv - pv) < 1e-9:
                 row["direcao"] = "estavel"
             else:
@@ -259,13 +258,9 @@ def funnel_health(cur: dict, baseline: dict, meta_cpc, meta_cps,
     else:
         sub["aquisicao"] = None
 
-    # Saturação do público: frequência (impressões por pessoa alcançada). Até
-    # ~1,5x o público ainda está sendo renovado; daí para cima o mesmo criativo
-    # começa a repetir para quem já viu, que é o desgaste típico deste funil.
-    if cur.get("freq") is not None:
-        sub["saturacao_publico"] = round(_clamp(10 - max(0.0, cur["freq"] - 1.5) * 5), 1)
-    else:
-        sub["saturacao_publico"] = None
+    # Não há subnota de saturação do público: ela dependia da frequência, que
+    # exige alcance deduplicado — indisponível nesta fonte (ver build.py).
+    # O desgaste de criativo aparece indiretamente em aquisicao (CPM/CTR).
 
     # Custo por clique vs. meta (se definida) ou vs. baseline de 30 dias.
     if cur.get("cpc") is not None:
@@ -274,11 +269,14 @@ def funnel_health(cur: dict, baseline: dict, meta_cpc, meta_cps,
     else:
         sub["custo_clique"] = None
 
-    # Conversão em perfil: quanto do clique vira visita ao perfil.
-    if cur.get("txvis") is not None and baseline.get("txvis"):
-        sub["conversao_perfil"] = round(_clamp(10 * cur["txvis"] / baseline["txvis"]), 1)
+    # Custo por visita ao perfil vs. baseline de 30 dias. Antes esta subnota era
+    # a taxa Cliques→Visita, retirada por passar de 100%: "cliques no link" e'
+    # mais estreito que visita ao perfil, entao a razao entre os dois nao era
+    # uma taxa de conversao e induzia a leitura errada.
+    if cur.get("cpv") is not None and baseline.get("cpv"):
+        sub["custo_visita"] = round(_clamp(10 - ((cur["cpv"] - baseline["cpv"]) / baseline["cpv"]) * 10), 1)
     else:
-        sub["conversao_perfil"] = None
+        sub["custo_visita"] = None
 
     # Resultado final do funil: custo por seguidor vs. meta ou baseline.
     if cur.get("cps") is not None:

@@ -6,8 +6,8 @@ Lilian Mesquita a partir de DUAS planilhas distintas — nunca confundir as duas
 
   PLANILHA 1 — "Extracao Dashboard" (SPREADSHEET_MEDIA), aba "Pagina1".
     Fonte UNICA de midia paga: Data, Campaign Name, Ad Set Name, Ad Name,
-    Impressoes, Cliques no link, Amount Spent, Alcance. E' a unica fonte de
-    gasto/impressoes/cliques/alcance e a unica com quebra por
+    Impressoes, Cliques no link, Amount Spent. E' a unica fonte de
+    gasto/impressoes/cliques e a unica com quebra por
     campanha/conjunto/anuncio.
 
   PLANILHA 2 — "Lilian Mesquita | Controle de trafego - 2026"
@@ -235,25 +235,43 @@ def process_media(rows):
     gasto/impressoes*1000 em todas as linhas (logo, 4=impressoes, 6=gasto,
     8=CPM) e a 7 nunca excede a 4 (logo e' o alcance, nao os cliques).
     O CPM da planilha nao e' importado: e' recalculado no navegador, ja com o
-    fator de imposto aplicado."""
+    fator de imposto aplicado.
+
+    A coluna 7 e' o ALCANCE e NAO e' lida. Alcance e' deduplicado — o
+    Meta conta pessoas, nao eventos — e estas linhas sao por anuncio x dia.
+    Somar alcance nao devolve alcance: nem entre dias (quem viu em 12 dias e'
+    contado 12 vezes) nem entre anuncios (as mesmas pessoas veem criativos
+    diferentes). Em agosto/2026 a soma dava 29.833 contra 22.333 reais no
+    gerenciador, e a frequencia derivada caia de 1,53 para 1,06. Como nenhuma
+    view da dashboard mostra uma linha crua, nao ha onde o numero seria valido,
+    entao ele fica de fora do payload em vez de virar um total errado.
+
+    Linhas sem data valida sao descartadas — e CONTADAS, para o log poder
+    denunciar extracao malformada em vez de perder gasto em silencio."""
     header = rows[0] if rows else []
     idx = header_index(
         header,
         {"day": ["day", "data"], "campaign": ["campaign name", "campanha"],
          "adset": ["ad set name", "conjunto"], "ad": ["ad name", "anuncio"],
          "impr": ["impressions", "impress"], "clicks": ["link clicks", "cliques"],
-         "spent": ["amount spent", "valor gasto", "gasto"], "reach": ["reach", "alcance"]},
+         "spent": ["amount spent", "valor gasto", "gasto"]},
         {"day": 0, "campaign": 1, "adset": 2, "ad": 3,
-         "impr": 4, "clicks": 5, "spent": 6, "reach": 7},
+         "impr": 4, "clicks": 5, "spent": 6},
     )
 
     media = []
+    ignoradas = []                        # linhas com conteudo mas sem data valida
     for row in rows[1:]:
         if not any((c or "").strip() for c in row):
             continue
         d = parse_date(cell(row, idx["day"]))
         if not d:
-            continue                      # linha de cabecalho/rodape, nao de dado
+            # Guarda o gasto da linha perdida: se a extracao trouxer datas num
+            # formato novo, o log mostra QUANTO dinheiro sumiu, em vez de a
+            # dashboard simplesmente ficar menor que o gerenciador.
+            ignoradas.append({"data": cell(row, idx["day"]),
+                              "sp": to_float(cell(row, idx["spent"]))})
+            continue
         camp = cell(row, idx["campaign"]) or "(sem campanha)"
         adset = cell(row, idx["adset"]) or "(sem conjunto)"
         ad = cell(row, idx["ad"]) or "(sem anúncio)"
@@ -269,9 +287,29 @@ def process_media(rows):
             "sp": round(to_float(cell(row, idx["spent"])), 4),
             "im": to_float(cell(row, idx["impr"])),
             "cl": to_float(cell(row, idx["clicks"])),
-            "rc": to_float(cell(row, idx["reach"])),
         })
-    return media
+    return media, ignoradas
+
+
+def resumo_mensal(media):
+    """Totais por mes da midia — o que o gestor compara com o gerenciador.
+
+    A dashboard so' pode ser tao completa quanto a extracao: em agosto/2026 a
+    Planilha 1 tinha R$ 770,42 e 31.611 impressoes contra R$ 819,23 e 34.170 no
+    Meta (-6,0% e -7,5%). Nao da' para detectar isso daqui — nao ha acesso ao
+    Meta — mas da' para deixar o numero na cara de quem confere."""
+    meses: dict[str, dict] = {}
+    for m in media:
+        k = m["d"][:7]
+        a = meses.setdefault(k, {"mes": k, "sp": 0.0, "im": 0.0, "cl": 0.0, "linhas": 0})
+        a["sp"] += m["sp"]
+        a["im"] += m["im"]
+        a["cl"] += m["cl"]
+        a["linhas"] += 1
+    return [
+        {**a, "sp": round(a["sp"], 2), "im": int(a["im"]), "cl": int(a["cl"])}
+        for _, a in sorted(meses.items())
+    ]
 
 
 # --------------------------------------------------------------------------- #
@@ -391,9 +429,20 @@ def log_conferencia(media, seg):
 # Montagem do payload
 # --------------------------------------------------------------------------- #
 def process(media_rows, controle_abas):
-    media = process_media(media_rows)
+    media, ignoradas = process_media(media_rows)
     seg = process_controle(controle_abas)
     log_conferencia(media, seg)
+
+    meses = resumo_mensal(media)
+    print("  totais por mes (compare com o gerenciador):", file=sys.stderr)
+    for a in meses:
+        print(f"    {a['mes']}  R$ {a['sp']:>9,.2f} | {a['im']:>7,} impr | "
+              f"{a['cl']:>5,} cliques | {a['linhas']:>4} linhas", file=sys.stderr)
+    if ignoradas:
+        perdido = sum(x["sp"] for x in ignoradas)
+        print(f"  !! {len(ignoradas)} linha(s) da midia DESCARTADAS por data invalida "
+              f"(R$ {perdido:,.2f} fora da dashboard). Amostra das datas: "
+              f"{[x['data'] for x in ignoradas[:5]]}", file=sys.stderr)
 
     dates = sorted({d for d in ([m["d"] for m in media] + [s["d"] for s in seg]) if d})
     now_brt = datetime.now(BRT)
@@ -424,6 +473,16 @@ def process(media_rows, controle_abas):
             "seg_date_max": next((s["d"] for s in reversed(seg) if s["segOk"]), None),
             "vis_date_min": next((s["d"] for s in seg if s["visOk"]), None),
             "vis_date_max": next((s["d"] for s in reversed(seg) if s["visOk"]), None),
+        },
+        # Conferencia da extracao — a dashboard so' pode ser tao completa quanto
+        # a Planilha 1, e nao ha como checar contra o Meta daqui. Estes numeros
+        # ficam no payload para o front avisar quando a extracao parece parada e
+        # para o gestor bater os totais do mes com o gerenciador em segundos.
+        "conferencia": {
+            "meses": meses,
+            "midia_date_max": max((m["d"] for m in media), default=None),
+            "linhas_ignoradas": len(ignoradas),
+            "gasto_ignorado": round(sum(x["sp"] for x in ignoradas), 2),
         },
         "media": media,
         "seg": seg,

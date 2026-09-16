@@ -14,13 +14,12 @@
   /* séries de gráfico (paleta) */
   --cc1:#3B5BDB; --cc2:#1BAF7A; --cc3:#E34948; --cc4:#E8A400; --cc5:#8AA0F0;
   --cc6:#9B59B6; --cc7:#16A085; --cc8:#E67E22; --cc9:#F97316; --cc10:#6366F1;
-  /* linhas semânticas dos gráficos (Leads/MQLs/Gasto/CPL/CPMQL) */
+  /* linhas semânticas dos gráficos (Cliques/Seguidores/Gasto/CPC/CPS) */
   --chart-cliques:#3B5BDB; --chart-seg:#0891B2; --chart-gasto:#E34948;
   --chart-cpc:#1A1D2E; --chart-cps:#E8A400;
-  /* barras auxiliares */
   /* heatmap por coluna (uma cor fixa por métrica; a opacidade varia no JS) */
-  --heat-gasto:#E34948; --heat-cliques:#3B5BDB; --heat-seg:#0891B2; --heat-ctr:#FFD400; --heat-alcance:#1BAF7A;
-  /* destaque de etapas do funil (Mar01): MQL azulado · Gasto avermelhado · Faturamento/Receita esverdeado */
+  --heat-gasto:#E34948; --heat-cliques:#3B5BDB; --heat-seg:#0891B2; --heat-ctr:#FFD400; --heat-visitas:#1BAF7A;
+  /* destaque de etapas do funil: Seguidores azulado · Gasto avermelhado */
   --step-seg-bg:#EAF0FF; --step-seg-bd:#3B5BDB;
   --step-gasto-bg:#FDECEC; --step-gasto-bd:#E34948;
 }
@@ -51,10 +50,9 @@
   /* linhas semânticas dos gráficos (vívidas) */
   --chart-cliques:#2F6BFF; --chart-seg:#22D3EE; --chart-gasto:#FF3B47;
   --chart-cpc:#F2F3F5; --chart-cps:#FFB020;
-  /* barras auxiliares */
-  /* heatmap por coluna: Gasto vermelho · Leads azul · MQLs ciano · Vendas verde · ROAS amarelo */
-  --heat-gasto:#EF4444; --heat-cliques:#3B82F6; --heat-seg:#22D3EE; --heat-ctr:#FFD400; --heat-alcance:#22C55E;
-  /* destaque de etapas do funil (Mar01): MQL azulado · Gasto avermelhado · Faturamento/Receita esverdeado */
+  /* heatmap por coluna: Gasto vermelho · Cliques azul · Seguidores ciano · Visitas verde · CTR amarelo */
+  --heat-gasto:#EF4444; --heat-cliques:#3B82F6; --heat-seg:#22D3EE; --heat-ctr:#FFD400; --heat-visitas:#22C55E;
+  /* destaque de etapas do funil: Seguidores azulado · Gasto avermelhado */
   --step-seg-bg:#16233F; --step-seg-bd:#5B7BF0;
   --step-gasto-bg:#3A1D20; --step-gasto-bd:#EF4444;
 }
