@@ -55,10 +55,13 @@ SPREADSHEET_MEDIA = "1vZgI8ju2OcQit2oEEGPbK-pm19gulnpiFH91TEh3ecI"
 ABA_MEDIA = "Página1"
 
 SPREADSHEET_CONTROLE = "1ESPchuMZHmXrDIyl5N8Kzy9i20Et0-9EkDVXe_DhSNs"
-# So estas duas abas, conforme definido com o cliente. A planilha tambem tem uma
-# aba "📈 Set" (residuo do template) que conflita com a "📈 Setembro": a "Set"
-# tem investimento sem seguidores nos mesmos dias. A aba correta e' a "Setembro".
-ABAS_CONTROLE = ["📈 Ago", "📈 Setembro"]
+# Uma aba por mes coberto, conforme definido com o cliente. A planilha tambem
+# tem uma aba "📈 Set" (residuo do template) que conflita com a "📈 Setembro": a
+# "Set" tem investimento sem seguidores nos mesmos dias. A aba correta e' a
+# "Setembro". O gestor cria a aba do mes a mao, entao quando um mes novo comeca
+# e' preciso acrescentar o nome aqui — sem isso as visitas e os seguidores do mes
+# simplesmente param (foi o que aconteceu com outubro ate 05/10/2026).
+ABAS_CONTROLE = ["📈 Ago", "📈 Setembro", "📈 Outubro"]
 
 GVIZ_URL = ("https://docs.google.com/spreadsheets/d/{sid}/gviz/tq"
             "?tqx=out:csv&headers=0&sheet={aba}")
@@ -354,7 +357,11 @@ def valida_layout_controle(aba, rows):
         for nome, (col_vol, col_custo) in conf.items():
             vol = to_float(cell(row, col_vol))
             custo = to_float(cell(row, col_custo))
-            if not vol:
+            # Linha so' serve de prova se o volume E o custo estiverem
+            # preenchidos: a aba do mes corrente costuma ter o volume lancado e
+            # a coluna de custo ainda em branco, e isso nao diz nada sobre a
+            # posicao das colunas.
+            if not vol or not custo:
                 continue
             ok = abs(inv / vol - custo) <= 0.02
             placar[nome][0 if ok else 1] += 1
@@ -547,7 +554,19 @@ def main():
             controle_abas.append((os.path.basename(caminho), read_csv_file(caminho)))
     else:
         for aba in ABAS_CONTROLE:
-            controle_abas.append((aba, fetch_csv(aba_url(SPREADSHEET_CONTROLE, aba))))
+            # A aba do mes e' criada a mao pelo gestor. Se ainda nao existir, o
+            # gviz devolve erro: avisa alto e segue com os meses que existem, em
+            # vez de derrubar o build inteiro (e com ele a publicacao do site).
+            try:
+                controle_abas.append((aba, fetch_csv(aba_url(SPREADSHEET_CONTROLE, aba))))
+            except Exception as e:
+                print(f"  !! ATENCAO: a aba {aba!r} da planilha de controle nao "
+                      f"pode ser lida ({e}). As visitas e os seguidores desse mes "
+                      f"ficam de fora desta publicacao.", file=sys.stderr)
+        if not controle_abas:
+            sys.exit("ERRO: nenhuma aba da planilha de controle pode ser lida — "
+                     "o build pararia aqui em vez de publicar um funil sem "
+                     "visitas nem seguidores.")
 
     data = process(media_rows, controle_abas)
 
