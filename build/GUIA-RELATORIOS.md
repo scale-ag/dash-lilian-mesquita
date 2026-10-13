@@ -8,20 +8,20 @@
 > fala em Lead, MQL, CPMQL, Agendamento, Reunião, Venda, CAC, Faturamento e
 > ROAS**. Nada disso existe nesta operação.
 >
-> O funil é `Gasto → Impressões → Cliques no link → Visitas no Perfil →
-> Seguidores`; as métricas são CPM, CTR, CPC, CPV e CPS. **Não existe alcance
-> nem frequência nos dados** (alcance é deduplicado pelo Meta e as linhas da
-> fonte são por anúncio × dia — somar não devolve alcance).
+> O funil é `Gasto → Impressões → Cliques no link → Seguidores`; as métricas
+> são CPM, CTR, CPC e CPS. **Não existe alcance nem frequência nos dados**
+> (alcance é deduplicado pelo Meta e as linhas da fonte são por anúncio × dia —
+> somar não devolve alcance) **e não existe mais Visita no Perfil** (etapa
+> retirada em 13/10/2026 a pedido do cliente).
 >
-> Onde o guia disser "MQL", leia **Visita no Perfil**; onde disser "Venda" ou
-> "CAC", leia **Seguidor** e **CPS**. Qualquer instrução sobre etapa comercial
+> Onde o guia disser "MQL", "Venda" ou "CAC", leia **Seguidor** e **CPS**. Qualquer instrução sobre etapa comercial
 > (agendamento, reunião, no-show, ticket, ROAS) **não se aplica — ignore**.
 > Este cabeçalho sai quando o corpo do guia for reescrito.
 
 > Texto lido de `build/relatorios.json` pela aba **Relatório** (seção "Insights
 > de Tráfego"). **Não faz nenhuma chamada de API no build nem no navegador** —
 > a página só exibe o texto já pronto. Os números vêm dos mesmos dados do site
-> (mídia paga × contagem diária de visitas e seguidores); quem escreve o texto
+> (mídia paga × contagem diária de seguidores); quem escreve o texto
 > (hoje, uma Routine do Claude — ver seção abaixo) apenas **interpreta e redige**.
 > A aba Relatório espelha a Visão Geral e, abaixo, mostra **Top Anúncios ·
 > Piores Anúncios · Insights de Tráfego**.
@@ -96,26 +96,27 @@ Instagram cujo objetivo é levar gente ao perfil e converter em seguidor. Não h
 lead, MQL, venda nem faturamento nesta operação: o funil termina em seguidor.
 
 ```
-Gasto → Impressões → Cliques no link → Visitas no Perfil → Seguidores
+Gasto → Impressões → Cliques no link → Seguidores
 ```
 
-- **Custos:** CPM · CPC · CPV (custo por visita ao perfil) · CPS (custo por seguidor).
+- **Custos:** CPM · CPC · CPS (custo por seguidor).
 - **NÃO existe alcance nem frequência nos dados.** Alcance é deduplicado pelo
   Meta e as linhas da fonte são por anúncio × dia — somar não devolve alcance.
   **Não estime saturação de público**, não escreva "frequência" e não deduza
   desgaste de criativo a partir de impressões ÷ alguma coisa. O sinal disponível
   para desgaste é CPM subindo e/ou CTR caindo ao longo dos dias.
-- **Visitas no Perfil e Seguidores só existem por DIA.** A planilha de controle
-  não quebra por campanha/conjunto/anúncio — em qualquer recorte por estrutura
-  essas duas etapas vêm `null`. **Nunca atribua visita ou seguidor a um
-  criativo**: por anúncio, o resultado mais profundo é o CLIQUE.
-- **CPV e CPS são calculados só sobre os dias que têm contagem** (a planilha de
-  controle começa em 07/08, a mídia roda desde 03/06). Os números já vêm assim
-  em `relatorios_dados.json` — não recalcule.
-- **Não existe taxa Cliques→Visita.** Ela passava de 100% porque "cliques no
-  link" é mais estreito que visita ao perfil, então a razão entre os dois não é
-  uma conversão. Foi retirada — não a recalcule nem a mencione. A etapa de
-  Visitas no Perfil é lida pelo **CPV**.
+- **Seguidores só existe por DIA.** A planilha de controle não quebra por
+  campanha/conjunto/anúncio — em qualquer recorte por estrutura essa etapa vem
+  `null`. **Nunca atribua seguidor a um criativo**: por anúncio, o resultado
+  mais profundo é o CLIQUE.
+- **CPS é calculado só sobre os dias que têm contagem** (a planilha de controle
+  começa em 07/08, a mídia roda desde 03/06). Os números já vêm assim em
+  `relatorios_dados.json` — não recalcule.
+- **Não existe etapa de Visitas no Perfil.** Foi retirada do funil em
+  13/10/2026 a pedido do cliente: a coluna da planilha era lançada à mão e vinha
+  parando por dias seguidos enquanto a mídia rodava. **Não cite visitas ao
+  perfil, custo por visita (CPV) nem taxa Cliques→Visita** — os dados não
+  trazem mais nenhum dos três.
 - **Sigla do funil: `E1-DIST`** (única na conta). Nomenclatura de campanha:
   `SIGLA | ETAPA | PÚBLICO | OBJETIVO | BUDGET | DATA | DESCRIÇÃO`.
 - **Gasto vem sempre do gerenciador** (Planilha 1), nunca do investimento
@@ -129,14 +130,13 @@ Gasto → Impressões → Cliques no link → Visitas no Perfil → Seguidores
 
 - **CPM** = Investimento ÷ Impressões × 1000
 - **CTR** = Cliques no link ÷ Impressões · **CPC** = Investimento ÷ Cliques
-- **CPV** = Investimento ÷ Visitas no Perfil
 - **CPS** = Investimento ÷ Seguidores · **Cliques→Seguidor** = Seguidores ÷ Cliques
 
-Nos dois últimos pares, o investimento e os cliques são os **dos dias que têm
+Neste último par, o investimento e os cliques são os **dos dias que têm
 contagem**, não os do período inteiro — os valores em `relatorios_dados.json` já
 vêm assim.
 
-Regra de ouro: **acumulativas somam** (impressões, cliques, gasto, visitas,
+Regra de ouro: **acumulativas somam** (impressões, cliques, gasto,
 seguidores); **derivadas recalculam dos totais** (nunca some percentuais). E
 **alcance não é acumulativo** — é deduplicado, não some nem entre dias nem entre
 anúncios; por isso não está nos dados.
@@ -149,10 +149,10 @@ anterior e a posterior, o histórico, o **volume da amostra** e o **tempo de
 maturação**. O objetivo não é o menor CPC nem o maior volume de cliques — é
 ganhar seguidor a um custo que se sustente.
 
-**CPV e CPS são resultados acumulados (efeito), não causas.** Ao ver um deles
-ruim, aponte a **etapa** que perdeu eficiência — CPM (leilão/criativo), CTR
-(interesse), CPV ou Cliques→Seguidor (perfil e conteúdo) — não
-recomende "reduzir o CPS" de forma abstrata.
+**CPS é um resultado acumulado (efeito), não uma causa.** Ao vê-lo ruim, aponte
+a **etapa** que perdeu eficiência — CPM (leilão/criativo), CTR (interesse) ou
+Cliques→Seguidor (perfil e conteúdo) — não recomende "reduzir o CPS" de forma
+abstrata.
 
 ### Leitura por etapa (resumo)
 - **CTR** (Cliques/Impressões): interesse do criativo. CTR baixo **pode ser bom**

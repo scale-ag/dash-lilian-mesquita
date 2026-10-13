@@ -6,11 +6,12 @@ Funções puras de datas/agregação usadas por `coletar_dados_relatorio.py`
 texto/interpretação mora aqui — só aritmética sobre os registros brutos de
 `build.py` (`media[]`/`seg[]`).
 
-Funil de DISTRIBUIÇÃO DE CONTEÚDO: Gasto → Impressões → Cliques →
-Visitas no Perfil → Seguidores. Visitas e Seguidores vêm da planilha de
-controle e só existem por DIA (sem quebra por campanha/anúncio) e só dentro da
-janela que ela cobre — por isso o custo e a taxa de conversão dessas duas
-etapas são calculados sobre o gasto/cliques APENAS dos dias com contagem.
+Funil de DISTRIBUIÇÃO DE CONTEÚDO: Gasto → Impressões → Cliques → Seguidores.
+A contagem de seguidores vem da planilha de controle e só existe por DIA (sem
+quebra por campanha/anúncio) e só dentro da janela que ela cobre — por isso o
+custo e a taxa de conversão dessa etapa são calculados sobre o gasto/cliques
+APENAS dos dias com contagem. A etapa de Visitas no Perfil foi retirada do
+funil em 13/10/2026 a pedido do cliente (ver build.py).
 """
 from __future__ import annotations
 
@@ -78,13 +79,13 @@ def in_range(row_date: str | None, start: date, end: date) -> bool:
 
 def agg(media: list[dict], seg: list[dict], start: date, end: date, camp: str | None = None,
         adset: str | None = None, ad: str | None = None) -> dict:
-    """Agrega a mídia no recorte pedido e casa com a contagem diária de visitas
-    e seguidores.
+    """Agrega a mídia no recorte pedido e casa com a contagem diária de
+    seguidores.
 
-    Filtrar por campanha/conjunto/anúncio NÃO filtra visitas/seguidores: a
-    planilha de controle registra por dia, sem quebra por criativo, então
-    atribuir essas contagens a um anúncio seria invenção. Num recorte por
-    dimensão as duas etapas saem como None."""
+    Filtrar por campanha/conjunto/anúncio NÃO filtra seguidores: a planilha de
+    controle registra por dia, sem quebra por criativo, então atribuir essa
+    contagem a um anúncio seria invenção. Num recorte por dimensão a etapa sai
+    como None."""
     def keep(r):
         if not in_range(r["d"], start, end):
             return False
@@ -103,20 +104,15 @@ def agg(media: list[dict], seg: list[dict], start: date, end: date, camp: str | 
 
     por_dimensao = camp is not None or adset is not None or ad is not None
     s = [r for r in seg if in_range(r["d"], start, end)] if not por_dimensao else []
-    dias_vis = {r["d"] for r in s if r.get("visOk")}
     dias_seg = {r["d"] for r in s if r.get("segOk")}
-    # gasto/cliques restritos aos dias que têm cada contagem — sem isso o custo
-    # por visita/seguidor herdaria o gasto de dias que a planilha não cobre.
+    # gasto/cliques restritos aos dias que têm contagem — sem isso o custo por
+    # seguidor herdaria o gasto de dias que a planilha não cobre.
     m_todos = [r for r in media if in_range(r["d"], start, end)]
-    spend_vis = sum(r["sp"] for r in m_todos if r["d"] in dias_vis) * bp.TAX_FACTOR
-    clicks_vis = sum(r["cl"] for r in m_todos if r["d"] in dias_vis)
     spend_seg = sum(r["sp"] for r in m_todos if r["d"] in dias_seg) * bp.TAX_FACTOR
     clicks_seg = sum(r["cl"] for r in m_todos if r["d"] in dias_seg)
 
     return {"spend": spend, "impr": impr, "clicks": clicks,
-            "visitas": sum(r["vis"] for r in s) if dias_vis else None,
             "seguidores": sum(r["seg"] for r in s) if dias_seg else None,
-            "spend_vis": spend_vis, "clicks_vis": clicks_vis,
             "spend_seg": spend_seg, "clicks_seg": clicks_seg}
 
 
@@ -125,12 +121,11 @@ def derived(a: dict) -> dict:
     da planilha sao por anuncio x dia — somar nao devolve alcance. Ver a nota em
     build.py::process_media."""
     spend, impr, clicks = a["spend"], a["impr"], a["clicks"]
-    visitas, seguidores = a.get("visitas"), a.get("seguidores")
+    seguidores = a.get("seguidores")
     return {
         "cpm": (spend / impr * 1000) if impr else None,
         "ctr": (clicks / impr) if impr else None,
         "cpc": (spend / clicks) if clicks else None,
-        "cpv": (a["spend_vis"] / visitas) if visitas else None,
         "cps": (a["spend_seg"] / seguidores) if seguidores else None,
         "txseg": (seguidores / a["clicks_seg"]) if seguidores and a["clicks_seg"] else None,
         **a,
@@ -192,8 +187,8 @@ def compare(cur: dict, prev: dict | None) -> dict:
     """Compara duas agregações `derived()` métrica a métrica. Só marca
     `material=True` quando a variação passa os limiares mínimos — evita
     listar oscilações irrelevantes como se fossem alerta (regra §7)."""
-    metrics = ["spend", "impr", "clicks", "visitas", "seguidores",
-               "cpm", "ctr", "cpc", "cpv", "cps", "txseg"]
+    metrics = ["spend", "impr", "clicks", "seguidores",
+               "cpm", "ctr", "cpc", "cps", "txseg"]
     out = {}
     for m in metrics:
         cv, pv = cur.get(m), (prev or {}).get(m)
@@ -204,7 +199,7 @@ def compare(cur: dict, prev: dict | None) -> dict:
             row["delta_pct"] = round((cv - pv) / pv, 4) if pv else None
             if m in RATE_METRICS:
                 row["delta_pp"] = round((cv - pv) * 100, 2)
-            higher_is_better = m not in ("spend", "cpm", "cpc", "cpv", "cps")
+            higher_is_better = m not in ("spend", "cpm", "cpc", "cps")
             if abs(cv - pv) < 1e-9:
                 row["direcao"] = "estavel"
             else:
@@ -269,14 +264,9 @@ def funnel_health(cur: dict, baseline: dict, meta_cpc, meta_cps,
     else:
         sub["custo_clique"] = None
 
-    # Custo por visita ao perfil vs. baseline de 30 dias. Antes esta subnota era
-    # a taxa Cliques→Visita, retirada por passar de 100%: "cliques no link" e'
-    # mais estreito que visita ao perfil, entao a razao entre os dois nao era
-    # uma taxa de conversao e induzia a leitura errada.
-    if cur.get("cpv") is not None and baseline.get("cpv"):
-        sub["custo_visita"] = round(_clamp(10 - ((cur["cpv"] - baseline["cpv"]) / baseline["cpv"]) * 10), 1)
-    else:
-        sub["custo_visita"] = None
+    # Nao ha subnota de custo por visita ao perfil: a etapa de Visitas saiu do
+    # funil em 13/10/2026 (ver build.py). Antes dela, esta subnota ja' tinha
+    # substituido a taxa Cliques→Visita, retirada por passar de 100%.
 
     # Resultado final do funil: custo por seguidor vs. meta ou baseline.
     if cur.get("cps") is not None:

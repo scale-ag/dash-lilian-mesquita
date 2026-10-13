@@ -4,11 +4,14 @@
 >
 > Veio do template de captura de leads High Ticket. A operação da Lilian
 > Mesquita é **distribuição de conteúdo**:
-> `Gasto → Impressões → Cliques no link → Visitas no Perfil → Seguidores`.
+> `Gasto → Impressões → Cliques no link → Seguidores`.
 >
 > **Não existem** Lead, MQL, Agendamento, Reunião, No-Show, Venda, CAC,
-> Faturamento, Ticket nem ROAS — nem nos dados, nem na dashboard. **Não existem
-> Alcance nem Frequência**: alcance é deduplicado pelo Meta e as linhas da fonte
+> Faturamento, Ticket nem ROAS — nem nos dados, nem na dashboard. **Também não
+> existe Visita no Perfil**: a etapa foi retirada do funil em 13/10/2026 a
+> pedido do cliente, então ignore toda passagem deste guia que fale em visita,
+> custo por visita (CPV) ou taxa Clique→Visita. **Não existem Alcance nem
+> Frequência**: alcance é deduplicado pelo Meta e as linhas da fonte
 > são por anúncio × dia, então somar não devolve alcance. Não estime saturação
 > de público; o sinal disponível para desgaste de criativo é **CPM subindo e/ou
 > CTR caindo** ao longo dos dias.

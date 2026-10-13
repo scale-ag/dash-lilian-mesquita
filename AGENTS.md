@@ -10,8 +10,7 @@ App de BI estático (HTML/CSS/JS puro + Chart.js via CDN) publicado no GitHub
 Pages em **https://scale-ag.github.io/dash-lilian-mesquita/**, reconstruído a
 cada ~30 min por GitHub Actions. Somente leitura das planilhas.
 
-Funil: `Gasto → Impressões → Cliques no link → Visitas no Perfil →
-Seguidores`. **Não há lead, MQL, venda, faturamento nem ROAS** — se você
+Funil: `Gasto → Impressões → Cliques no link → Seguidores`. **Não há lead, MQL, venda, faturamento nem ROAS** — se você
 encontrar esses termos em algum texto, é resíduo do template de onde este repo
 nasceu e deve ser corrigido.
 
@@ -20,14 +19,16 @@ nasceu e deve ser corrigido.
 1. **Duas planilhas, papéis distintos.** A *Extração Dashboard* (Planilha 1) é a
    fonte de verdade de gasto/impressões/cliques e a única com quebra por
    campanha/conjunto/anúncio. A *Controle de tráfego* (Planilha 2) entra só com
-   Visitas ao perfil e Seguidores. Nunca busque investimento na 2 nem visita na 1.
-2. **Visitas e Seguidores existem só por DIA.** A Planilha 2 não quebra por
+   Seguidores. Nunca busque investimento na 2 nem seguidor na 1. As colunas de
+   Visitas ao perfil da Planilha 2 existem mas NÃO são lidas: a etapa saiu do
+   funil em 13/10/2026 a pedido do cliente.
+2. **Seguidores existe só por DIA.** A Planilha 2 não quebra por
    criativo. Em qualquer recorte por estrutura essas etapas voltam `null` —
    atribuí-las a um anúncio seria invenção. Por anúncio, o resultado mais
    profundo é o **clique**.
 3. **Custos das duas últimas etapas usam só os dias com contagem.** A Planilha 2
    começa em 07/08; a mídia roda desde 03/06. Dividir o gasto do período inteiro
-   pelas visitas de agosto/setembro dava R$ 1,05 por visita em vez de R$ 0,32.
+   pelos seguidores de agosto/setembro dava R$ 13,56 por seguidor em vez de R$ 4,11.
 4. **A Planilha 2 é editada à mão e já mudou de layout.** A leitura é posicional
    (`COL_CTRL_*` em `build.py`); `valida_layout_controle()` confere a aritmética
    de cada bloco e avisa no log se as colunas saírem do lugar.
