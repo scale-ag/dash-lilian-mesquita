@@ -12,12 +12,12 @@ Somente leitura das planilhas — a dashboard nunca escreve nelas.
 ## Funil
 
 ```
-Gasto → Impressões → Cliques no link → Visitas no Perfil → Seguidores
+Gasto → Impressões → Cliques no link → Seguidores
 ```
 
 Não há lead, MQL, venda nem faturamento nesta operação: é um funil de topo, cujo
 resultado final é seguidor no perfil. As métricas de custo são **CPM**, **CPC**,
-**Custo por Visita (CPV)** e **Custo por Seguidor (CPS)**.
+**Custo por Seguidor (CPS)**.
 
 > **Não há Alcance nem Frequência.** A Planilha 1 traz uma coluna de alcance,
 > mas alcance é deduplicado — o Meta conta pessoas, não eventos — e as linhas
@@ -31,7 +31,7 @@ resultado final é seguidor no perfil. As métricas de custo são **CPM**, **CPC
 | # | Planilha | Aba(s) lida(s) | O que vem dela |
 |---|----------|----------------|----------------|
 | 1 | [Extração Dashboard](https://docs.google.com/spreadsheets/d/1vZgI8ju2OcQit2oEEGPbK-pm19gulnpiFH91TEh3ecI) | `Página1` | Data · Campaign Name · Ad Set Name · Ad Name · Impressões · Cliques no link · Amount Spent |
-| 2 | [Controle de tráfego — 2026](https://docs.google.com/spreadsheets/d/1ESPchuMZHmXrDIyl5N8Kzy9i20Et0-9EkDVXe_DhSNs) | `📈 Ago` e `📈 Setembro` | Visitas ao perfil · Custo por Visita · Seguidores · CPS (bloco `META — Seguidores` + `Meta - Visitas no Perfil do Instagram`) |
+| 2 | [Controle de tráfego — 2026](https://docs.google.com/spreadsheets/d/1ESPchuMZHmXrDIyl5N8Kzy9i20Et0-9EkDVXe_DhSNs) | `📈 Ago`, `📈 Setembro` e `📈 Outubro` | Seguidores · CPS (bloco `META — Seguidores`). O bloco `Meta - Visitas no Perfil do Instagram` existe na planilha e **não é lido** — a etapa saiu do funil em 13/10/2026. |
 
 Regras que valem em todo o projeto:
 
@@ -40,11 +40,11 @@ Regras que valem em todo o projeto:
   campanha/conjunto/anúncio. Em agosto o investimento lançado à mão na Planilha 2
   não reconcilia com o gerenciador — o build loga a diferença dia a dia, mas
   nunca usa o número do controle em nenhum cálculo.
-- **Visitas ao perfil e Seguidores existem só por DIA.** A Planilha 2 não quebra
+- **Seguidores existe só por DIA.** A Planilha 2 não quebra
   por criativo, então essas duas etapas somem de qualquer tabela ou filtro por
   campanha/conjunto/anúncio (aparecem como "sem dado", nunca como zero).
 - **Fora da janela coberta pela Planilha 2** (antes de 07/08) o valor é ausência
-  de dado, não zero — por isso o custo por visita/seguidor é calculado só sobre o
+  de dado, não zero — por isso o custo por seguidor é calculado só sobre o
   gasto dos dias que têm contagem.
 - A aba `📈 Set` da Planilha 2 é resíduo do template e **não é lida**: ela
   conflita com a `📈 Setembro`, que é a que o gestor preenche.
@@ -55,7 +55,7 @@ confiável, enquanto o nome da aba é estável e visível para o gestor.
 
 ### Imposto da mídia
 `TAX_FACTOR = 1.1385` (13,85%) em `build/build.py`. O toggle **Imposto Meta**
-nasce ativo e aplica o fator em todo o gasto e derivados (CPM, CPC, CPV, CPS);
+nasce ativo e aplica o fator em todo o gasto e derivados (CPM, CPC, CPS);
 desligá-lo mostra o gasto sem imposto.
 
 ### Nomenclatura das campanhas

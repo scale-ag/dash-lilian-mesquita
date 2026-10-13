@@ -21,7 +21,7 @@ de mídia paga com a planilha de controle de tráfego e se atualiza sozinho a ca
 | # | Planilha | Aba(s) lida(s) | Colunas usadas |
 |---|----------|----------------|----------------|
 | 1 | **Extração Dashboard** `1vZgI8ju2OcQit2oEEGPbK-pm19gulnpiFH91TEh3ecI` | `Página1` | `[0]` Data · `[1]` Campaign Name · `[2]` Ad Set Name · `[3]` Ad Name · `[4]` Impressões · `[5]` Cliques no link · `[6]` Amount Spent · (`[7]` Alcance e `[8]` CPM existem mas **não são lidas** — ver abaixo) |
-| 2 | **Lilian Mesquita \| Controle de tráfego - 2026** `1ESPchuMZHmXrDIyl5N8Kzy9i20Et0-9EkDVXe_DhSNs` | `📈 Ago` e `📈 Setembro` | `[1]` Data · `[12]` Invest. · `[13]` Seguid. · `[14]` CPS · `[15]` Visitas ao perfil · `[16]` Custo por Visita |
+| 2 | **Lilian Mesquita \| Controle de tráfego - 2026** `1ESPchuMZHmXrDIyl5N8Kzy9i20Et0-9EkDVXe_DhSNs` | `📈 Ago`, `📈 Setembro` e `📈 Outubro` (uma por mês; ver `ABAS_CONTROLE`) | `[1]` Data · `[12]` Invest. · `[13]` Seguid. · `[14]` CPS · (`[15]` Visitas ao perfil e `[16]` Custo por Visita existem mas **não são lidas** — ver abaixo) |
 
 Leitura pelo endpoint **gviz por NOME de aba**, não por gid:
 
@@ -43,29 +43,31 @@ isso o gviz funde os cabeçalhos mesclados das abas mensais numa linha só.
   ~R$ 146 de diferença); em setembro as duas batem ao centavo.
   `log_conferencia()` imprime a divergência dia a dia no build, mas o número do
   controle **nunca** entra em nenhum cálculo.
-- **Visitas ao perfil e Seguidores existem só por DIA.** A Planilha 2 não quebra
-  por criativo. Em qualquer tabela ou filtro por campanha/conjunto/anúncio essas
-  duas etapas voltam `null` — atribuí-las a um anúncio seria invenção.
+- **Seguidores existe só por DIA.** A Planilha 2 não quebra por criativo. Em
+  qualquer tabela ou filtro por campanha/conjunto/anúncio essa etapa volta
+  `null` — atribuí-la a um anúncio seria invenção.
 - **Fora da janela coberta pela Planilha 2** (antes de 07/08) o valor é ausência
   de dado, não zero. Por isso `derive()` em `app.js` e `agg()` em
-  `relatorio_lib.py` calculam CPV/CPS e as taxas de conversão sobre o
-  gasto/cliques **apenas dos dias que têm contagem** — sem isso o CPV do período
-  inteiro dava R$ 1,05 em vez de R$ 0,32, e o CPS R$ 13,56 em vez de R$ 4,11.
+  `relatorio_lib.py` calculam CPS e a taxa Cliques→Seguidor sobre o
+  gasto/cliques **apenas dos dias que têm contagem** — sem isso o CPS do período
+  inteiro dava R$ 13,56 em vez de R$ 4,11.
 - A aba `📈 Set` é resíduo do template e **não é lida**: conflita com a
   `📈 Setembro` (traz investimento sem contagem nos mesmos dias).
 - A Planilha 2 é editada à mão e **já mudou de layout uma vez** (o bloco de
   Visitas no Perfil foi inserido depois, deslocando as colunas seguintes).
-  `valida_layout_controle()` confere as identidades aritméticas de cada bloco
-  (CPS = invest/seguidores, CPV = invest/visitas) e grita no log se as posições
-  saírem do lugar, em vez de publicar número errado.
+  `valida_layout_controle()` confere a identidade aritmética do bloco de
+  seguidores (CPS = invest/seguidores) e grita no log se as posições saírem do
+  lugar, em vez de publicar número errado. Só julga as linhas em que o volume
+  **e** o custo estão preenchidos: na aba do mês corrente o gestor lança o
+  volume e deixa a coluna de custo em branco.
 
 ### Funil
 ```
-Gasto → Impressões → Cliques no link → Visitas no Perfil → Seguidores
+Gasto → Impressões → Cliques no link → Seguidores
 ```
 Não há lead, MQL, venda, faturamento nem ROAS nesta operação — nenhuma das duas
 planilhas tem essas etapas, e elas não existem na dashboard. Métricas de custo:
-**CPM · CPC · CPV · CPS**.
+**CPM · CPC · CPS**.
 
 > **Não há Alcance nem Frequência, e isso é deliberado.** A coluna 7 da
 > Planilha 1 é o alcance, mas alcance é **deduplicado**: o Meta conta pessoas,
@@ -79,12 +81,17 @@ planilhas tem essas etapas, e elas não existem na dashboard. Métricas de custo
 > alcance já deduplicado pelo Meta para o período inteiro, vindo de uma nova
 > fonte.
 
-> **Não há taxa Cliques→Visita.** Ela dava mais de 100% (123,7% em todo o
-> período) porque "cliques no link" é mais estreito que visita ao perfil — dá
-> para tocar no nome do perfil sem clicar no link. A razão entre os dois não é
-> uma taxa de conversão e induzia leitura errada, então saiu. O que resta da
-> etapa é o **Custo/Visita (CPV)**, que é sólido. `Cliques→Seguidor` continua,
-> porque ali o numerador é de fato um subconjunto plausível.
+> **Não há Visitas no Perfil nem CPV, a pedido do cliente (13/10/2026).** A
+> etapa existia e saiu inteira: funil, KPI, coluna de tabela, cor de heatmap e
+> bloco do Relatório. A coluna "Visitas ao perfil" da Planilha 2 é lançada à
+> mão, dia a dia, e vinha parando por dias seguidos enquanto a mídia continuava
+> rodando (de 07/10 a 13/10 ficou em branco com R$ 77 gastos no período), o que
+> travava o degrau do meio do funil enquanto as pontas andavam. As colunas 15 e
+> 16 continuam na planilha e não são lidas — ressuscitar a etapa é reverter o
+> commit da remoção. Antes disso já tinha saído a **taxa Cliques→Visita**, que
+> passava de 100% (123,7% no período) porque "cliques no link" é mais estreito
+> que visita ao perfil. `Cliques→Seguidor` continua, porque ali o numerador é
+> de fato um subconjunto plausível.
 
 ### Imposto da mídia paga
 `TAX_FACTOR = 1.1385` (13,85%) em `build.py`. O toggle "Imposto Meta" nasce
@@ -138,11 +145,10 @@ e, abaixo, acrescenta 3 blocos novos + um painel de metas editável:
   o badge Em observação/Avaliável, **tudo ao vivo** (`METAS` + `renderRelAds()`).
 - **Tabela de anúncios** — 16 colunas + coluna **Status** (Anúncio · Status ·
   Campanha · Conjunto · Gasto · Impr · CPM · Cliques · CTR · CPC ·
-  Visitas · CPV · Seguidores · CPS). Anúncio e Status ficam **sticky**.
+  Seguidores · CPS). Anúncio e Status ficam **sticky**.
   Ranking pelo **clique** — o resultado mais profundo que existe por criativo neste
   funil — com amostra relevante primeiro; sem amostra → badge **"Em observação"**.
-  As colunas Visitas/CPV/Seguidores/CPS ficam "-" por anúncio, porque a contagem é
-  diária. Limiares em `build.py`: `SAMPLE_MIN_SPEND`, `SAMPLE_MIN_CLICKS`,
+  As colunas Seguidores/CPS ficam "-" por anúncio, porque a contagem é diária. Limiares em `build.py`: `SAMPLE_MIN_SPEND`, `SAMPLE_MIN_CLICKS`,
   `TOP_ADS_N`.
 - **Insights de Tráfego** — texto por período redigido pelo **Claude** (linguagem de
   gestor de tráfego), lido de `build/relatorios.json` (sem API no build/navegador —
@@ -172,9 +178,9 @@ O gerador determinístico `build/gerar_relatorios.py` que vinha no template foi
 produziriam prosa errada para este funil. Se um fallback sem IA voltar a ser
 necessário, ele precisa ser reescrito para as métricas de distribuição.
 
-Funil completo: `Gasto → Impressões → Cliques → Visitas no Perfil →
-Seguidores`. Visitas e Seguidores aparecem "-" fora da janela que a planilha de
-controle cobre e em qualquer recorte por campanha/conjunto/anúncio.
+Funil completo: `Gasto → Impressões → Cliques → Seguidores`. Seguidores aparece
+"-" fora da janela que a planilha de controle cobre e em qualquer recorte por
+campanha/conjunto/anúncio.
 
 ### Conferência da extração (aba de mídia paga)
 A dashboard só pode ser tão completa quanto a Planilha 1, e daqui não há acesso
@@ -191,8 +197,7 @@ gerenciador (−6,0% e −7,5%) — divergência da extração, não do build.
 > Página 1 usa **funil vertical** + KPIs secundários. Topbar tem **seletor de
 > período em calendário** (default "Este mês"). **Heatmap** = cor FIXA por
 > métrica (só opacidade varia): **Gasto=vermelho · Cliques=azul · Seguidores=ciano
-> · Visitas=verde · CTR=amarelo**
-> (`--heat-gasto/cliques/seg/visitas/ctr`).
+> · CTR=amarelo** (`--heat-gasto/cliques/seg/ctr`).
 
 O `build.py` **não agrega**: exporta as linhas cruas e TODA a lógica (filtros de
 data, filtro cruzado, KPIs, tabelas, gráficos, heatmap, imposto) roda no navegador.
@@ -229,10 +234,10 @@ filtro cruzado bidirecional; tabela diária com último dia no topo; heatmap de 
 fixa por métrica.
 
 ## Lacunas de dados conhecidas
-- **Visitas ao perfil e Seguidores por criativo** → a planilha de controle conta
-  por dia; só existiriam com um export do Meta no nível de anúncio.
+- **Seguidores por criativo** → a planilha de controle conta por dia; só
+  existiria com um export do Meta no nível de anúncio.
 - **Junho e julho** → a planilha de controle começa em 07/08, então esses meses
-  têm mídia mas não têm visitas nem seguidores.
+  têm mídia mas não têm seguidores.
 - **Agosto: gerenciador × controle divergem** em 13 dias (07/08 a 20/08). A
   dashboard usa sempre o gerenciador; o build loga a diferença.
 

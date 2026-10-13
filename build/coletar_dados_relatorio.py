@@ -40,13 +40,13 @@ def daily_series(media: list[dict], seg: list[dict], start, end, camp=None, adse
     cur = start
     while cur <= end:
         a = derived(agg(media, seg, cur, cur, camp=camp, adset=adset, ad=ad))
-        if a["spend"] or a.get("visitas") or a.get("seguidores"):
+        if a["spend"] or a.get("seguidores"):
             out.append({
                 "d": cur.strftime("%Y-%m-%d"),
                 "spend": round(a["spend"], 2), "impr": a["impr"], "clicks": a["clicks"],
-                "visitas": a["visitas"], "seguidores": a["seguidores"],
+                "seguidores": a["seguidores"],
                 "cpm": _r(a["cpm"]), "ctr": _r(a["ctr"], 4), "cpc": _r(a["cpc"]),
-                "cpv": _r(a["cpv"]), "cps": _r(a["cps"]), "txseg": _r(a["txseg"], 4),
+                "cps": _r(a["cps"]), "txseg": _r(a["txseg"], 4),
             })
         cur += timedelta(days=1)
     return out
@@ -59,9 +59,8 @@ def _r(v, nd=2):
 def totais_dict(a: dict) -> dict:
     return {
         "spend": round(a["spend"], 2), "impr": a["impr"], "clicks": a["clicks"],
-        "visitas": a["visitas"], "seguidores": a["seguidores"],
+        "seguidores": a["seguidores"],
         "cpm": _r(a["cpm"]), "ctr": _r(a["ctr"], 4), "cpc": _r(a["cpc"]),
-        "cpv": _r(a["cpv"]),
         "cps": _r(a["cps"]), "txseg": _r(a["txseg"], 4),
     }
 
@@ -77,7 +76,7 @@ def breakdown(media: list[dict], seg: list[dict], start, end, dim: str, camp_fil
             return (r["camp"], r["adset"])
         return (r["camp"], r["adset"], r["ad"])
 
-    # Só a mídia define as estruturas: visitas e seguidores não têm dimensão.
+    # Só a mídia define as estruturas: seguidores não tem dimensão.
     keys = set()
     for r in media:
         if in_range(r["d"], start, end) and (camp_filter is None or r["camp"] == camp_filter):
@@ -121,8 +120,8 @@ def consolidado_criativos(por_anuncio: list[dict]) -> list[dict]:
         clicks = sum(o["clicks"] for o in occs)
         impr = sum(o["impr"] for o in occs)
         # Clique é o resultado mais profundo que existe POR CRIATIVO neste
-        # funil: visitas e seguidores só são contados por dia, sem quebra por
-        # anúncio, então a comparação entre estruturas é feita pelo CPC.
+        # funil: seguidores só é contado por dia, sem quebra por anúncio,
+        # então a comparação entre estruturas é feita pelo CPC.
         occs_com_clique = [o for o in occs if o["clicks"]]
         melhor = min(occs_com_clique, key=lambda o: o["cpc"]) if occs_com_clique else None
         pior = max(occs_com_clique, key=lambda o: o["cpc"]) if occs_com_clique else None
@@ -157,7 +156,6 @@ def whatsapp_numeros(label: str, start, end, cur: dict, saude: dict) -> dict:
         "gasto": money(cur["spend"]), "cpm": money(cur["cpm"]), "ctr": pct(cur["ctr"]),
         "impressoes": num(cur["impr"]),
         "cliques": num(cur["clicks"]), "cpc": money(cur["cpc"]),
-        "visitas_perfil": num(cur["visitas"]), "custo_por_visita": money(cur["cpv"]),
         "seguidores": num(cur["seguidores"]), "custo_por_seguidor": money(cur["cps"]),
         "conv_clique_seguidor": pct(cur["txseg"]),
         "saude_funil": (
@@ -237,7 +235,7 @@ def main():
         "generated_at": now_brt.strftime("%d/%m/%Y %H:%M"),
         "generated_at_iso": now_brt.isoformat(),
         "fonte": "Números brutos do funil de distribuição de conteúdo (mídia paga × contagem "
-                 "diária de visitas ao perfil e seguidores) — insumo para a Routine do Claude "
+                 "diária de seguidores) — insumo para a Routine do Claude "
                  "escrever build/relatorios.json (Insights de Tráfego). Sem interpretação/texto "
                  "aqui, só aritmética.",
         "observacoes": [
@@ -246,11 +244,13 @@ def main():
             "Não há alcance nem frequência: alcance é deduplicado pelo Meta e as linhas da "
             "planilha são por anúncio × dia, então somar não devolve alcance. Não estime "
             "saturação de público a partir destes números.",
-            "Visitas ao perfil e seguidores vêm da planilha de controle (Planilha 2) e existem "
-            "só por DIA: não há quebra por campanha, conjunto ou anúncio. Em qualquer recorte "
-            "por estrutura essas duas etapas voltam null — não as atribua a um criativo.",
-            "Custo por visita, custo por seguidor e as taxas de conversão dessas etapas são "
-            "calculados sobre o gasto/cliques APENAS dos dias que têm contagem.",
+            "Seguidores vem da planilha de controle (Planilha 2) e existe só por DIA: não há "
+            "quebra por campanha, conjunto ou anúncio. Em qualquer recorte por estrutura essa "
+            "etapa volta null — não a atribua a um criativo.",
+            "Custo por seguidor e a taxa Cliques→Seguidor são calculados sobre o gasto/cliques "
+            "APENAS dos dias que têm contagem.",
+            "Não há etapa de Visitas no Perfil: ela foi retirada do funil em 13/10/2026 a "
+            "pedido do cliente. Não cite visitas ao perfil nem custo por visita nos Insights.",
         ],
         "params": {
             "tax_factor": bp.TAX_FACTOR,
