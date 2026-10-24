@@ -218,20 +218,66 @@ def plataforma_conjunto(adset: str) -> str:
 # --------------------------------------------------------------------------- #
 # Indexacao das colunas
 # --------------------------------------------------------------------------- #
-def header_index(header, wanted, fallback):
+def header_index(header, wanted, fallback, proibidos=None):
+    """Casa cabecalhos com os campos esperados, por nome.
+
+    Duas passadas, EXATO antes de PARCIAL: em 24/10/2026 a extracao acrescentou
+    uma coluna "Attention Impressions" (vazia) e deixou a coluna real de
+    impressoes sem rotulo; o casamento por trecho pegava "impress" dentro de
+    "attention impressions" e zerava as impressoes do historico inteiro. Com a
+    passada exata primeiro, um rotulo igualzinho sempre vence um que apenas
+    contem o trecho.
+
+    `proibidos` lista trechos que desqualificam uma coluna para um campo
+    (ex.: "attention" nao e' a impressao que este funil mede)."""
     idx = {}
     hn = [norm(h) for h in header]
+    proibidos = proibidos or {}
+    def vetado(key, h):
+        return any(norm(t) in h for t in proibidos.get(key, ()))
     for key, aliases in wanted.items():
         found = None
-        for a in aliases:
-            a = norm(a)
-            for i, h in enumerate(hn):
-                if h == a or (a and a in h):
-                    found = i
+        for exato in (True, False):
+            for a in aliases:
+                a = norm(a)
+                for i, h in enumerate(hn):
+                    if vetado(key, h):
+                        continue
+                    if (h == a) if exato else (a and a in h):
+                        found = i
+                        break
+                if found is not None:
                     break
             if found is not None:
                 break
         idx[key] = found if found is not None else fallback.get(key)
+    return idx
+
+
+def confere_colunas_numericas(rows, idx, fallback, campos):
+    """Rede de seguranca: coluna numerica resolvida que vem VAZIA cai de volta
+    para a posicao conhecida, com aviso alto no log.
+
+    O cabecalho desta planilha rotula so' os tres campos de texto; as colunas
+    numericas vem sem rotulo e sao lidas por POSICAO. Quando a extracao inventa
+    uma coluna nova com nome parecido, o casamento por nome pode escolher uma
+    coluna vazia e zerar a metrica inteira em silencio — foi o que aconteceu com
+    as impressoes em 24/10/2026. Aqui a soma decide: se a coluna escolhida nao
+    tem numero nenhum e a posicao de fallback tem, vale a posicao."""
+    def soma(col):
+        if col is None:
+            return 0.0
+        return sum(to_float(cell(r, col)) for r in rows[1:])
+    for campo, nome in campos.items():
+        atual, pos = idx.get(campo), fallback.get(campo)
+        if atual is None or pos is None or atual == pos:
+            continue
+        if soma(atual) == 0 and soma(pos) > 0:
+            print(f"  !! ATENCAO: a coluna de {nome} casada pelo cabecalho "
+                  f"(indice {atual}) esta vazia; usando a posicao {pos}, que tem "
+                  f"dado. A extracao provavelmente renomeou ou inseriu colunas — "
+                  f"confira o layout da Planilha 1.", file=sys.stderr)
+            idx[campo] = pos
     return idx
 
 
@@ -261,15 +307,24 @@ def process_media(rows):
     Linhas sem data valida sao descartadas — e CONTADAS, para o log poder
     denunciar extracao malformada em vez de perder gasto em silencio."""
     header = rows[0] if rows else []
+    POSICOES = {"day": 0, "campaign": 1, "adset": 2, "ad": 3,
+                "impr": 4, "clicks": 5, "spent": 6}
     idx = header_index(
         header,
         {"day": ["day", "data"], "campaign": ["campaign name", "campanha"],
          "adset": ["ad set name", "conjunto"], "ad": ["ad name", "anuncio"],
-         "impr": ["impressions", "impress"], "clicks": ["link clicks", "cliques"],
+         "impr": ["impressions", "impressoes", "impress"],
+         "clicks": ["link clicks", "cliques"],
          "spent": ["amount spent", "valor gasto", "gasto"]},
-        {"day": 0, "campaign": 1, "adset": 2, "ad": 3,
-         "impr": 4, "clicks": 5, "spent": 6},
+        POSICOES,
+        # "Attention Impressions" e' outra metrica do Meta (atencao, nao
+        # entrega) e chegou vazia na extracao: nunca pode ocupar o lugar das
+        # impressoes.
+        proibidos={"impr": ("attention",)},
     )
+    idx = confere_colunas_numericas(rows, idx, POSICOES,
+                                    {"impr": "impressoes", "clicks": "cliques",
+                                     "spent": "gasto"})
 
     media = []
     ignoradas = []                        # linhas com conteudo mas sem data valida
