@@ -1,6 +1,6 @@
 {
-  "generated_at": "26/10/2026 05:09",
-  "generated_at_iso": "2026-10-26T05:09:04.535055-03:00",
+  "generated_at": "27/10/2026 05:23",
+  "generated_at_iso": "2026-10-27T05:23:52.510119-03:00",
   "fonte": "Números brutos do funil de distribuição de conteúdo (mídia paga × contagem diária de seguidores) — insumo para a Routine do Claude escrever build/relatorios.json (Insights de Tráfego). Sem interpretação/texto aqui, só aritmética.",
   "observacoes": [
     "Gasto, impressões e cliques vêm do gerenciador (Planilha 1) — é a fonte de verdade do investimento.",
@@ -22,8 +22,8 @@
     "hoje": {
       "label": "Hoje",
       "range": {
-        "start": "2026-10-26",
-        "end": "2026-10-26"
+        "start": "2026-10-27",
+        "end": "2026-10-27"
       },
       "totais": {
         "spend": 0.0,
@@ -38,7 +38,7 @@
       },
       "serie_diaria": [],
       "nota_saude": {
-        "nota": 4.5,
+        "nota": 4.6,
         "provisoria": true,
         "classificacao": "Crítico",
         "motivo": "Nota provisória: sem dados suficientes para aquisicao, custo_clique, custo_seguidor.",
@@ -46,13 +46,13 @@
           "aquisicao": null,
           "custo_clique": null,
           "custo_seguidor": null,
-          "consistencia": 8.9,
+          "consistencia": 9.2,
           "confiabilidade_dados": 0.0
         }
       },
       "whatsapp_numeros": {
         "periodo_label": "Hoje",
-        "periodo_range": "26/10/2026 a 26/10/2026",
+        "periodo_range": "27/10/2026 a 27/10/2026",
         "gasto": "R$ 0,00",
         "cpm": "—",
         "ctr": "—",
@@ -62,86 +62,86 @@
         "seguidores": "—",
         "custo_por_seguidor": "—",
         "conv_clique_seguidor": "—",
-        "saude_funil": "4.5/10 — Crítico (provisória)"
+        "saude_funil": "4.6/10 — Crítico (provisória)"
       },
       "comparativos": {
         "7d": {
-          "spend": 120.01,
-          "impr": 7391.0,
-          "clicks": 433.0,
-          "seguidores": 24.0,
-          "cpm": 16.24,
+          "spend": 172.52,
+          "impr": 11834.0,
+          "clicks": 694.0,
+          "seguidores": 47.0,
+          "cpm": 14.58,
           "ctr": 0.0586,
-          "cpc": 0.28,
-          "cps": 3.75,
-          "txseg": 0.0848
+          "cpc": 0.25,
+          "cps": 3.37,
+          "txseg": 0.075
         },
         "14d": {
-          "spend": 198.52,
-          "impr": 11904.0,
-          "clicks": 712.0,
-          "seguidores": 47.0,
-          "cpm": 16.68,
-          "ctr": 0.0598,
-          "cpc": 0.28,
-          "cps": 3.58,
-          "txseg": 0.0836
+          "spend": 240.54,
+          "impr": 15546.0,
+          "clicks": 916.0,
+          "seguidores": 67.0,
+          "cpm": 15.47,
+          "ctr": 0.0589,
+          "cpc": 0.26,
+          "cps": 3.38,
+          "txseg": 0.0789
         },
         "30d": {
-          "spend": 433.98,
-          "impr": 21218.0,
-          "clicks": 1126.0,
-          "seguidores": 104.0,
-          "cpm": 20.45,
-          "ctr": 0.0531,
-          "cpc": 0.39,
-          "cps": 3.88,
-          "txseg": 0.1066
+          "spend": 471.5,
+          "impr": 25396.0,
+          "clicks": 1376.0,
+          "seguidores": 124.0,
+          "cpm": 18.57,
+          "ctr": 0.0542,
+          "cpc": 0.34,
+          "cps": 3.69,
+          "txseg": 0.0947
         },
         "periodo_anterior": {
           "range": {
-            "start": "2026-10-25",
-            "end": "2026-10-25"
+            "start": "2026-10-26",
+            "end": "2026-10-26"
           },
           "metodo": "período imediatamente anterior, mesma duração",
           "totais": {
-            "spend": 0.0,
-            "impr": 0,
-            "clicks": 0,
+            "spend": 14.35,
+            "impr": 1213.0,
+            "clicks": 67.0,
             "seguidores": null,
-            "cpm": null,
-            "ctr": null,
-            "cpc": null,
+            "cpm": 11.83,
+            "ctr": 0.0552,
+            "cpc": 0.21,
             "cps": null,
             "txseg": null
           },
           "variacao": {
             "spend": {
               "atual": 0.0,
-              "anterior": 0.0,
-              "delta_abs": 0.0,
-              "delta_pct": null,
+              "anterior": 14.3451,
+              "delta_abs": -14.3451,
+              "delta_pct": -1.0,
               "delta_pp": null,
-              "direcao": "estavel",
-              "material": false
+              "direcao": "melhorou",
+              "material": true
             },
             "impr": {
               "atual": 0,
-              "anterior": 0,
-              "delta_abs": 0,
-              "delta_pct": null,
+              "anterior": 1213.0,
+              "delta_abs": -1213.0,
+              "delta_pct": -1.0,
               "delta_pp": null,
-              "direcao": "estavel",
-              "material": false
+              "direcao": "piorou",
+              "material": true
             },
             "clicks": {
               "atual": 0,
-              "anterior": 0,
-              "delta_abs": 0,
-              "delta_pct": null,
+              "anterior": 67.0,
+              "delta_abs": -67.0,
+              "delta_pct": -1.0,
               "delta_pp": null,
-              "direcao": "estavel",
-              "material": false
+              "direcao": "piorou",
+              "material": true
             },
             "seguidores": {
               "atual": null,
@@ -154,7 +154,7 @@
             },
             "cpm": {
               "atual": null,
-              "anterior": null,
+              "anterior": 11.826133553173948,
               "delta_abs": null,
               "delta_pct": null,
               "delta_pp": null,
@@ -163,7 +163,7 @@
             },
             "ctr": {
               "atual": null,
-              "anterior": null,
+              "anterior": 0.055234954657873044,
               "delta_abs": null,
               "delta_pct": null,
               "delta_pp": null,
@@ -172,7 +172,7 @@
             },
             "cpc": {
               "atual": null,
-              "anterior": null,
+              "anterior": 0.21410597014925373,
               "delta_abs": null,
               "delta_pct": null,
               "delta_pp": null,
@@ -208,222 +208,36 @@
     "ontem": {
       "label": "Ontem",
       "range": {
-        "start": "2026-10-25",
-        "end": "2026-10-25"
-      },
-      "totais": {
-        "spend": 0.0,
-        "impr": 0,
-        "clicks": 0,
-        "seguidores": null,
-        "cpm": null,
-        "ctr": null,
-        "cpc": null,
-        "cps": null,
-        "txseg": null
-      },
-      "serie_diaria": [],
-      "nota_saude": {
-        "nota": 4.5,
-        "provisoria": true,
-        "classificacao": "Crítico",
-        "motivo": "Nota provisória: sem dados suficientes para aquisicao, custo_clique, custo_seguidor.",
-        "subnotas": {
-          "aquisicao": null,
-          "custo_clique": null,
-          "custo_seguidor": null,
-          "consistencia": 8.9,
-          "confiabilidade_dados": 0.0
-        }
-      },
-      "whatsapp_numeros": {
-        "periodo_label": "Ontem",
-        "periodo_range": "25/10/2026 a 25/10/2026",
-        "gasto": "R$ 0,00",
-        "cpm": "—",
-        "ctr": "—",
-        "impressoes": "0",
-        "cliques": "0",
-        "cpc": "—",
-        "seguidores": "—",
-        "custo_por_seguidor": "—",
-        "conv_clique_seguidor": "—",
-        "saude_funil": "4.5/10 — Crítico (provisória)"
-      },
-      "comparativos": {
-        "7d": {
-          "spend": 120.01,
-          "impr": 7391.0,
-          "clicks": 433.0,
-          "seguidores": 24.0,
-          "cpm": 16.24,
-          "ctr": 0.0586,
-          "cpc": 0.28,
-          "cps": 3.75,
-          "txseg": 0.0848
-        },
-        "14d": {
-          "spend": 198.52,
-          "impr": 11904.0,
-          "clicks": 712.0,
-          "seguidores": 47.0,
-          "cpm": 16.68,
-          "ctr": 0.0598,
-          "cpc": 0.28,
-          "cps": 3.58,
-          "txseg": 0.0836
-        },
-        "30d": {
-          "spend": 433.98,
-          "impr": 21218.0,
-          "clicks": 1126.0,
-          "seguidores": 104.0,
-          "cpm": 20.45,
-          "ctr": 0.0531,
-          "cpc": 0.39,
-          "cps": 3.88,
-          "txseg": 0.1066
-        },
-        "periodo_anterior": {
-          "range": {
-            "start": "2026-10-24",
-            "end": "2026-10-24"
-          },
-          "metodo": "período imediatamente anterior, mesma duração",
-          "totais": {
-            "spend": 30.07,
-            "impr": 2537.0,
-            "clicks": 150.0,
-            "seguidores": null,
-            "cpm": 11.85,
-            "ctr": 0.0591,
-            "cpc": 0.2,
-            "cps": null,
-            "txseg": null
-          },
-          "variacao": {
-            "spend": {
-              "atual": 0.0,
-              "anterior": 30.067785,
-              "delta_abs": -30.0678,
-              "delta_pct": -1.0,
-              "delta_pp": null,
-              "direcao": "melhorou",
-              "material": true
-            },
-            "impr": {
-              "atual": 0,
-              "anterior": 2537.0,
-              "delta_abs": -2537.0,
-              "delta_pct": -1.0,
-              "delta_pp": null,
-              "direcao": "piorou",
-              "material": true
-            },
-            "clicks": {
-              "atual": 0,
-              "anterior": 150.0,
-              "delta_abs": -150.0,
-              "delta_pct": -1.0,
-              "delta_pp": null,
-              "direcao": "piorou",
-              "material": true
-            },
-            "seguidores": {
-              "atual": null,
-              "anterior": null,
-              "delta_abs": null,
-              "delta_pct": null,
-              "delta_pp": null,
-              "direcao": "sem_dado",
-              "material": false
-            },
-            "cpm": {
-              "atual": null,
-              "anterior": 11.851708711076073,
-              "delta_abs": null,
-              "delta_pct": null,
-              "delta_pp": null,
-              "direcao": "sem_dado",
-              "material": false
-            },
-            "ctr": {
-              "atual": null,
-              "anterior": 0.059124950729207724,
-              "delta_abs": null,
-              "delta_pct": null,
-              "delta_pp": null,
-              "direcao": "sem_dado",
-              "material": false
-            },
-            "cpc": {
-              "atual": null,
-              "anterior": 0.20045190000000002,
-              "delta_abs": null,
-              "delta_pct": null,
-              "delta_pp": null,
-              "direcao": "sem_dado",
-              "material": false
-            },
-            "cps": {
-              "atual": null,
-              "anterior": null,
-              "delta_abs": null,
-              "delta_pct": null,
-              "delta_pp": null,
-              "direcao": "sem_dado",
-              "material": false
-            },
-            "txseg": {
-              "atual": null,
-              "anterior": null,
-              "delta_abs": null,
-              "delta_pct": null,
-              "delta_pp": null,
-              "direcao": "sem_dado",
-              "material": false
-            }
-          }
-        }
-      },
-      "por_campanha": [],
-      "por_conjunto": [],
-      "por_anuncio": [],
-      "criativos_consolidado": []
-    },
-    "3d": {
-      "label": "3 dias",
-      "range": {
-        "start": "2026-10-24",
+        "start": "2026-10-26",
         "end": "2026-10-26"
       },
       "totais": {
-        "spend": 30.07,
-        "impr": 2537.0,
-        "clicks": 150.0,
+        "spend": 14.35,
+        "impr": 1213.0,
+        "clicks": 67.0,
         "seguidores": null,
-        "cpm": 11.85,
-        "ctr": 0.0591,
-        "cpc": 0.2,
+        "cpm": 11.83,
+        "ctr": 0.0552,
+        "cpc": 0.21,
         "cps": null,
         "txseg": null
       },
       "serie_diaria": [
         {
-          "d": "2026-10-24",
-          "spend": 30.07,
-          "impr": 2537.0,
-          "clicks": 150.0,
+          "d": "2026-10-26",
+          "spend": 14.35,
+          "impr": 1213.0,
+          "clicks": 67.0,
           "seguidores": null,
-          "cpm": 11.85,
-          "ctr": 0.0591,
-          "cpc": 0.2,
+          "cpm": 11.83,
+          "ctr": 0.0552,
+          "cpc": 0.21,
           "cps": null,
           "txseg": null
         }
       ],
       "nota_saude": {
-        "nota": 9.7,
+        "nota": 9.8,
         "provisoria": true,
         "classificacao": "Excelente",
         "motivo": "Nota provisória: sem dados suficientes para custo_seguidor.",
@@ -431,106 +245,106 @@
           "aquisicao": 10.0,
           "custo_clique": 10.0,
           "custo_seguidor": null,
-          "consistencia": 8.9,
+          "consistencia": 9.2,
           "confiabilidade_dados": 10.0
         }
       },
       "whatsapp_numeros": {
-        "periodo_label": "3 dias",
-        "periodo_range": "24/10/2026 a 26/10/2026",
-        "gasto": "R$ 30,07",
-        "cpm": "R$ 11,85",
-        "ctr": "5,9%",
-        "impressoes": "2.537",
-        "cliques": "150",
-        "cpc": "R$ 0,20",
+        "periodo_label": "Ontem",
+        "periodo_range": "26/10/2026 a 26/10/2026",
+        "gasto": "R$ 14,35",
+        "cpm": "R$ 11,83",
+        "ctr": "5,5%",
+        "impressoes": "1.213",
+        "cliques": "67",
+        "cpc": "R$ 0,21",
         "seguidores": "—",
         "custo_por_seguidor": "—",
         "conv_clique_seguidor": "—",
-        "saude_funil": "9.7/10 — Excelente (provisória)"
+        "saude_funil": "9.8/10 — Excelente (provisória)"
       },
       "comparativos": {
         "7d": {
-          "spend": 120.01,
-          "impr": 7391.0,
-          "clicks": 433.0,
-          "seguidores": 24.0,
-          "cpm": 16.24,
+          "spend": 172.52,
+          "impr": 11834.0,
+          "clicks": 694.0,
+          "seguidores": 47.0,
+          "cpm": 14.58,
           "ctr": 0.0586,
-          "cpc": 0.28,
-          "cps": 3.75,
-          "txseg": 0.0848
+          "cpc": 0.25,
+          "cps": 3.37,
+          "txseg": 0.075
         },
         "14d": {
-          "spend": 198.52,
-          "impr": 11904.0,
-          "clicks": 712.0,
-          "seguidores": 47.0,
-          "cpm": 16.68,
-          "ctr": 0.0598,
-          "cpc": 0.28,
-          "cps": 3.58,
-          "txseg": 0.0836
+          "spend": 240.54,
+          "impr": 15546.0,
+          "clicks": 916.0,
+          "seguidores": 67.0,
+          "cpm": 15.47,
+          "ctr": 0.0589,
+          "cpc": 0.26,
+          "cps": 3.38,
+          "txseg": 0.0789
         },
         "30d": {
-          "spend": 433.98,
-          "impr": 21218.0,
-          "clicks": 1126.0,
-          "seguidores": 104.0,
-          "cpm": 20.45,
-          "ctr": 0.0531,
-          "cpc": 0.39,
-          "cps": 3.88,
-          "txseg": 0.1066
+          "spend": 471.5,
+          "impr": 25396.0,
+          "clicks": 1376.0,
+          "seguidores": 124.0,
+          "cpm": 18.57,
+          "ctr": 0.0542,
+          "cpc": 0.34,
+          "cps": 3.69,
+          "txseg": 0.0947
         },
         "periodo_anterior": {
           "range": {
-            "start": "2026-10-21",
-            "end": "2026-10-23"
+            "start": "2026-10-25",
+            "end": "2026-10-25"
           },
           "metodo": "período imediatamente anterior, mesma duração",
           "totais": {
-            "spend": 83.68,
-            "impr": 4586.0,
-            "clicks": 274.0,
-            "seguidores": 23.0,
-            "cpm": 18.25,
-            "ctr": 0.0597,
-            "cpc": 0.31,
-            "cps": 3.64,
-            "txseg": 0.0839
+            "spend": 44.42,
+            "impr": 3498.0,
+            "clicks": 203.0,
+            "seguidores": 17.0,
+            "cpm": 12.7,
+            "ctr": 0.058,
+            "cpc": 0.22,
+            "cps": 2.61,
+            "txseg": 0.0837
           },
           "variacao": {
             "spend": {
-              "atual": 30.067785,
-              "anterior": 83.67975,
-              "delta_abs": -53.612,
-              "delta_pct": -0.6407,
+              "atual": 14.3451,
+              "anterior": 44.42427,
+              "delta_abs": -30.0792,
+              "delta_pct": -0.6771,
               "delta_pp": null,
               "direcao": "melhorou",
               "material": true
             },
             "impr": {
-              "atual": 2537.0,
-              "anterior": 4586.0,
-              "delta_abs": -2049.0,
-              "delta_pct": -0.4468,
+              "atual": 1213.0,
+              "anterior": 3498.0,
+              "delta_abs": -2285.0,
+              "delta_pct": -0.6532,
               "delta_pp": null,
               "direcao": "piorou",
               "material": true
             },
             "clicks": {
-              "atual": 150.0,
-              "anterior": 274.0,
-              "delta_abs": -124.0,
-              "delta_pct": -0.4526,
+              "atual": 67.0,
+              "anterior": 203.0,
+              "delta_abs": -136.0,
+              "delta_pct": -0.67,
               "delta_pp": null,
               "direcao": "piorou",
               "material": true
             },
             "seguidores": {
               "atual": null,
-              "anterior": 23.0,
+              "anterior": 17.0,
               "delta_abs": null,
               "delta_pct": null,
               "delta_pp": null,
@@ -538,35 +352,35 @@
               "material": false
             },
             "cpm": {
-              "atual": 11.851708711076073,
-              "anterior": 18.246783689489753,
-              "delta_abs": -6.3951,
-              "delta_pct": -0.3505,
+              "atual": 11.826133553173948,
+              "anterior": 12.699905660377357,
+              "delta_abs": -0.8738,
+              "delta_pct": -0.0688,
               "delta_pp": null,
               "direcao": "melhorou",
-              "material": true
+              "material": false
             },
             "ctr": {
-              "atual": 0.059124950729207724,
-              "anterior": 0.05974705625817706,
-              "delta_abs": -0.0006,
-              "delta_pct": -0.0104,
-              "delta_pp": -0.06,
+              "atual": 0.055234954657873044,
+              "anterior": 0.05803316180674671,
+              "delta_abs": -0.0028,
+              "delta_pct": -0.0482,
+              "delta_pp": -0.28,
               "direcao": "piorou",
               "material": false
             },
             "cpc": {
-              "atual": 0.20045190000000002,
-              "anterior": 0.30540054744525547,
-              "delta_abs": -0.1049,
-              "delta_pct": -0.3436,
+              "atual": 0.21410597014925373,
+              "anterior": 0.2188387684729064,
+              "delta_abs": -0.0047,
+              "delta_pct": -0.0216,
               "delta_pp": null,
               "direcao": "melhorou",
-              "material": true
+              "material": false
             },
             "cps": {
               "atual": null,
-              "anterior": 3.6382499999999998,
+              "anterior": 2.6131923529411765,
               "delta_abs": null,
               "delta_pct": null,
               "delta_pp": null,
@@ -575,7 +389,7 @@
             },
             "txseg": {
               "atual": null,
-              "anterior": 0.08394160583941605,
+              "anterior": 0.08374384236453201,
               "delta_abs": null,
               "delta_pct": null,
               "delta_pp": null,
@@ -587,13 +401,13 @@
       },
       "por_campanha": [
         {
-          "spend": 30.07,
-          "impr": 2537.0,
-          "clicks": 150.0,
+          "spend": 14.35,
+          "impr": 1213.0,
+          "clicks": 67.0,
           "seguidores": null,
-          "cpm": 11.85,
-          "ctr": 0.0591,
-          "cpc": 0.2,
+          "cpm": 11.83,
+          "ctr": 0.0552,
+          "cpc": 0.21,
           "cps": null,
           "txseg": null,
           "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar"
@@ -601,81 +415,67 @@
       ],
       "por_conjunto": [
         {
-          "spend": 10.16,
-          "impr": 1336.0,
-          "clicks": 88.0,
+          "spend": 4.94,
+          "impr": 207.0,
+          "clicks": 11.0,
           "seguidores": null,
-          "cpm": 7.6,
-          "ctr": 0.0659,
-          "cpc": 0.12,
-          "cps": null,
-          "txseg": null,
-          "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
-          "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Dizer não pode dar culpa"
-        },
-        {
-          "spend": 9.37,
-          "impr": 429.0,
-          "clicks": 19.0,
-          "seguidores": null,
-          "cpm": 21.84,
-          "ctr": 0.0443,
-          "cpc": 0.49,
+          "cpm": 23.87,
+          "ctr": 0.0531,
+          "cpc": 0.45,
           "cps": null,
           "txseg": null,
           "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
           "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Fazer algo sozinha"
         },
         {
-          "spend": 6.31,
-          "impr": 628.0,
-          "clicks": 37.0,
+          "spend": 4.36,
+          "impr": 114.0,
+          "clicks": 3.0,
           "seguidores": null,
-          "cpm": 10.04,
-          "ctr": 0.0589,
-          "cpc": 0.17,
-          "cps": null,
-          "txseg": null,
-          "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
-          "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Você pode ter orgulho de cuidar"
-        },
-        {
-          "spend": 4.24,
-          "impr": 144.0,
-          "clicks": 6.0,
-          "seguidores": null,
-          "cpm": 29.41,
-          "ctr": 0.0417,
-          "cpc": 0.71,
+          "cpm": 38.25,
+          "ctr": 0.0263,
+          "cpc": 1.45,
           "cps": null,
           "txseg": null,
           "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
           "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Você pode reconhecer o valor"
+        },
+        {
+          "spend": 2.77,
+          "impr": 548.0,
+          "clicks": 33.0,
+          "seguidores": null,
+          "cpm": 5.05,
+          "ctr": 0.0602,
+          "cpc": 0.08,
+          "cps": null,
+          "txseg": null,
+          "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
+          "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Dizer não pode dar culpa"
+        },
+        {
+          "spend": 2.28,
+          "impr": 344.0,
+          "clicks": 20.0,
+          "seguidores": null,
+          "cpm": 6.62,
+          "ctr": 0.0581,
+          "cpc": 0.11,
+          "cps": null,
+          "txseg": null,
+          "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
+          "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Você pode ter orgulho de cuidar"
         }
       ],
       "por_anuncio": [
         {
-          "spend": 10.16,
-          "impr": 1336.0,
-          "clicks": 88.0,
+          "spend": 4.94,
+          "impr": 207.0,
+          "clicks": 11.0,
           "seguidores": null,
-          "cpm": 7.6,
-          "ctr": 0.0659,
-          "cpc": 0.12,
-          "cps": null,
-          "txseg": null,
-          "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
-          "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Dizer não pode dar culpa",
-          "anuncio": "Dizer não pode dar culpa"
-        },
-        {
-          "spend": 9.37,
-          "impr": 429.0,
-          "clicks": 19.0,
-          "seguidores": null,
-          "cpm": 21.84,
-          "ctr": 0.0443,
-          "cpc": 0.49,
+          "cpm": 23.87,
+          "ctr": 0.0531,
+          "cpc": 0.45,
           "cps": null,
           "txseg": null,
           "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
@@ -683,57 +483,49 @@
           "anuncio": "Fazer algo sozinha"
         },
         {
-          "spend": 6.31,
-          "impr": 628.0,
-          "clicks": 37.0,
+          "spend": 4.36,
+          "impr": 114.0,
+          "clicks": 3.0,
           "seguidores": null,
-          "cpm": 10.04,
-          "ctr": 0.0589,
-          "cpc": 0.17,
-          "cps": null,
-          "txseg": null,
-          "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
-          "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Você pode ter orgulho de cuidar",
-          "anuncio": "Você pode ter orgulho de cuidar"
-        },
-        {
-          "spend": 4.24,
-          "impr": 144.0,
-          "clicks": 6.0,
-          "seguidores": null,
-          "cpm": 29.41,
-          "ctr": 0.0417,
-          "cpc": 0.71,
+          "cpm": 38.25,
+          "ctr": 0.0263,
+          "cpc": 1.45,
           "cps": null,
           "txseg": null,
           "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
           "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Você pode reconhecer o valor",
           "anuncio": "Você pode reconhecer o valor"
+        },
+        {
+          "spend": 2.77,
+          "impr": 548.0,
+          "clicks": 33.0,
+          "seguidores": null,
+          "cpm": 5.05,
+          "ctr": 0.0602,
+          "cpc": 0.08,
+          "cps": null,
+          "txseg": null,
+          "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
+          "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Dizer não pode dar culpa",
+          "anuncio": "Dizer não pode dar culpa"
+        },
+        {
+          "spend": 2.28,
+          "impr": 344.0,
+          "clicks": 20.0,
+          "seguidores": null,
+          "cpm": 6.62,
+          "ctr": 0.0581,
+          "cpc": 0.11,
+          "cps": null,
+          "txseg": null,
+          "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
+          "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Você pode ter orgulho de cuidar",
+          "anuncio": "Você pode ter orgulho de cuidar"
         }
       ],
       "criativos_consolidado": [
-        {
-          "anuncio": "Dizer não pode dar culpa",
-          "n_estruturas": 1,
-          "estruturas": [
-            {
-              "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
-              "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Dizer não pode dar culpa"
-            }
-          ],
-          "spend": 10.16,
-          "impr": 1336.0,
-          "clicks": 88.0,
-          "cpm": 7.6,
-          "ctr": 0.0659,
-          "cpc": 0.12,
-          "melhor_estrutura": {
-            "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
-            "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Dizer não pode dar culpa",
-            "cpc": 0.12
-          },
-          "pior_estrutura": null
-        },
         {
           "anuncio": "Fazer algo sozinha",
           "n_estruturas": 1,
@@ -743,38 +535,16 @@
               "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Fazer algo sozinha"
             }
           ],
-          "spend": 9.37,
-          "impr": 429.0,
-          "clicks": 19.0,
-          "cpm": 21.84,
-          "ctr": 0.0443,
-          "cpc": 0.49,
+          "spend": 4.94,
+          "impr": 207.0,
+          "clicks": 11.0,
+          "cpm": 23.86,
+          "ctr": 0.0531,
+          "cpc": 0.45,
           "melhor_estrutura": {
             "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
             "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Fazer algo sozinha",
-            "cpc": 0.49
-          },
-          "pior_estrutura": null
-        },
-        {
-          "anuncio": "Você pode ter orgulho de cuidar",
-          "n_estruturas": 1,
-          "estruturas": [
-            {
-              "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
-              "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Você pode ter orgulho de cuidar"
-            }
-          ],
-          "spend": 6.31,
-          "impr": 628.0,
-          "clicks": 37.0,
-          "cpm": 10.05,
-          "ctr": 0.0589,
-          "cpc": 0.17,
-          "melhor_estrutura": {
-            "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
-            "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Você pode ter orgulho de cuidar",
-            "cpc": 0.17
+            "cpc": 0.45
           },
           "pior_estrutura": null
         },
@@ -787,16 +557,483 @@
               "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Você pode reconhecer o valor"
             }
           ],
-          "spend": 4.24,
-          "impr": 144.0,
-          "clicks": 6.0,
-          "cpm": 29.44,
-          "ctr": 0.0417,
-          "cpc": 0.71,
+          "spend": 4.36,
+          "impr": 114.0,
+          "clicks": 3.0,
+          "cpm": 38.25,
+          "ctr": 0.0263,
+          "cpc": 1.45,
           "melhor_estrutura": {
             "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
             "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Você pode reconhecer o valor",
-            "cpc": 0.71
+            "cpc": 1.45
+          },
+          "pior_estrutura": null
+        },
+        {
+          "anuncio": "Dizer não pode dar culpa",
+          "n_estruturas": 1,
+          "estruturas": [
+            {
+              "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
+              "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Dizer não pode dar culpa"
+            }
+          ],
+          "spend": 2.77,
+          "impr": 548.0,
+          "clicks": 33.0,
+          "cpm": 5.05,
+          "ctr": 0.0602,
+          "cpc": 0.08,
+          "melhor_estrutura": {
+            "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
+            "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Dizer não pode dar culpa",
+            "cpc": 0.08
+          },
+          "pior_estrutura": null
+        },
+        {
+          "anuncio": "Você pode ter orgulho de cuidar",
+          "n_estruturas": 1,
+          "estruturas": [
+            {
+              "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
+              "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Você pode ter orgulho de cuidar"
+            }
+          ],
+          "spend": 2.28,
+          "impr": 344.0,
+          "clicks": 20.0,
+          "cpm": 6.63,
+          "ctr": 0.0581,
+          "cpc": 0.11,
+          "melhor_estrutura": {
+            "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
+            "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Você pode ter orgulho de cuidar",
+            "cpc": 0.11
+          },
+          "pior_estrutura": null
+        }
+      ]
+    },
+    "3d": {
+      "label": "3 dias",
+      "range": {
+        "start": "2026-10-25",
+        "end": "2026-10-27"
+      },
+      "totais": {
+        "spend": 58.77,
+        "impr": 4711.0,
+        "clicks": 270.0,
+        "seguidores": 17.0,
+        "cpm": 12.47,
+        "ctr": 0.0573,
+        "cpc": 0.22,
+        "cps": 2.61,
+        "txseg": 0.0837
+      },
+      "serie_diaria": [
+        {
+          "d": "2026-10-25",
+          "spend": 44.42,
+          "impr": 3498.0,
+          "clicks": 203.0,
+          "seguidores": 17.0,
+          "cpm": 12.7,
+          "ctr": 0.058,
+          "cpc": 0.22,
+          "cps": 2.61,
+          "txseg": 0.0837
+        },
+        {
+          "d": "2026-10-26",
+          "spend": 14.35,
+          "impr": 1213.0,
+          "clicks": 67.0,
+          "seguidores": null,
+          "cpm": 11.83,
+          "ctr": 0.0552,
+          "cpc": 0.21,
+          "cps": null,
+          "txseg": null
+        }
+      ],
+      "nota_saude": {
+        "nota": 9.8,
+        "provisoria": false,
+        "classificacao": "Excelente",
+        "motivo": "",
+        "subnotas": {
+          "aquisicao": 10.0,
+          "custo_clique": 10.0,
+          "custo_seguidor": 10.0,
+          "consistencia": 9.2,
+          "confiabilidade_dados": 10.0
+        }
+      },
+      "whatsapp_numeros": {
+        "periodo_label": "3 dias",
+        "periodo_range": "25/10/2026 a 27/10/2026",
+        "gasto": "R$ 58,77",
+        "cpm": "R$ 12,47",
+        "ctr": "5,7%",
+        "impressoes": "4.711",
+        "cliques": "270",
+        "cpc": "R$ 0,22",
+        "seguidores": "17",
+        "custo_por_seguidor": "R$ 2,61",
+        "conv_clique_seguidor": "8,4%",
+        "saude_funil": "9.8/10 — Excelente"
+      },
+      "comparativos": {
+        "7d": {
+          "spend": 172.52,
+          "impr": 11834.0,
+          "clicks": 694.0,
+          "seguidores": 47.0,
+          "cpm": 14.58,
+          "ctr": 0.0586,
+          "cpc": 0.25,
+          "cps": 3.37,
+          "txseg": 0.075
+        },
+        "14d": {
+          "spend": 240.54,
+          "impr": 15546.0,
+          "clicks": 916.0,
+          "seguidores": 67.0,
+          "cpm": 15.47,
+          "ctr": 0.0589,
+          "cpc": 0.26,
+          "cps": 3.38,
+          "txseg": 0.0789
+        },
+        "30d": {
+          "spend": 471.5,
+          "impr": 25396.0,
+          "clicks": 1376.0,
+          "seguidores": 124.0,
+          "cpm": 18.57,
+          "ctr": 0.0542,
+          "cpc": 0.34,
+          "cps": 3.69,
+          "txseg": 0.0947
+        },
+        "periodo_anterior": {
+          "range": {
+            "start": "2026-10-22",
+            "end": "2026-10-24"
+          },
+          "metodo": "período imediatamente anterior, mesma duração",
+          "totais": {
+            "spend": 82.75,
+            "impr": 5277.0,
+            "clicks": 329.0,
+            "seguidores": 24.0,
+            "cpm": 15.68,
+            "ctr": 0.0623,
+            "cpc": 0.25,
+            "cps": 3.45,
+            "txseg": 0.0729
+          },
+          "variacao": {
+            "spend": {
+              "atual": 58.76937,
+              "anterior": 82.74618000000001,
+              "delta_abs": -23.9768,
+              "delta_pct": -0.2898,
+              "delta_pp": null,
+              "direcao": "melhorou",
+              "material": true
+            },
+            "impr": {
+              "atual": 4711.0,
+              "anterior": 5277.0,
+              "delta_abs": -566.0,
+              "delta_pct": -0.1073,
+              "delta_pp": null,
+              "direcao": "piorou",
+              "material": true
+            },
+            "clicks": {
+              "atual": 270.0,
+              "anterior": 329.0,
+              "delta_abs": -59.0,
+              "delta_pct": -0.1793,
+              "delta_pp": null,
+              "direcao": "piorou",
+              "material": true
+            },
+            "seguidores": {
+              "atual": 17.0,
+              "anterior": 24.0,
+              "delta_abs": -7.0,
+              "delta_pct": -0.2917,
+              "delta_pp": null,
+              "direcao": "piorou",
+              "material": true
+            },
+            "cpm": {
+              "atual": 12.474924644449162,
+              "anterior": 15.680534394542356,
+              "delta_abs": -3.2056,
+              "delta_pct": -0.2044,
+              "delta_pp": null,
+              "direcao": "melhorou",
+              "material": true
+            },
+            "ctr": {
+              "atual": 0.0573126724686903,
+              "anterior": 0.0623460299412545,
+              "delta_abs": -0.005,
+              "delta_pct": -0.0807,
+              "delta_pp": -0.5,
+              "direcao": "piorou",
+              "material": false
+            },
+            "cpc": {
+              "atual": 0.21766433333333335,
+              "anterior": 0.25150814589665654,
+              "delta_abs": -0.0338,
+              "delta_pct": -0.1346,
+              "delta_pp": null,
+              "direcao": "melhorou",
+              "material": true
+            },
+            "cps": {
+              "atual": 2.6131923529411765,
+              "anterior": 3.4477575000000003,
+              "delta_abs": -0.8346,
+              "delta_pct": -0.2421,
+              "delta_pp": null,
+              "direcao": "melhorou",
+              "material": true
+            },
+            "txseg": {
+              "atual": 0.08374384236453201,
+              "anterior": 0.0729483282674772,
+              "delta_abs": 0.0108,
+              "delta_pct": 0.148,
+              "delta_pp": 1.08,
+              "direcao": "melhorou",
+              "material": false
+            }
+          }
+        }
+      },
+      "por_campanha": [
+        {
+          "spend": 58.77,
+          "impr": 4711.0,
+          "clicks": 270.0,
+          "seguidores": null,
+          "cpm": 12.47,
+          "ctr": 0.0573,
+          "cpc": 0.22,
+          "cps": null,
+          "txseg": null,
+          "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar"
+        }
+      ],
+      "por_conjunto": [
+        {
+          "spend": 20.33,
+          "impr": 822.0,
+          "clicks": 41.0,
+          "seguidores": null,
+          "cpm": 24.74,
+          "ctr": 0.0499,
+          "cpc": 0.5,
+          "cps": null,
+          "txseg": null,
+          "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
+          "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Fazer algo sozinha"
+        },
+        {
+          "spend": 14.35,
+          "impr": 404.0,
+          "clicks": 11.0,
+          "seguidores": null,
+          "cpm": 35.51,
+          "ctr": 0.0272,
+          "cpc": 1.3,
+          "cps": null,
+          "txseg": null,
+          "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
+          "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Você pode reconhecer o valor"
+        },
+        {
+          "spend": 12.33,
+          "impr": 2107.0,
+          "clicks": 134.0,
+          "seguidores": null,
+          "cpm": 5.85,
+          "ctr": 0.0636,
+          "cpc": 0.09,
+          "cps": null,
+          "txseg": null,
+          "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
+          "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Dizer não pode dar culpa"
+        },
+        {
+          "spend": 11.76,
+          "impr": 1378.0,
+          "clicks": 84.0,
+          "seguidores": null,
+          "cpm": 8.53,
+          "ctr": 0.061,
+          "cpc": 0.14,
+          "cps": null,
+          "txseg": null,
+          "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
+          "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Você pode ter orgulho de cuidar"
+        }
+      ],
+      "por_anuncio": [
+        {
+          "spend": 20.33,
+          "impr": 822.0,
+          "clicks": 41.0,
+          "seguidores": null,
+          "cpm": 24.74,
+          "ctr": 0.0499,
+          "cpc": 0.5,
+          "cps": null,
+          "txseg": null,
+          "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
+          "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Fazer algo sozinha",
+          "anuncio": "Fazer algo sozinha"
+        },
+        {
+          "spend": 14.35,
+          "impr": 404.0,
+          "clicks": 11.0,
+          "seguidores": null,
+          "cpm": 35.51,
+          "ctr": 0.0272,
+          "cpc": 1.3,
+          "cps": null,
+          "txseg": null,
+          "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
+          "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Você pode reconhecer o valor",
+          "anuncio": "Você pode reconhecer o valor"
+        },
+        {
+          "spend": 12.33,
+          "impr": 2107.0,
+          "clicks": 134.0,
+          "seguidores": null,
+          "cpm": 5.85,
+          "ctr": 0.0636,
+          "cpc": 0.09,
+          "cps": null,
+          "txseg": null,
+          "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
+          "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Dizer não pode dar culpa",
+          "anuncio": "Dizer não pode dar culpa"
+        },
+        {
+          "spend": 11.76,
+          "impr": 1378.0,
+          "clicks": 84.0,
+          "seguidores": null,
+          "cpm": 8.53,
+          "ctr": 0.061,
+          "cpc": 0.14,
+          "cps": null,
+          "txseg": null,
+          "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
+          "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Você pode ter orgulho de cuidar",
+          "anuncio": "Você pode ter orgulho de cuidar"
+        }
+      ],
+      "criativos_consolidado": [
+        {
+          "anuncio": "Fazer algo sozinha",
+          "n_estruturas": 1,
+          "estruturas": [
+            {
+              "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
+              "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Fazer algo sozinha"
+            }
+          ],
+          "spend": 20.33,
+          "impr": 822.0,
+          "clicks": 41.0,
+          "cpm": 24.73,
+          "ctr": 0.0499,
+          "cpc": 0.5,
+          "melhor_estrutura": {
+            "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
+            "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Fazer algo sozinha",
+            "cpc": 0.5
+          },
+          "pior_estrutura": null
+        },
+        {
+          "anuncio": "Você pode reconhecer o valor",
+          "n_estruturas": 1,
+          "estruturas": [
+            {
+              "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
+              "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Você pode reconhecer o valor"
+            }
+          ],
+          "spend": 14.35,
+          "impr": 404.0,
+          "clicks": 11.0,
+          "cpm": 35.52,
+          "ctr": 0.0272,
+          "cpc": 1.3,
+          "melhor_estrutura": {
+            "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
+            "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Você pode reconhecer o valor",
+            "cpc": 1.3
+          },
+          "pior_estrutura": null
+        },
+        {
+          "anuncio": "Dizer não pode dar culpa",
+          "n_estruturas": 1,
+          "estruturas": [
+            {
+              "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
+              "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Dizer não pode dar culpa"
+            }
+          ],
+          "spend": 12.33,
+          "impr": 2107.0,
+          "clicks": 134.0,
+          "cpm": 5.85,
+          "ctr": 0.0636,
+          "cpc": 0.09,
+          "melhor_estrutura": {
+            "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
+            "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Dizer não pode dar culpa",
+            "cpc": 0.09
+          },
+          "pior_estrutura": null
+        },
+        {
+          "anuncio": "Você pode ter orgulho de cuidar",
+          "n_estruturas": 1,
+          "estruturas": [
+            {
+              "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
+              "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Você pode ter orgulho de cuidar"
+            }
+          ],
+          "spend": 11.76,
+          "impr": 1378.0,
+          "clicks": 84.0,
+          "cpm": 8.53,
+          "ctr": 0.061,
+          "cpc": 0.14,
+          "melhor_estrutura": {
+            "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
+            "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Você pode ter orgulho de cuidar",
+            "cpc": 0.14
           },
           "pior_estrutura": null
         }
@@ -805,33 +1042,21 @@
     "7d": {
       "label": "7 dias",
       "range": {
-        "start": "2026-10-20",
-        "end": "2026-10-26"
+        "start": "2026-10-21",
+        "end": "2026-10-27"
       },
       "totais": {
-        "spend": 120.01,
-        "impr": 7391.0,
-        "clicks": 433.0,
-        "seguidores": 24.0,
-        "cpm": 16.24,
+        "spend": 172.52,
+        "impr": 11834.0,
+        "clicks": 694.0,
+        "seguidores": 47.0,
+        "cpm": 14.58,
         "ctr": 0.0586,
-        "cpc": 0.28,
-        "cps": 3.75,
-        "txseg": 0.0848
+        "cpc": 0.25,
+        "cps": 3.37,
+        "txseg": 0.075
       },
       "serie_diaria": [
-        {
-          "d": "2026-10-20",
-          "spend": 6.26,
-          "impr": 268.0,
-          "clicks": 9.0,
-          "seguidores": 1.0,
-          "cpm": 23.36,
-          "ctr": 0.0336,
-          "cpc": 0.7,
-          "cps": 6.26,
-          "txseg": 0.1111
-        },
         {
           "d": "2026-10-21",
           "spend": 31.0,
@@ -873,10 +1098,34 @@
           "spend": 30.07,
           "impr": 2537.0,
           "clicks": 150.0,
-          "seguidores": null,
+          "seguidores": 7.0,
           "cpm": 11.85,
           "ctr": 0.0591,
           "cpc": 0.2,
+          "cps": 4.3,
+          "txseg": 0.0467
+        },
+        {
+          "d": "2026-10-25",
+          "spend": 44.42,
+          "impr": 3498.0,
+          "clicks": 203.0,
+          "seguidores": 17.0,
+          "cpm": 12.7,
+          "ctr": 0.058,
+          "cpc": 0.22,
+          "cps": 2.61,
+          "txseg": 0.0837
+        },
+        {
+          "d": "2026-10-26",
+          "spend": 14.35,
+          "impr": 1213.0,
+          "clicks": 67.0,
+          "seguidores": null,
+          "cpm": 11.83,
+          "ctr": 0.0552,
+          "cpc": 0.21,
           "cps": null,
           "txseg": null
         }
@@ -890,155 +1139,155 @@
           "aquisicao": 10.0,
           "custo_clique": 10.0,
           "custo_seguidor": 10.0,
-          "consistencia": 8.9,
+          "consistencia": 9.2,
           "confiabilidade_dados": 10.0
         }
       },
       "whatsapp_numeros": {
         "periodo_label": "7 dias",
-        "periodo_range": "20/10/2026 a 26/10/2026",
-        "gasto": "R$ 120,01",
-        "cpm": "R$ 16,24",
+        "periodo_range": "21/10/2026 a 27/10/2026",
+        "gasto": "R$ 172,52",
+        "cpm": "R$ 14,58",
         "ctr": "5,9%",
-        "impressoes": "7.391",
-        "cliques": "433",
-        "cpc": "R$ 0,28",
-        "seguidores": "24",
-        "custo_por_seguidor": "R$ 3,75",
-        "conv_clique_seguidor": "8,5%",
+        "impressoes": "11.834",
+        "cliques": "694",
+        "cpc": "R$ 0,25",
+        "seguidores": "47",
+        "custo_por_seguidor": "R$ 3,37",
+        "conv_clique_seguidor": "7,5%",
         "saude_funil": "9.8/10 — Excelente"
       },
       "comparativos": {
         "7d": {
-          "spend": 120.01,
-          "impr": 7391.0,
-          "clicks": 433.0,
-          "seguidores": 24.0,
-          "cpm": 16.24,
+          "spend": 172.52,
+          "impr": 11834.0,
+          "clicks": 694.0,
+          "seguidores": 47.0,
+          "cpm": 14.58,
           "ctr": 0.0586,
-          "cpc": 0.28,
-          "cps": 3.75,
-          "txseg": 0.0848
+          "cpc": 0.25,
+          "cps": 3.37,
+          "txseg": 0.075
         },
         "14d": {
-          "spend": 198.52,
-          "impr": 11904.0,
-          "clicks": 712.0,
-          "seguidores": 47.0,
-          "cpm": 16.68,
-          "ctr": 0.0598,
-          "cpc": 0.28,
-          "cps": 3.58,
-          "txseg": 0.0836
+          "spend": 240.54,
+          "impr": 15546.0,
+          "clicks": 916.0,
+          "seguidores": 67.0,
+          "cpm": 15.47,
+          "ctr": 0.0589,
+          "cpc": 0.26,
+          "cps": 3.38,
+          "txseg": 0.0789
         },
         "30d": {
-          "spend": 433.98,
-          "impr": 21218.0,
-          "clicks": 1126.0,
-          "seguidores": 104.0,
-          "cpm": 20.45,
-          "ctr": 0.0531,
-          "cpc": 0.39,
-          "cps": 3.88,
-          "txseg": 0.1066
+          "spend": 471.5,
+          "impr": 25396.0,
+          "clicks": 1376.0,
+          "seguidores": 124.0,
+          "cpm": 18.57,
+          "ctr": 0.0542,
+          "cpc": 0.34,
+          "cps": 3.69,
+          "txseg": 0.0947
         },
         "periodo_anterior": {
           "range": {
-            "start": "2026-10-13",
-            "end": "2026-10-19"
+            "start": "2026-10-14",
+            "end": "2026-10-20"
           },
           "metodo": "período imediatamente anterior, mesma duração",
           "totais": {
-            "spend": 78.51,
-            "impr": 4513.0,
-            "clicks": 279.0,
-            "seguidores": 23.0,
-            "cpm": 17.4,
-            "ctr": 0.0618,
-            "cpc": 0.28,
-            "cps": 3.41,
-            "txseg": 0.0824
+            "spend": 68.03,
+            "impr": 3712.0,
+            "clicks": 222.0,
+            "seguidores": 20.0,
+            "cpm": 18.33,
+            "ctr": 0.0598,
+            "cpc": 0.31,
+            "cps": 3.4,
+            "txseg": 0.0901
           },
           "variacao": {
             "spend": {
-              "atual": 120.009285,
-              "anterior": 78.51096,
-              "delta_abs": 41.4983,
-              "delta_pct": 0.5286,
+              "atual": 172.516905,
+              "anterior": 68.02537500000001,
+              "delta_abs": 104.4915,
+              "delta_pct": 1.5361,
               "delta_pp": null,
               "direcao": "piorou",
               "material": true
             },
             "impr": {
-              "atual": 7391.0,
-              "anterior": 4513.0,
-              "delta_abs": 2878.0,
-              "delta_pct": 0.6377,
+              "atual": 11834.0,
+              "anterior": 3712.0,
+              "delta_abs": 8122.0,
+              "delta_pct": 2.188,
               "delta_pp": null,
               "direcao": "melhorou",
               "material": true
             },
             "clicks": {
-              "atual": 433.0,
-              "anterior": 279.0,
-              "delta_abs": 154.0,
-              "delta_pct": 0.552,
+              "atual": 694.0,
+              "anterior": 222.0,
+              "delta_abs": 472.0,
+              "delta_pct": 2.1261,
               "delta_pp": null,
               "direcao": "melhorou",
               "material": true
             },
             "seguidores": {
-              "atual": 24.0,
-              "anterior": 23.0,
-              "delta_abs": 1.0,
-              "delta_pct": 0.0435,
+              "atual": 47.0,
+              "anterior": 20.0,
+              "delta_abs": 27.0,
+              "delta_pct": 1.35,
               "delta_pp": null,
               "direcao": "melhorou",
-              "material": false
+              "material": true
             },
             "cpm": {
-              "atual": 16.237218914896495,
-              "anterior": 17.39662308885442,
-              "delta_abs": -1.1594,
-              "delta_pct": -0.0666,
+              "atual": 14.578072080446173,
+              "anterior": 18.325801454741384,
+              "delta_abs": -3.7477,
+              "delta_pct": -0.2045,
               "delta_pp": null,
               "direcao": "melhorou",
-              "material": false
+              "material": true
             },
             "ctr": {
-              "atual": 0.05858476525503992,
-              "anterior": 0.061821404830489694,
-              "delta_abs": -0.0032,
-              "delta_pct": -0.0524,
-              "delta_pp": -0.32,
+              "atual": 0.0586445834037519,
+              "anterior": 0.05980603448275862,
+              "delta_abs": -0.0012,
+              "delta_pct": -0.0194,
+              "delta_pp": -0.12,
               "direcao": "piorou",
               "material": false
             },
             "cpc": {
-              "atual": 0.277157702078522,
-              "anterior": 0.28140129032258066,
-              "delta_abs": -0.0042,
-              "delta_pct": -0.0151,
+              "atual": 0.24858343659942364,
+              "anterior": 0.3064206081081082,
+              "delta_abs": -0.0578,
+              "delta_pct": -0.1888,
               "delta_pp": null,
               "direcao": "melhorou",
-              "material": false
+              "material": true
             },
             "cps": {
-              "atual": 3.7475625000000004,
-              "anterior": 3.4135199999999997,
-              "delta_abs": 0.334,
-              "delta_pct": 0.0979,
+              "atual": 3.3653575531914894,
+              "anterior": 3.4012687500000007,
+              "delta_abs": -0.0359,
+              "delta_pct": -0.0106,
               "delta_pp": null,
-              "direcao": "piorou",
+              "direcao": "melhorou",
               "material": false
             },
             "txseg": {
-              "atual": 0.08480565371024736,
-              "anterior": 0.08243727598566308,
-              "delta_abs": 0.0024,
-              "delta_pct": 0.0287,
-              "delta_pp": 0.24,
-              "direcao": "melhorou",
+              "atual": 0.07496012759170653,
+              "anterior": 0.09009009009009009,
+              "delta_abs": -0.0151,
+              "delta_pct": -0.1679,
+              "delta_pp": -1.51,
+              "direcao": "piorou",
               "material": false
             }
           }
@@ -1046,13 +1295,13 @@
       },
       "por_campanha": [
         {
-          "spend": 120.01,
-          "impr": 7391.0,
-          "clicks": 433.0,
+          "spend": 172.52,
+          "impr": 11834.0,
+          "clicks": 694.0,
           "seguidores": null,
-          "cpm": 16.24,
+          "cpm": 14.58,
           "ctr": 0.0586,
-          "cpc": 0.28,
+          "cpc": 0.25,
           "cps": null,
           "txseg": null,
           "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar"
@@ -1060,43 +1309,56 @@
       ],
       "por_conjunto": [
         {
-          "spend": 42.86,
-          "impr": 1826.0,
-          "clicks": 101.0,
+          "spend": 56.94,
+          "impr": 2380.0,
+          "clicks": 133.0,
           "seguidores": null,
-          "cpm": 23.47,
-          "ctr": 0.0553,
-          "cpc": 0.42,
+          "cpm": 23.92,
+          "ctr": 0.0559,
+          "cpc": 0.43,
           "cps": null,
           "txseg": null,
           "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
           "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Fazer algo sozinha"
         },
         {
-          "spend": 27.18,
-          "impr": 3094.0,
-          "clicks": 220.0,
+          "spend": 41.41,
+          "impr": 1126.0,
+          "clicks": 43.0,
           "seguidores": null,
-          "cpm": 8.78,
-          "ctr": 0.0711,
-          "cpc": 0.12,
+          "cpm": 36.77,
+          "ctr": 0.0382,
+          "cpc": 0.96,
+          "cps": null,
+          "txseg": null,
+          "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
+          "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Você pode reconhecer o valor"
+        },
+        {
+          "spend": 39.51,
+          "impr": 5201.0,
+          "clicks": 354.0,
+          "seguidores": null,
+          "cpm": 7.6,
+          "ctr": 0.0681,
+          "cpc": 0.11,
           "cps": null,
           "txseg": null,
           "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
           "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Dizer não pode dar culpa"
         },
         {
-          "spend": 27.06,
-          "impr": 722.0,
-          "clicks": 32.0,
+          "spend": 21.09,
+          "impr": 2299.0,
+          "clicks": 136.0,
           "seguidores": null,
-          "cpm": 37.48,
-          "ctr": 0.0443,
-          "cpc": 0.85,
+          "cpm": 9.17,
+          "ctr": 0.0592,
+          "cpc": 0.16,
           "cps": null,
           "txseg": null,
           "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
-          "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Você pode reconhecer o valor"
+          "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Você pode ter orgulho de cuidar"
         },
         {
           "spend": 13.58,
@@ -1110,30 +1372,17 @@
           "txseg": null,
           "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
           "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | O movimento me ajuda a sair"
-        },
-        {
-          "spend": 9.32,
-          "impr": 921.0,
-          "clicks": 52.0,
-          "seguidores": null,
-          "cpm": 10.12,
-          "ctr": 0.0565,
-          "cpc": 0.18,
-          "cps": null,
-          "txseg": null,
-          "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
-          "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Você pode ter orgulho de cuidar"
         }
       ],
       "por_anuncio": [
         {
-          "spend": 42.86,
-          "impr": 1826.0,
-          "clicks": 101.0,
+          "spend": 56.94,
+          "impr": 2380.0,
+          "clicks": 133.0,
           "seguidores": null,
-          "cpm": 23.47,
-          "ctr": 0.0553,
-          "cpc": 0.42,
+          "cpm": 23.92,
+          "ctr": 0.0559,
+          "cpc": 0.43,
           "cps": null,
           "txseg": null,
           "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
@@ -1141,13 +1390,27 @@
           "anuncio": "Fazer algo sozinha"
         },
         {
-          "spend": 27.18,
-          "impr": 3094.0,
-          "clicks": 220.0,
+          "spend": 41.41,
+          "impr": 1126.0,
+          "clicks": 43.0,
           "seguidores": null,
-          "cpm": 8.78,
-          "ctr": 0.0711,
-          "cpc": 0.12,
+          "cpm": 36.77,
+          "ctr": 0.0382,
+          "cpc": 0.96,
+          "cps": null,
+          "txseg": null,
+          "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
+          "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Você pode reconhecer o valor",
+          "anuncio": "Você pode reconhecer o valor"
+        },
+        {
+          "spend": 39.51,
+          "impr": 5201.0,
+          "clicks": 354.0,
+          "seguidores": null,
+          "cpm": 7.6,
+          "ctr": 0.0681,
+          "cpc": 0.11,
           "cps": null,
           "txseg": null,
           "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
@@ -1155,18 +1418,18 @@
           "anuncio": "Dizer não pode dar culpa"
         },
         {
-          "spend": 27.06,
-          "impr": 722.0,
-          "clicks": 32.0,
+          "spend": 21.09,
+          "impr": 2299.0,
+          "clicks": 136.0,
           "seguidores": null,
-          "cpm": 37.48,
-          "ctr": 0.0443,
-          "cpc": 0.85,
+          "cpm": 9.17,
+          "ctr": 0.0592,
+          "cpc": 0.16,
           "cps": null,
           "txseg": null,
           "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
-          "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Você pode reconhecer o valor",
-          "anuncio": "Você pode reconhecer o valor"
+          "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Você pode ter orgulho de cuidar",
+          "anuncio": "Você pode ter orgulho de cuidar"
         },
         {
           "spend": 13.58,
@@ -1181,20 +1444,6 @@
           "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
           "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | O movimento me ajuda a sair",
           "anuncio": "O movimento me ajuda a sair"
-        },
-        {
-          "spend": 9.32,
-          "impr": 921.0,
-          "clicks": 52.0,
-          "seguidores": null,
-          "cpm": 10.12,
-          "ctr": 0.0565,
-          "cpc": 0.18,
-          "cps": null,
-          "txseg": null,
-          "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
-          "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Você pode ter orgulho de cuidar",
-          "anuncio": "Você pode ter orgulho de cuidar"
         }
       ],
       "criativos_consolidado": [
@@ -1207,38 +1456,16 @@
               "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Fazer algo sozinha"
             }
           ],
-          "spend": 42.86,
-          "impr": 1826.0,
-          "clicks": 101.0,
-          "cpm": 23.47,
-          "ctr": 0.0553,
-          "cpc": 0.42,
+          "spend": 56.94,
+          "impr": 2380.0,
+          "clicks": 133.0,
+          "cpm": 23.92,
+          "ctr": 0.0559,
+          "cpc": 0.43,
           "melhor_estrutura": {
             "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
             "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Fazer algo sozinha",
-            "cpc": 0.42
-          },
-          "pior_estrutura": null
-        },
-        {
-          "anuncio": "Dizer não pode dar culpa",
-          "n_estruturas": 1,
-          "estruturas": [
-            {
-              "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
-              "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Dizer não pode dar culpa"
-            }
-          ],
-          "spend": 27.18,
-          "impr": 3094.0,
-          "clicks": 220.0,
-          "cpm": 8.78,
-          "ctr": 0.0711,
-          "cpc": 0.12,
-          "melhor_estrutura": {
-            "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
-            "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Dizer não pode dar culpa",
-            "cpc": 0.12
+            "cpc": 0.43
           },
           "pior_estrutura": null
         },
@@ -1251,16 +1478,60 @@
               "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Você pode reconhecer o valor"
             }
           ],
-          "spend": 27.06,
-          "impr": 722.0,
-          "clicks": 32.0,
-          "cpm": 37.48,
-          "ctr": 0.0443,
-          "cpc": 0.85,
+          "spend": 41.41,
+          "impr": 1126.0,
+          "clicks": 43.0,
+          "cpm": 36.78,
+          "ctr": 0.0382,
+          "cpc": 0.96,
           "melhor_estrutura": {
             "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
             "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Você pode reconhecer o valor",
-            "cpc": 0.85
+            "cpc": 0.96
+          },
+          "pior_estrutura": null
+        },
+        {
+          "anuncio": "Dizer não pode dar culpa",
+          "n_estruturas": 1,
+          "estruturas": [
+            {
+              "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
+              "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Dizer não pode dar culpa"
+            }
+          ],
+          "spend": 39.51,
+          "impr": 5201.0,
+          "clicks": 354.0,
+          "cpm": 7.6,
+          "ctr": 0.0681,
+          "cpc": 0.11,
+          "melhor_estrutura": {
+            "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
+            "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Dizer não pode dar culpa",
+            "cpc": 0.11
+          },
+          "pior_estrutura": null
+        },
+        {
+          "anuncio": "Você pode ter orgulho de cuidar",
+          "n_estruturas": 1,
+          "estruturas": [
+            {
+              "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
+              "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Você pode ter orgulho de cuidar"
+            }
+          ],
+          "spend": 21.09,
+          "impr": 2299.0,
+          "clicks": 136.0,
+          "cpm": 9.17,
+          "ctr": 0.0592,
+          "cpc": 0.16,
+          "melhor_estrutura": {
+            "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
+            "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Você pode ter orgulho de cuidar",
+            "cpc": 0.16
           },
           "pior_estrutura": null
         },
@@ -1285,61 +1556,27 @@
             "cpc": 0.49
           },
           "pior_estrutura": null
-        },
-        {
-          "anuncio": "Você pode ter orgulho de cuidar",
-          "n_estruturas": 1,
-          "estruturas": [
-            {
-              "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
-              "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Você pode ter orgulho de cuidar"
-            }
-          ],
-          "spend": 9.32,
-          "impr": 921.0,
-          "clicks": 52.0,
-          "cpm": 10.12,
-          "ctr": 0.0565,
-          "cpc": 0.18,
-          "melhor_estrutura": {
-            "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
-            "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Você pode ter orgulho de cuidar",
-            "cpc": 0.18
-          },
-          "pior_estrutura": null
         }
       ]
     },
     "14d": {
       "label": "14 dias",
       "range": {
-        "start": "2026-10-13",
-        "end": "2026-10-26"
+        "start": "2026-10-14",
+        "end": "2026-10-27"
       },
       "totais": {
-        "spend": 198.52,
-        "impr": 11904.0,
-        "clicks": 712.0,
-        "seguidores": 47.0,
-        "cpm": 16.68,
-        "ctr": 0.0598,
-        "cpc": 0.28,
-        "cps": 3.58,
-        "txseg": 0.0836
+        "spend": 240.54,
+        "impr": 15546.0,
+        "clicks": 916.0,
+        "seguidores": 67.0,
+        "cpm": 15.47,
+        "ctr": 0.0589,
+        "cpc": 0.26,
+        "cps": 3.38,
+        "txseg": 0.0789
       },
       "serie_diaria": [
-        {
-          "d": "2026-10-13",
-          "spend": 16.75,
-          "impr": 1069.0,
-          "clicks": 66.0,
-          "seguidores": 4.0,
-          "cpm": 15.67,
-          "ctr": 0.0617,
-          "cpc": 0.25,
-          "cps": 4.19,
-          "txseg": 0.0606
-        },
         {
           "d": "2026-10-14",
           "spend": 10.77,
@@ -1465,10 +1702,34 @@
           "spend": 30.07,
           "impr": 2537.0,
           "clicks": 150.0,
-          "seguidores": null,
+          "seguidores": 7.0,
           "cpm": 11.85,
           "ctr": 0.0591,
           "cpc": 0.2,
+          "cps": 4.3,
+          "txseg": 0.0467
+        },
+        {
+          "d": "2026-10-25",
+          "spend": 44.42,
+          "impr": 3498.0,
+          "clicks": 203.0,
+          "seguidores": 17.0,
+          "cpm": 12.7,
+          "ctr": 0.058,
+          "cpc": 0.22,
+          "cps": 2.61,
+          "txseg": 0.0837
+        },
+        {
+          "d": "2026-10-26",
+          "spend": 14.35,
+          "impr": 1213.0,
+          "clicks": 67.0,
+          "seguidores": null,
+          "cpm": 11.83,
+          "ctr": 0.0552,
+          "cpc": 0.21,
           "cps": null,
           "txseg": null
         }
@@ -1482,154 +1743,154 @@
           "aquisicao": 10.0,
           "custo_clique": 10.0,
           "custo_seguidor": 10.0,
-          "consistencia": 8.9,
+          "consistencia": 9.2,
           "confiabilidade_dados": 10.0
         }
       },
       "whatsapp_numeros": {
         "periodo_label": "14 dias",
-        "periodo_range": "13/10/2026 a 26/10/2026",
-        "gasto": "R$ 198,52",
-        "cpm": "R$ 16,68",
-        "ctr": "6,0%",
-        "impressoes": "11.904",
-        "cliques": "712",
-        "cpc": "R$ 0,28",
-        "seguidores": "47",
-        "custo_por_seguidor": "R$ 3,58",
-        "conv_clique_seguidor": "8,4%",
+        "periodo_range": "14/10/2026 a 27/10/2026",
+        "gasto": "R$ 240,54",
+        "cpm": "R$ 15,47",
+        "ctr": "5,9%",
+        "impressoes": "15.546",
+        "cliques": "916",
+        "cpc": "R$ 0,26",
+        "seguidores": "67",
+        "custo_por_seguidor": "R$ 3,38",
+        "conv_clique_seguidor": "7,9%",
         "saude_funil": "9.8/10 — Excelente"
       },
       "comparativos": {
         "7d": {
-          "spend": 120.01,
-          "impr": 7391.0,
-          "clicks": 433.0,
-          "seguidores": 24.0,
-          "cpm": 16.24,
+          "spend": 172.52,
+          "impr": 11834.0,
+          "clicks": 694.0,
+          "seguidores": 47.0,
+          "cpm": 14.58,
           "ctr": 0.0586,
-          "cpc": 0.28,
-          "cps": 3.75,
-          "txseg": 0.0848
+          "cpc": 0.25,
+          "cps": 3.37,
+          "txseg": 0.075
         },
         "14d": {
-          "spend": 198.52,
-          "impr": 11904.0,
-          "clicks": 712.0,
-          "seguidores": 47.0,
-          "cpm": 16.68,
-          "ctr": 0.0598,
-          "cpc": 0.28,
-          "cps": 3.58,
-          "txseg": 0.0836
+          "spend": 240.54,
+          "impr": 15546.0,
+          "clicks": 916.0,
+          "seguidores": 67.0,
+          "cpm": 15.47,
+          "ctr": 0.0589,
+          "cpc": 0.26,
+          "cps": 3.38,
+          "txseg": 0.0789
         },
         "30d": {
-          "spend": 433.98,
-          "impr": 21218.0,
-          "clicks": 1126.0,
-          "seguidores": 104.0,
-          "cpm": 20.45,
-          "ctr": 0.0531,
-          "cpc": 0.39,
-          "cps": 3.88,
-          "txseg": 0.1066
+          "spend": 471.5,
+          "impr": 25396.0,
+          "clicks": 1376.0,
+          "seguidores": 124.0,
+          "cpm": 18.57,
+          "ctr": 0.0542,
+          "cpc": 0.34,
+          "cps": 3.69,
+          "txseg": 0.0947
         },
         "periodo_anterior": {
           "range": {
-            "start": "2026-09-29",
-            "end": "2026-10-12"
+            "start": "2026-09-30",
+            "end": "2026-10-13"
           },
           "metodo": "período imediatamente anterior, mesma duração",
           "totais": {
-            "spend": 205.82,
-            "impr": 8562.0,
-            "clicks": 384.0,
-            "seguidores": 49.0,
-            "cpm": 24.04,
-            "ctr": 0.0448,
-            "cpc": 0.54,
-            "cps": 4.2,
-            "txseg": 0.1276
+            "spend": 210.95,
+            "impr": 9307.0,
+            "clicks": 437.0,
+            "seguidores": 50.0,
+            "cpm": 22.67,
+            "ctr": 0.047,
+            "cpc": 0.48,
+            "cps": 4.22,
+            "txseg": 0.1144
           },
           "variacao": {
             "spend": {
-              "atual": 198.52024500000002,
-              "anterior": 205.81803000000002,
-              "delta_abs": -7.2978,
-              "delta_pct": -0.0355,
+              "atual": 240.54228,
+              "anterior": 210.952665,
+              "delta_abs": 29.5896,
+              "delta_pct": 0.1403,
               "delta_pp": null,
-              "direcao": "melhorou",
-              "material": false
+              "direcao": "piorou",
+              "material": true
             },
             "impr": {
-              "atual": 11904.0,
-              "anterior": 8562.0,
-              "delta_abs": 3342.0,
-              "delta_pct": 0.3903,
+              "atual": 15546.0,
+              "anterior": 9307.0,
+              "delta_abs": 6239.0,
+              "delta_pct": 0.6704,
               "delta_pp": null,
               "direcao": "melhorou",
               "material": true
             },
             "clicks": {
-              "atual": 712.0,
-              "anterior": 384.0,
-              "delta_abs": 328.0,
-              "delta_pct": 0.8542,
+              "atual": 916.0,
+              "anterior": 437.0,
+              "delta_abs": 479.0,
+              "delta_pct": 1.0961,
               "delta_pp": null,
               "direcao": "melhorou",
               "material": true
             },
             "seguidores": {
-              "atual": 47.0,
-              "anterior": 49.0,
-              "delta_abs": -2.0,
-              "delta_pct": -0.0408,
+              "atual": 67.0,
+              "anterior": 50.0,
+              "delta_abs": 17.0,
+              "delta_pct": 0.34,
               "delta_pp": null,
-              "direcao": "piorou",
-              "material": false
+              "direcao": "melhorou",
+              "material": true
             },
             "cpm": {
-              "atual": 16.676767893145165,
-              "anterior": 24.03854590049054,
-              "delta_abs": -7.3618,
-              "delta_pct": -0.3062,
+              "atual": 15.472937089926669,
+              "anterior": 22.6660218115397,
+              "delta_abs": -7.1931,
+              "delta_pct": -0.3174,
               "delta_pp": null,
               "direcao": "melhorou",
               "material": true
             },
             "ctr": {
-              "atual": 0.05981182795698925,
-              "anterior": 0.04484933426769446,
-              "delta_abs": 0.015,
-              "delta_pct": 0.3336,
-              "delta_pp": 1.5,
+              "atual": 0.058921909172777565,
+              "anterior": 0.04695390566240464,
+              "delta_abs": 0.012,
+              "delta_pct": 0.2549,
+              "delta_pp": 1.2,
               "direcao": "melhorou",
               "material": false
             },
             "cpc": {
-              "atual": 0.27882056882022477,
-              "anterior": 0.5359844531250001,
-              "delta_abs": -0.2572,
-              "delta_pct": -0.4798,
+              "atual": 0.2626007423580786,
+              "anterior": 0.4827292105263158,
+              "delta_abs": -0.2201,
+              "delta_pct": -0.456,
               "delta_pp": null,
               "direcao": "melhorou",
               "material": true
             },
             "cps": {
-              "atual": 3.584094893617022,
-              "anterior": 4.200367959183674,
-              "delta_abs": -0.6163,
-              "delta_pct": -0.1467,
+              "atual": 3.376077313432836,
+              "anterior": 4.2190533,
+              "delta_abs": -0.843,
+              "delta_pct": -0.1998,
               "delta_pp": null,
               "direcao": "melhorou",
               "material": true
             },
             "txseg": {
-              "atual": 0.08362989323843416,
-              "anterior": 0.12760416666666666,
-              "delta_abs": -0.044,
-              "delta_pct": -0.3446,
-              "delta_pp": -4.4,
+              "atual": 0.07891637220259129,
+              "anterior": 0.11441647597254005,
+              "delta_abs": -0.0355,
+              "delta_pct": -0.3103,
+              "delta_pp": -3.55,
               "direcao": "piorou",
               "material": true
             }
@@ -1638,13 +1899,13 @@
       },
       "por_campanha": [
         {
-          "spend": 198.52,
-          "impr": 11904.0,
-          "clicks": 712.0,
+          "spend": 240.54,
+          "impr": 15546.0,
+          "clicks": 916.0,
           "seguidores": null,
-          "cpm": 16.68,
-          "ctr": 0.0598,
-          "cpc": 0.28,
+          "cpm": 15.47,
+          "ctr": 0.0589,
+          "cpc": 0.26,
           "cps": null,
           "txseg": null,
           "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar"
@@ -1652,43 +1913,56 @@
       ],
       "por_conjunto": [
         {
-          "spend": 91.16,
-          "impr": 4479.0,
-          "clicks": 276.0,
+          "spend": 102.68,
+          "impr": 4842.0,
+          "clicks": 290.0,
           "seguidores": null,
-          "cpm": 20.35,
-          "ctr": 0.0616,
-          "cpc": 0.33,
+          "cpm": 21.21,
+          "ctr": 0.0599,
+          "cpc": 0.35,
           "cps": null,
           "txseg": null,
           "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
           "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Fazer algo sozinha"
         },
         {
-          "spend": 27.18,
-          "impr": 3094.0,
-          "clicks": 220.0,
+          "spend": 41.41,
+          "impr": 1126.0,
+          "clicks": 43.0,
           "seguidores": null,
-          "cpm": 8.78,
-          "ctr": 0.0711,
-          "cpc": 0.12,
+          "cpm": 36.77,
+          "ctr": 0.0382,
+          "cpc": 0.96,
+          "cps": null,
+          "txseg": null,
+          "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
+          "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Você pode reconhecer o valor"
+        },
+        {
+          "spend": 39.51,
+          "impr": 5201.0,
+          "clicks": 354.0,
+          "seguidores": null,
+          "cpm": 7.6,
+          "ctr": 0.0681,
+          "cpc": 0.11,
           "cps": null,
           "txseg": null,
           "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
           "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Dizer não pode dar culpa"
         },
         {
-          "spend": 27.06,
-          "impr": 722.0,
-          "clicks": 32.0,
+          "spend": 21.09,
+          "impr": 2299.0,
+          "clicks": 136.0,
           "seguidores": null,
-          "cpm": 37.48,
-          "ctr": 0.0443,
-          "cpc": 0.85,
+          "cpm": 9.17,
+          "ctr": 0.0592,
+          "cpc": 0.16,
           "cps": null,
           "txseg": null,
           "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
-          "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Você pode reconhecer o valor"
+          "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Você pode ter orgulho de cuidar"
         },
         {
           "spend": 19.46,
@@ -1717,67 +1991,28 @@
           "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | O movimento me ajuda a sair"
         },
         {
-          "spend": 9.32,
-          "impr": 921.0,
-          "clicks": 52.0,
+          "spend": 2.82,
+          "impr": 217.0,
+          "clicks": 15.0,
           "seguidores": null,
-          "cpm": 10.12,
-          "ctr": 0.0565,
-          "cpc": 0.18,
-          "cps": null,
-          "txseg": null,
-          "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
-          "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Você pode ter orgulho de cuidar"
-        },
-        {
-          "spend": 8.02,
-          "impr": 732.0,
-          "clicks": 54.0,
-          "seguidores": null,
-          "cpm": 10.95,
-          "ctr": 0.0738,
-          "cpc": 0.15,
+          "cpm": 13.01,
+          "ctr": 0.0691,
+          "cpc": 0.19,
           "cps": null,
           "txseg": null,
           "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
           "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Carrossel | Você pode ter orgulho de cuidar de todos"
-        },
-        {
-          "spend": 1.58,
-          "impr": 64.0,
-          "clicks": 0.0,
-          "seguidores": null,
-          "cpm": 24.73,
-          "ctr": 0.0,
-          "cpc": null,
-          "cps": null,
-          "txseg": null,
-          "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
-          "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Tem um jeito silencioso de se abandonarmentos"
-        },
-        {
-          "spend": 1.16,
-          "impr": 31.0,
-          "clicks": 0.0,
-          "seguidores": null,
-          "cpm": 37.46,
-          "ctr": 0.0,
-          "cpc": null,
-          "cps": null,
-          "txseg": null,
-          "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
-          "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Se você reconhece esses comportamentos"
         }
       ],
       "por_anuncio": [
         {
-          "spend": 91.16,
-          "impr": 4479.0,
-          "clicks": 276.0,
+          "spend": 102.68,
+          "impr": 4842.0,
+          "clicks": 290.0,
           "seguidores": null,
-          "cpm": 20.35,
-          "ctr": 0.0616,
-          "cpc": 0.33,
+          "cpm": 21.21,
+          "ctr": 0.0599,
+          "cpc": 0.35,
           "cps": null,
           "txseg": null,
           "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
@@ -1785,13 +2020,27 @@
           "anuncio": "Fazer algo sozinha"
         },
         {
-          "spend": 27.18,
-          "impr": 3094.0,
-          "clicks": 220.0,
+          "spend": 41.41,
+          "impr": 1126.0,
+          "clicks": 43.0,
           "seguidores": null,
-          "cpm": 8.78,
-          "ctr": 0.0711,
-          "cpc": 0.12,
+          "cpm": 36.77,
+          "ctr": 0.0382,
+          "cpc": 0.96,
+          "cps": null,
+          "txseg": null,
+          "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
+          "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Você pode reconhecer o valor",
+          "anuncio": "Você pode reconhecer o valor"
+        },
+        {
+          "spend": 39.51,
+          "impr": 5201.0,
+          "clicks": 354.0,
+          "seguidores": null,
+          "cpm": 7.6,
+          "ctr": 0.0681,
+          "cpc": 0.11,
           "cps": null,
           "txseg": null,
           "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
@@ -1799,18 +2048,18 @@
           "anuncio": "Dizer não pode dar culpa"
         },
         {
-          "spend": 27.06,
-          "impr": 722.0,
-          "clicks": 32.0,
+          "spend": 21.09,
+          "impr": 2299.0,
+          "clicks": 136.0,
           "seguidores": null,
-          "cpm": 37.48,
-          "ctr": 0.0443,
-          "cpc": 0.85,
+          "cpm": 9.17,
+          "ctr": 0.0592,
+          "cpc": 0.16,
           "cps": null,
           "txseg": null,
           "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
-          "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Você pode reconhecer o valor",
-          "anuncio": "Você pode reconhecer o valor"
+          "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Você pode ter orgulho de cuidar",
+          "anuncio": "Você pode ter orgulho de cuidar"
         },
         {
           "spend": 19.46,
@@ -1841,60 +2090,18 @@
           "anuncio": "O movimento me ajuda a sair"
         },
         {
-          "spend": 9.32,
-          "impr": 921.0,
-          "clicks": 52.0,
+          "spend": 2.82,
+          "impr": 217.0,
+          "clicks": 15.0,
           "seguidores": null,
-          "cpm": 10.12,
-          "ctr": 0.0565,
-          "cpc": 0.18,
-          "cps": null,
-          "txseg": null,
-          "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
-          "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Você pode ter orgulho de cuidar",
-          "anuncio": "Você pode ter orgulho de cuidar"
-        },
-        {
-          "spend": 8.02,
-          "impr": 732.0,
-          "clicks": 54.0,
-          "seguidores": null,
-          "cpm": 10.95,
-          "ctr": 0.0738,
-          "cpc": 0.15,
+          "cpm": 13.01,
+          "ctr": 0.0691,
+          "cpc": 0.19,
           "cps": null,
           "txseg": null,
           "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
           "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Carrossel | Você pode ter orgulho de cuidar de todos",
           "anuncio": "Você pode ter orgulho de cuidar de todos"
-        },
-        {
-          "spend": 1.58,
-          "impr": 64.0,
-          "clicks": 0.0,
-          "seguidores": null,
-          "cpm": 24.73,
-          "ctr": 0.0,
-          "cpc": null,
-          "cps": null,
-          "txseg": null,
-          "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
-          "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Tem um jeito silencioso de se abandonarmentos",
-          "anuncio": "Tem um jeito silencioso de se abandonar"
-        },
-        {
-          "spend": 1.16,
-          "impr": 31.0,
-          "clicks": 0.0,
-          "seguidores": null,
-          "cpm": 37.46,
-          "ctr": 0.0,
-          "cpc": null,
-          "cps": null,
-          "txseg": null,
-          "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
-          "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Se você reconhece esses comportamentos",
-          "anuncio": "Se você reconhece esses comportamentos"
         }
       ],
       "criativos_consolidado": [
@@ -1911,44 +2118,22 @@
               "conjunto": "IG | M | 35 a 54 | SUDESTE | EMPRESÁRIAS | Fazer algo sozinha"
             }
           ],
-          "spend": 110.62,
-          "impr": 5512.0,
-          "clicks": 326.0,
-          "cpm": 20.07,
-          "ctr": 0.0591,
-          "cpc": 0.34,
+          "spend": 122.14,
+          "impr": 5875.0,
+          "clicks": 340.0,
+          "cpm": 20.79,
+          "ctr": 0.0579,
+          "cpc": 0.36,
           "melhor_estrutura": {
             "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
             "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Fazer algo sozinha",
-            "cpc": 0.33
+            "cpc": 0.35
           },
           "pior_estrutura": {
             "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
             "conjunto": "IG | M | 35 a 54 | SUDESTE | EMPRESÁRIAS | Fazer algo sozinha",
             "cpc": 0.39
           }
-        },
-        {
-          "anuncio": "Dizer não pode dar culpa",
-          "n_estruturas": 1,
-          "estruturas": [
-            {
-              "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
-              "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Dizer não pode dar culpa"
-            }
-          ],
-          "spend": 27.18,
-          "impr": 3094.0,
-          "clicks": 220.0,
-          "cpm": 8.78,
-          "ctr": 0.0711,
-          "cpc": 0.12,
-          "melhor_estrutura": {
-            "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
-            "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Dizer não pode dar culpa",
-            "cpc": 0.12
-          },
-          "pior_estrutura": null
         },
         {
           "anuncio": "Você pode reconhecer o valor",
@@ -1959,16 +2144,60 @@
               "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Você pode reconhecer o valor"
             }
           ],
-          "spend": 27.06,
-          "impr": 722.0,
-          "clicks": 32.0,
-          "cpm": 37.48,
-          "ctr": 0.0443,
-          "cpc": 0.85,
+          "spend": 41.41,
+          "impr": 1126.0,
+          "clicks": 43.0,
+          "cpm": 36.78,
+          "ctr": 0.0382,
+          "cpc": 0.96,
           "melhor_estrutura": {
             "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
             "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Você pode reconhecer o valor",
-            "cpc": 0.85
+            "cpc": 0.96
+          },
+          "pior_estrutura": null
+        },
+        {
+          "anuncio": "Dizer não pode dar culpa",
+          "n_estruturas": 1,
+          "estruturas": [
+            {
+              "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
+              "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Dizer não pode dar culpa"
+            }
+          ],
+          "spend": 39.51,
+          "impr": 5201.0,
+          "clicks": 354.0,
+          "cpm": 7.6,
+          "ctr": 0.0681,
+          "cpc": 0.11,
+          "melhor_estrutura": {
+            "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
+            "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Dizer não pode dar culpa",
+            "cpc": 0.11
+          },
+          "pior_estrutura": null
+        },
+        {
+          "anuncio": "Você pode ter orgulho de cuidar",
+          "n_estruturas": 1,
+          "estruturas": [
+            {
+              "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
+              "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Você pode ter orgulho de cuidar"
+            }
+          ],
+          "spend": 21.09,
+          "impr": 2299.0,
+          "clicks": 136.0,
+          "cpm": 9.17,
+          "ctr": 0.0592,
+          "cpc": 0.16,
+          "melhor_estrutura": {
+            "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
+            "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Você pode ter orgulho de cuidar",
+            "cpc": 0.16
           },
           "pior_estrutura": null
         },
@@ -1995,28 +2224,6 @@
           "pior_estrutura": null
         },
         {
-          "anuncio": "Você pode ter orgulho de cuidar",
-          "n_estruturas": 1,
-          "estruturas": [
-            {
-              "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
-              "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Você pode ter orgulho de cuidar"
-            }
-          ],
-          "spend": 9.32,
-          "impr": 921.0,
-          "clicks": 52.0,
-          "cpm": 10.12,
-          "ctr": 0.0565,
-          "cpc": 0.18,
-          "melhor_estrutura": {
-            "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
-            "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Você pode ter orgulho de cuidar",
-            "cpc": 0.18
-          },
-          "pior_estrutura": null
-        },
-        {
           "anuncio": "Você pode ter orgulho de cuidar de todos",
           "n_estruturas": 1,
           "estruturas": [
@@ -2025,53 +2232,17 @@
               "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Carrossel | Você pode ter orgulho de cuidar de todos"
             }
           ],
-          "spend": 8.02,
-          "impr": 732.0,
-          "clicks": 54.0,
-          "cpm": 10.96,
-          "ctr": 0.0738,
-          "cpc": 0.15,
+          "spend": 2.82,
+          "impr": 217.0,
+          "clicks": 15.0,
+          "cpm": 13.0,
+          "ctr": 0.0691,
+          "cpc": 0.19,
           "melhor_estrutura": {
             "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
             "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Carrossel | Você pode ter orgulho de cuidar de todos",
-            "cpc": 0.15
+            "cpc": 0.19
           },
-          "pior_estrutura": null
-        },
-        {
-          "anuncio": "Tem um jeito silencioso de se abandonar",
-          "n_estruturas": 1,
-          "estruturas": [
-            {
-              "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
-              "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Tem um jeito silencioso de se abandonarmentos"
-            }
-          ],
-          "spend": 1.58,
-          "impr": 64.0,
-          "clicks": 0.0,
-          "cpm": 24.69,
-          "ctr": 0.0,
-          "cpc": null,
-          "melhor_estrutura": null,
-          "pior_estrutura": null
-        },
-        {
-          "anuncio": "Se você reconhece esses comportamentos",
-          "n_estruturas": 1,
-          "estruturas": [
-            {
-              "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
-              "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Se você reconhece esses comportamentos"
-            }
-          ],
-          "spend": 1.16,
-          "impr": 31.0,
-          "clicks": 0.0,
-          "cpm": 37.42,
-          "ctr": 0.0,
-          "cpc": null,
-          "melhor_estrutura": null,
           "pior_estrutura": null
         }
       ]
@@ -2079,33 +2250,21 @@
     "30d": {
       "label": "30 dias",
       "range": {
-        "start": "2026-09-27",
-        "end": "2026-10-26"
+        "start": "2026-09-28",
+        "end": "2026-10-27"
       },
       "totais": {
-        "spend": 433.98,
-        "impr": 21218.0,
-        "clicks": 1126.0,
-        "seguidores": 104.0,
-        "cpm": 20.45,
-        "ctr": 0.0531,
-        "cpc": 0.39,
-        "cps": 3.88,
-        "txseg": 0.1066
+        "spend": 471.5,
+        "impr": 25396.0,
+        "clicks": 1376.0,
+        "seguidores": 124.0,
+        "cpm": 18.57,
+        "ctr": 0.0542,
+        "cpc": 0.34,
+        "cps": 3.69,
+        "txseg": 0.0947
       },
       "serie_diaria": [
-        {
-          "d": "2026-09-27",
-          "spend": 21.26,
-          "impr": 533.0,
-          "clicks": 20.0,
-          "seguidores": 4.0,
-          "cpm": 39.88,
-          "ctr": 0.0375,
-          "cpc": 1.06,
-          "cps": 5.31,
-          "txseg": 0.2
-        },
         {
           "d": "2026-09-28",
           "spend": 8.39,
@@ -2423,10 +2582,34 @@
           "spend": 30.07,
           "impr": 2537.0,
           "clicks": 150.0,
-          "seguidores": null,
+          "seguidores": 7.0,
           "cpm": 11.85,
           "ctr": 0.0591,
           "cpc": 0.2,
+          "cps": 4.3,
+          "txseg": 0.0467
+        },
+        {
+          "d": "2026-10-25",
+          "spend": 44.42,
+          "impr": 3498.0,
+          "clicks": 203.0,
+          "seguidores": 17.0,
+          "cpm": 12.7,
+          "ctr": 0.058,
+          "cpc": 0.22,
+          "cps": 2.61,
+          "txseg": 0.0837
+        },
+        {
+          "d": "2026-10-26",
+          "spend": 14.35,
+          "impr": 1213.0,
+          "clicks": 67.0,
+          "seguidores": null,
+          "cpm": 11.83,
+          "ctr": 0.0552,
+          "cpc": 0.21,
           "cps": null,
           "txseg": null
         }
@@ -2440,155 +2623,155 @@
           "aquisicao": 10.0,
           "custo_clique": 10.0,
           "custo_seguidor": 10.0,
-          "consistencia": 8.9,
+          "consistencia": 9.2,
           "confiabilidade_dados": 10.0
         }
       },
       "whatsapp_numeros": {
         "periodo_label": "30 dias",
-        "periodo_range": "27/09/2026 a 26/10/2026",
-        "gasto": "R$ 433,98",
-        "cpm": "R$ 20,45",
-        "ctr": "5,3%",
-        "impressoes": "21.218",
-        "cliques": "1.126",
-        "cpc": "R$ 0,39",
-        "seguidores": "104",
-        "custo_por_seguidor": "R$ 3,88",
-        "conv_clique_seguidor": "10,7%",
+        "periodo_range": "28/09/2026 a 27/10/2026",
+        "gasto": "R$ 471,50",
+        "cpm": "R$ 18,57",
+        "ctr": "5,4%",
+        "impressoes": "25.396",
+        "cliques": "1.376",
+        "cpc": "R$ 0,34",
+        "seguidores": "124",
+        "custo_por_seguidor": "R$ 3,69",
+        "conv_clique_seguidor": "9,5%",
         "saude_funil": "9.8/10 — Excelente"
       },
       "comparativos": {
         "7d": {
-          "spend": 120.01,
-          "impr": 7391.0,
-          "clicks": 433.0,
-          "seguidores": 24.0,
-          "cpm": 16.24,
+          "spend": 172.52,
+          "impr": 11834.0,
+          "clicks": 694.0,
+          "seguidores": 47.0,
+          "cpm": 14.58,
           "ctr": 0.0586,
-          "cpc": 0.28,
-          "cps": 3.75,
-          "txseg": 0.0848
+          "cpc": 0.25,
+          "cps": 3.37,
+          "txseg": 0.075
         },
         "14d": {
-          "spend": 198.52,
-          "impr": 11904.0,
-          "clicks": 712.0,
-          "seguidores": 47.0,
-          "cpm": 16.68,
-          "ctr": 0.0598,
-          "cpc": 0.28,
-          "cps": 3.58,
-          "txseg": 0.0836
+          "spend": 240.54,
+          "impr": 15546.0,
+          "clicks": 916.0,
+          "seguidores": 67.0,
+          "cpm": 15.47,
+          "ctr": 0.0589,
+          "cpc": 0.26,
+          "cps": 3.38,
+          "txseg": 0.0789
         },
         "30d": {
-          "spend": 433.98,
-          "impr": 21218.0,
-          "clicks": 1126.0,
-          "seguidores": 104.0,
-          "cpm": 20.45,
-          "ctr": 0.0531,
-          "cpc": 0.39,
-          "cps": 3.88,
-          "txseg": 0.1066
+          "spend": 471.5,
+          "impr": 25396.0,
+          "clicks": 1376.0,
+          "seguidores": 124.0,
+          "cpm": 18.57,
+          "ctr": 0.0542,
+          "cpc": 0.34,
+          "cps": 3.69,
+          "txseg": 0.0947
         },
         "periodo_anterior": {
           "range": {
-            "start": "2026-08-28",
-            "end": "2026-09-26"
+            "start": "2026-08-29",
+            "end": "2026-09-27"
           },
           "metodo": "período imediatamente anterior, mesma duração",
           "totais": {
-            "spend": 822.99,
-            "impr": 30834.0,
-            "clicks": 2121.0,
-            "seguidores": 225.0,
-            "cpm": 26.69,
-            "ctr": 0.0688,
-            "cpc": 0.39,
-            "cps": 3.66,
-            "txseg": 0.1061
+            "spend": 796.47,
+            "impr": 29887.0,
+            "clicks": 1993.0,
+            "seguidores": 221.0,
+            "cpm": 26.65,
+            "ctr": 0.0667,
+            "cpc": 0.4,
+            "cps": 3.6,
+            "txseg": 0.1109
           },
           "variacao": {
             "spend": {
-              "atual": 433.984815,
-              "anterior": 822.9874950000001,
-              "delta_abs": -389.0027,
-              "delta_pct": -0.4727,
+              "atual": 471.49839000000003,
+              "anterior": 796.4718300000001,
+              "delta_abs": -324.9734,
+              "delta_pct": -0.408,
               "delta_pp": null,
               "direcao": "melhorou",
               "material": true
             },
             "impr": {
-              "atual": 21218.0,
-              "anterior": 30834.0,
-              "delta_abs": -9616.0,
-              "delta_pct": -0.3119,
+              "atual": 25396.0,
+              "anterior": 29887.0,
+              "delta_abs": -4491.0,
+              "delta_pct": -0.1503,
               "delta_pp": null,
               "direcao": "piorou",
               "material": true
             },
             "clicks": {
-              "atual": 1126.0,
-              "anterior": 2121.0,
-              "delta_abs": -995.0,
-              "delta_pct": -0.4691,
+              "atual": 1376.0,
+              "anterior": 1993.0,
+              "delta_abs": -617.0,
+              "delta_pct": -0.3096,
               "delta_pp": null,
               "direcao": "piorou",
               "material": true
             },
             "seguidores": {
-              "atual": 104.0,
-              "anterior": 225.0,
-              "delta_abs": -121.0,
-              "delta_pct": -0.5378,
+              "atual": 124.0,
+              "anterior": 221.0,
+              "delta_abs": -97.0,
+              "delta_pct": -0.4389,
               "delta_pp": null,
               "direcao": "piorou",
               "material": true
             },
             "cpm": {
-              "atual": 20.45361556225846,
-              "anterior": 26.69090922358436,
-              "delta_abs": -6.2373,
-              "delta_pct": -0.2337,
+              "atual": 18.565852496456138,
+              "anterior": 26.649440559440563,
+              "delta_abs": -8.0836,
+              "delta_pct": -0.3033,
               "delta_pp": null,
               "direcao": "melhorou",
               "material": true
             },
             "ctr": {
-              "atual": 0.05306814968423037,
-              "anterior": 0.06878770188752675,
-              "delta_abs": -0.0157,
-              "delta_pct": -0.2285,
-              "delta_pp": -1.57,
+              "atual": 0.05418176090722949,
+              "anterior": 0.06668451166058821,
+              "delta_abs": -0.0125,
+              "delta_pct": -0.1875,
+              "delta_pp": -1.25,
               "direcao": "piorou",
               "material": false
             },
             "cpc": {
-              "atual": 0.3854216829484903,
-              "anterior": 0.38801862093352196,
-              "delta_abs": -0.0026,
-              "delta_pct": -0.0067,
+              "atual": 0.3426587136627907,
+              "anterior": 0.3996346362267938,
+              "delta_abs": -0.057,
+              "delta_pct": -0.1426,
               "delta_pp": null,
               "direcao": "melhorou",
-              "material": false
+              "material": true
             },
             "cps": {
-              "atual": 3.883817596153847,
-              "anterior": 3.657368,
-              "delta_abs": 0.2264,
-              "delta_pct": 0.0619,
+              "atual": 3.6867200806451614,
+              "anterior": 3.6035843212669687,
+              "delta_abs": 0.0831,
+              "delta_pct": 0.0231,
               "delta_pp": null,
               "direcao": "piorou",
               "material": false
             },
             "txseg": {
-              "atual": 0.10655737704918032,
-              "anterior": 0.10608203677510608,
-              "delta_abs": 0.0005,
-              "delta_pct": 0.0045,
-              "delta_pp": 0.05,
-              "direcao": "melhorou",
+              "atual": 0.09472880061115355,
+              "anterior": 0.11088810837932765,
+              "delta_abs": -0.0162,
+              "delta_pct": -0.1457,
+              "delta_pp": -1.62,
+              "direcao": "piorou",
               "material": false
             }
           }
@@ -2596,13 +2779,13 @@
       },
       "por_campanha": [
         {
-          "spend": 433.98,
-          "impr": 21218.0,
-          "clicks": 1126.0,
+          "spend": 471.5,
+          "impr": 25396.0,
+          "clicks": 1376.0,
           "seguidores": null,
-          "cpm": 20.45,
-          "ctr": 0.0531,
-          "cpc": 0.39,
+          "cpm": 18.57,
+          "ctr": 0.0542,
+          "cpc": 0.34,
           "cps": null,
           "txseg": null,
           "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar"
@@ -2610,56 +2793,69 @@
       ],
       "por_conjunto": [
         {
-          "spend": 166.86,
-          "impr": 5223.0,
-          "clicks": 246.0,
+          "spend": 145.6,
+          "impr": 4690.0,
+          "clicks": 226.0,
           "seguidores": null,
-          "cpm": 31.95,
-          "ctr": 0.0471,
-          "cpc": 0.68,
+          "cpm": 31.05,
+          "ctr": 0.0482,
+          "cpc": 0.64,
           "cps": null,
           "txseg": null,
           "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
           "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Se você reconhece esses comportamentos"
         },
         {
-          "spend": 94.84,
-          "impr": 4662.0,
-          "clicks": 281.0,
+          "spend": 115.17,
+          "impr": 5484.0,
+          "clicks": 322.0,
           "seguidores": null,
-          "cpm": 20.34,
-          "ctr": 0.0603,
-          "cpc": 0.34,
+          "cpm": 21.0,
+          "ctr": 0.0587,
+          "cpc": 0.36,
           "cps": null,
           "txseg": null,
           "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
           "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Fazer algo sozinha"
         },
         {
-          "spend": 27.18,
-          "impr": 3094.0,
-          "clicks": 220.0,
+          "spend": 41.41,
+          "impr": 1126.0,
+          "clicks": 43.0,
           "seguidores": null,
-          "cpm": 8.78,
-          "ctr": 0.0711,
-          "cpc": 0.12,
+          "cpm": 36.77,
+          "ctr": 0.0382,
+          "cpc": 0.96,
+          "cps": null,
+          "txseg": null,
+          "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
+          "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Você pode reconhecer o valor"
+        },
+        {
+          "spend": 39.51,
+          "impr": 5201.0,
+          "clicks": 354.0,
+          "seguidores": null,
+          "cpm": 7.6,
+          "ctr": 0.0681,
+          "cpc": 0.11,
           "cps": null,
           "txseg": null,
           "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
           "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Dizer não pode dar culpa"
         },
         {
-          "spend": 27.06,
-          "impr": 722.0,
-          "clicks": 32.0,
+          "spend": 21.09,
+          "impr": 2299.0,
+          "clicks": 136.0,
           "seguidores": null,
-          "cpm": 37.48,
-          "ctr": 0.0443,
-          "cpc": 0.85,
+          "cpm": 9.17,
+          "ctr": 0.0592,
+          "cpc": 0.16,
           "cps": null,
           "txseg": null,
           "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
-          "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Você pode reconhecer o valor"
+          "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Você pode ter orgulho de cuidar"
         },
         {
           "spend": 19.46,
@@ -2740,19 +2936,6 @@
           "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | V3 | Se você reconhece esses comportamentos — Cópia"
         },
         {
-          "spend": 9.32,
-          "impr": 921.0,
-          "clicks": 52.0,
-          "seguidores": null,
-          "cpm": 10.12,
-          "ctr": 0.0565,
-          "cpc": 0.18,
-          "cps": null,
-          "txseg": null,
-          "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
-          "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Você pode ter orgulho de cuidar"
-        },
-        {
           "spend": 8.02,
           "impr": 732.0,
           "clicks": 54.0,
@@ -2781,13 +2964,13 @@
       ],
       "por_anuncio": [
         {
-          "spend": 166.86,
-          "impr": 5223.0,
-          "clicks": 246.0,
+          "spend": 145.6,
+          "impr": 4690.0,
+          "clicks": 226.0,
           "seguidores": null,
-          "cpm": 31.95,
-          "ctr": 0.0471,
-          "cpc": 0.68,
+          "cpm": 31.05,
+          "ctr": 0.0482,
+          "cpc": 0.64,
           "cps": null,
           "txseg": null,
           "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
@@ -2795,13 +2978,13 @@
           "anuncio": "Se você reconhece esses comportamentos"
         },
         {
-          "spend": 94.84,
-          "impr": 4662.0,
-          "clicks": 281.0,
+          "spend": 115.17,
+          "impr": 5484.0,
+          "clicks": 322.0,
           "seguidores": null,
-          "cpm": 20.34,
-          "ctr": 0.0603,
-          "cpc": 0.34,
+          "cpm": 21.0,
+          "ctr": 0.0587,
+          "cpc": 0.36,
           "cps": null,
           "txseg": null,
           "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
@@ -2809,13 +2992,27 @@
           "anuncio": "Fazer algo sozinha"
         },
         {
-          "spend": 27.18,
-          "impr": 3094.0,
-          "clicks": 220.0,
+          "spend": 41.41,
+          "impr": 1126.0,
+          "clicks": 43.0,
           "seguidores": null,
-          "cpm": 8.78,
-          "ctr": 0.0711,
-          "cpc": 0.12,
+          "cpm": 36.77,
+          "ctr": 0.0382,
+          "cpc": 0.96,
+          "cps": null,
+          "txseg": null,
+          "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
+          "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Você pode reconhecer o valor",
+          "anuncio": "Você pode reconhecer o valor"
+        },
+        {
+          "spend": 39.51,
+          "impr": 5201.0,
+          "clicks": 354.0,
+          "seguidores": null,
+          "cpm": 7.6,
+          "ctr": 0.0681,
+          "cpc": 0.11,
           "cps": null,
           "txseg": null,
           "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
@@ -2823,18 +3020,18 @@
           "anuncio": "Dizer não pode dar culpa"
         },
         {
-          "spend": 27.06,
-          "impr": 722.0,
-          "clicks": 32.0,
+          "spend": 21.09,
+          "impr": 2299.0,
+          "clicks": 136.0,
           "seguidores": null,
-          "cpm": 37.48,
-          "ctr": 0.0443,
-          "cpc": 0.85,
+          "cpm": 9.17,
+          "ctr": 0.0592,
+          "cpc": 0.16,
           "cps": null,
           "txseg": null,
           "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
-          "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Você pode reconhecer o valor",
-          "anuncio": "Você pode reconhecer o valor"
+          "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Você pode ter orgulho de cuidar",
+          "anuncio": "Você pode ter orgulho de cuidar"
         },
         {
           "spend": 19.46,
@@ -2921,20 +3118,6 @@
           "anuncio": "Se você reconhece esses comportamentos"
         },
         {
-          "spend": 9.32,
-          "impr": 921.0,
-          "clicks": 52.0,
-          "seguidores": null,
-          "cpm": 10.12,
-          "ctr": 0.0565,
-          "cpc": 0.18,
-          "cps": null,
-          "txseg": null,
-          "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
-          "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Você pode ter orgulho de cuidar",
-          "anuncio": "Você pode ter orgulho de cuidar"
-        },
-        {
           "spend": 8.02,
           "impr": 732.0,
           "clicks": 54.0,
@@ -2981,16 +3164,16 @@
               "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | V3 | Se você reconhece esses comportamentos — Cópia"
             }
           ],
-          "spend": 194.49,
-          "impr": 5999.0,
-          "clicks": 283.0,
-          "cpm": 32.42,
-          "ctr": 0.0472,
-          "cpc": 0.69,
+          "spend": 173.23,
+          "impr": 5466.0,
+          "clicks": 263.0,
+          "cpm": 31.69,
+          "ctr": 0.0481,
+          "cpc": 0.66,
           "melhor_estrutura": {
             "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
             "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Se você reconhece esses comportamentos",
-            "cpc": 0.68
+            "cpc": 0.64
           },
           "pior_estrutura": {
             "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
@@ -3011,44 +3194,22 @@
               "conjunto": "IG | M | 35 a 54 | SUDESTE | EMPRESÁRIAS | Fazer algo sozinha"
             }
           ],
-          "spend": 114.3,
-          "impr": 5695.0,
-          "clicks": 331.0,
-          "cpm": 20.07,
-          "ctr": 0.0581,
-          "cpc": 0.35,
+          "spend": 134.63,
+          "impr": 6517.0,
+          "clicks": 372.0,
+          "cpm": 20.66,
+          "ctr": 0.0571,
+          "cpc": 0.36,
           "melhor_estrutura": {
             "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
             "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Fazer algo sozinha",
-            "cpc": 0.34
+            "cpc": 0.36
           },
           "pior_estrutura": {
             "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
             "conjunto": "IG | M | 35 a 54 | SUDESTE | EMPRESÁRIAS | Fazer algo sozinha",
             "cpc": 0.39
           }
-        },
-        {
-          "anuncio": "Dizer não pode dar culpa",
-          "n_estruturas": 1,
-          "estruturas": [
-            {
-              "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
-              "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Dizer não pode dar culpa"
-            }
-          ],
-          "spend": 27.18,
-          "impr": 3094.0,
-          "clicks": 220.0,
-          "cpm": 8.78,
-          "ctr": 0.0711,
-          "cpc": 0.12,
-          "melhor_estrutura": {
-            "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
-            "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Dizer não pode dar culpa",
-            "cpc": 0.12
-          },
-          "pior_estrutura": null
         },
         {
           "anuncio": "Você pode reconhecer o valor",
@@ -3059,16 +3220,60 @@
               "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Você pode reconhecer o valor"
             }
           ],
-          "spend": 27.06,
-          "impr": 722.0,
-          "clicks": 32.0,
-          "cpm": 37.48,
-          "ctr": 0.0443,
-          "cpc": 0.85,
+          "spend": 41.41,
+          "impr": 1126.0,
+          "clicks": 43.0,
+          "cpm": 36.78,
+          "ctr": 0.0382,
+          "cpc": 0.96,
           "melhor_estrutura": {
             "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
             "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Você pode reconhecer o valor",
-            "cpc": 0.85
+            "cpc": 0.96
+          },
+          "pior_estrutura": null
+        },
+        {
+          "anuncio": "Dizer não pode dar culpa",
+          "n_estruturas": 1,
+          "estruturas": [
+            {
+              "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
+              "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Dizer não pode dar culpa"
+            }
+          ],
+          "spend": 39.51,
+          "impr": 5201.0,
+          "clicks": 354.0,
+          "cpm": 7.6,
+          "ctr": 0.0681,
+          "cpc": 0.11,
+          "melhor_estrutura": {
+            "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
+            "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Dizer não pode dar culpa",
+            "cpc": 0.11
+          },
+          "pior_estrutura": null
+        },
+        {
+          "anuncio": "Você pode ter orgulho de cuidar",
+          "n_estruturas": 1,
+          "estruturas": [
+            {
+              "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
+              "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Você pode ter orgulho de cuidar"
+            }
+          ],
+          "spend": 21.09,
+          "impr": 2299.0,
+          "clicks": 136.0,
+          "cpm": 9.17,
+          "ctr": 0.0592,
+          "cpc": 0.16,
+          "melhor_estrutura": {
+            "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
+            "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Você pode ter orgulho de cuidar",
+            "cpc": 0.16
           },
           "pior_estrutura": null
         },
@@ -3139,28 +3344,6 @@
           "pior_estrutura": null
         },
         {
-          "anuncio": "Você pode ter orgulho de cuidar",
-          "n_estruturas": 1,
-          "estruturas": [
-            {
-              "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
-              "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Você pode ter orgulho de cuidar"
-            }
-          ],
-          "spend": 9.32,
-          "impr": 921.0,
-          "clicks": 52.0,
-          "cpm": 10.12,
-          "ctr": 0.0565,
-          "cpc": 0.18,
-          "melhor_estrutura": {
-            "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
-            "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Você pode ter orgulho de cuidar",
-            "cpc": 0.18
-          },
-          "pior_estrutura": null
-        },
-        {
           "anuncio": "Você pode ter orgulho de cuidar de todos",
           "n_estruturas": 1,
           "estruturas": [
@@ -3210,18 +3393,18 @@
       "label": "Este mês",
       "range": {
         "start": "2026-10-01",
-        "end": "2026-10-26"
+        "end": "2026-10-27"
       },
       "totais": {
-        "spend": 380.94,
-        "impr": 19874.0,
-        "clicks": 1065.0,
-        "seguidores": 88.0,
-        "cpm": 19.17,
-        "ctr": 0.0536,
-        "cpc": 0.36,
-        "cps": 3.99,
-        "txseg": 0.0962
+        "spend": 439.71,
+        "impr": 24585.0,
+        "clicks": 1335.0,
+        "seguidores": 112.0,
+        "cpm": 17.89,
+        "ctr": 0.0543,
+        "cpc": 0.33,
+        "cps": 3.8,
+        "txseg": 0.0883
       },
       "serie_diaria": [
         {
@@ -3505,16 +3688,40 @@
           "spend": 30.07,
           "impr": 2537.0,
           "clicks": 150.0,
-          "seguidores": null,
+          "seguidores": 7.0,
           "cpm": 11.85,
           "ctr": 0.0591,
           "cpc": 0.2,
+          "cps": 4.3,
+          "txseg": 0.0467
+        },
+        {
+          "d": "2026-10-25",
+          "spend": 44.42,
+          "impr": 3498.0,
+          "clicks": 203.0,
+          "seguidores": 17.0,
+          "cpm": 12.7,
+          "ctr": 0.058,
+          "cpc": 0.22,
+          "cps": 2.61,
+          "txseg": 0.0837
+        },
+        {
+          "d": "2026-10-26",
+          "spend": 14.35,
+          "impr": 1213.0,
+          "clicks": 67.0,
+          "seguidores": null,
+          "cpm": 11.83,
+          "ctr": 0.0552,
+          "cpc": 0.21,
           "cps": null,
           "txseg": null
         }
       ],
       "nota_saude": {
-        "nota": 9.7,
+        "nota": 9.8,
         "provisoria": false,
         "classificacao": "Excelente",
         "motivo": "",
@@ -3522,175 +3729,188 @@
           "aquisicao": 10.0,
           "custo_clique": 10.0,
           "custo_seguidor": 9.7,
-          "consistencia": 8.9,
+          "consistencia": 9.2,
           "confiabilidade_dados": 10.0
         }
       },
       "whatsapp_numeros": {
         "periodo_label": "Este mês",
-        "periodo_range": "01/10/2026 a 26/10/2026",
-        "gasto": "R$ 380,94",
-        "cpm": "R$ 19,17",
+        "periodo_range": "01/10/2026 a 27/10/2026",
+        "gasto": "R$ 439,71",
+        "cpm": "R$ 17,89",
         "ctr": "5,4%",
-        "impressoes": "19.874",
-        "cliques": "1.065",
-        "cpc": "R$ 0,36",
-        "seguidores": "88",
-        "custo_por_seguidor": "R$ 3,99",
-        "conv_clique_seguidor": "9,6%",
-        "saude_funil": "9.7/10 — Excelente"
+        "impressoes": "24.585",
+        "cliques": "1.335",
+        "cpc": "R$ 0,33",
+        "seguidores": "112",
+        "custo_por_seguidor": "R$ 3,80",
+        "conv_clique_seguidor": "8,8%",
+        "saude_funil": "9.8/10 — Excelente"
       },
       "comparativos": {
         "7d": {
-          "spend": 120.01,
-          "impr": 7391.0,
-          "clicks": 433.0,
-          "seguidores": 24.0,
-          "cpm": 16.24,
+          "spend": 172.52,
+          "impr": 11834.0,
+          "clicks": 694.0,
+          "seguidores": 47.0,
+          "cpm": 14.58,
           "ctr": 0.0586,
-          "cpc": 0.28,
-          "cps": 3.75,
-          "txseg": 0.0848
+          "cpc": 0.25,
+          "cps": 3.37,
+          "txseg": 0.075
         },
         "14d": {
-          "spend": 198.52,
-          "impr": 11904.0,
-          "clicks": 712.0,
-          "seguidores": 47.0,
-          "cpm": 16.68,
-          "ctr": 0.0598,
-          "cpc": 0.28,
-          "cps": 3.58,
-          "txseg": 0.0836
+          "spend": 240.54,
+          "impr": 15546.0,
+          "clicks": 916.0,
+          "seguidores": 67.0,
+          "cpm": 15.47,
+          "ctr": 0.0589,
+          "cpc": 0.26,
+          "cps": 3.38,
+          "txseg": 0.0789
         },
         "30d": {
-          "spend": 433.98,
-          "impr": 21218.0,
-          "clicks": 1126.0,
-          "seguidores": 104.0,
-          "cpm": 20.45,
-          "ctr": 0.0531,
-          "cpc": 0.39,
-          "cps": 3.88,
-          "txseg": 0.1066
+          "spend": 471.5,
+          "impr": 25396.0,
+          "clicks": 1376.0,
+          "seguidores": 124.0,
+          "cpm": 18.57,
+          "ctr": 0.0542,
+          "cpc": 0.34,
+          "cps": 3.69,
+          "txseg": 0.0947
         },
         "periodo_anterior": {
           "range": {
             "start": "2026-09-01",
-            "end": "2026-09-26"
+            "end": "2026-09-27"
           },
-          "metodo": "mesmo intervalo de dias (1–26) do mês anterior",
+          "metodo": "mesmo intervalo de dias (1–27) do mês anterior",
           "totais": {
-            "spend": 610.07,
-            "impr": 22778.0,
-            "clicks": 1457.0,
-            "seguidores": 178.0,
-            "cpm": 26.78,
-            "ctr": 0.064,
-            "cpc": 0.42,
-            "cps": 3.43,
-            "txseg": 0.1222
+            "spend": 631.32,
+            "impr": 23311.0,
+            "clicks": 1477.0,
+            "seguidores": 182.0,
+            "cpm": 27.08,
+            "ctr": 0.0634,
+            "cpc": 0.43,
+            "cps": 3.47,
+            "txseg": 0.1232
           },
           "variacao": {
             "spend": {
-              "atual": 380.94210000000004,
-              "anterior": 610.065225,
-              "delta_abs": -229.1231,
-              "delta_pct": -0.3756,
+              "atual": 439.7114700000001,
+              "anterior": 631.32102,
+              "delta_abs": -191.6095,
+              "delta_pct": -0.3035,
               "delta_pp": null,
               "direcao": "melhorou",
               "material": true
             },
             "impr": {
-              "atual": 19874.0,
-              "anterior": 22778.0,
-              "delta_abs": -2904.0,
-              "delta_pct": -0.1275,
+              "atual": 24585.0,
+              "anterior": 23311.0,
+              "delta_abs": 1274.0,
+              "delta_pct": 0.0547,
               "delta_pp": null,
-              "direcao": "piorou",
-              "material": true
+              "direcao": "melhorou",
+              "material": false
             },
             "clicks": {
-              "atual": 1065.0,
-              "anterior": 1457.0,
-              "delta_abs": -392.0,
-              "delta_pct": -0.269,
+              "atual": 1335.0,
+              "anterior": 1477.0,
+              "delta_abs": -142.0,
+              "delta_pct": -0.0961,
               "delta_pp": null,
               "direcao": "piorou",
-              "material": true
+              "material": false
             },
             "seguidores": {
-              "atual": 88.0,
-              "anterior": 178.0,
-              "delta_abs": -90.0,
-              "delta_pct": -0.5056,
+              "atual": 112.0,
+              "anterior": 182.0,
+              "delta_abs": -70.0,
+              "delta_pct": -0.3846,
               "delta_pp": null,
               "direcao": "piorou",
               "material": true
             },
             "cpm": {
-              "atual": 19.167862533963973,
-              "anterior": 26.78309004302397,
-              "delta_abs": -7.6152,
-              "delta_pct": -0.2843,
+              "atual": 17.88535570469799,
+              "anterior": 27.082536999699713,
+              "delta_abs": -9.1972,
+              "delta_pct": -0.3396,
               "delta_pp": null,
               "direcao": "melhorou",
               "material": true
             },
             "ctr": {
-              "atual": 0.05358760189191909,
-              "anterior": 0.06396522960751602,
-              "delta_abs": -0.0104,
-              "delta_pct": -0.1622,
-              "delta_pp": -1.04,
+              "atual": 0.05430140329469189,
+              "anterior": 0.06336064518896659,
+              "delta_abs": -0.0091,
+              "delta_pct": -0.143,
+              "delta_pp": -0.91,
               "direcao": "piorou",
               "material": false
             },
             "cpc": {
-              "atual": 0.3576921126760564,
-              "anterior": 0.41871326355525057,
-              "delta_abs": -0.061,
-              "delta_pct": -0.1457,
+              "atual": 0.3293718876404495,
+              "anterior": 0.42743467840216653,
+              "delta_abs": -0.0981,
+              "delta_pct": -0.2294,
               "delta_pp": null,
               "direcao": "melhorou",
               "material": true
             },
             "cps": {
-              "atual": 3.9872081250000004,
-              "anterior": 3.4268850000000004,
-              "delta_abs": 0.5603,
-              "delta_pct": 0.1635,
+              "atual": 3.797914017857143,
+              "anterior": 3.468358928571429,
+              "delta_abs": 0.3296,
+              "delta_pct": 0.095,
               "delta_pp": null,
               "direcao": "piorou",
-              "material": true
+              "material": false
             },
             "txseg": {
-              "atual": 0.09617486338797815,
-              "anterior": 0.12216884008236102,
-              "delta_abs": -0.026,
-              "delta_pct": -0.2128,
-              "delta_pp": -2.6,
+              "atual": 0.08832807570977919,
+              "anterior": 0.12322274881516587,
+              "delta_abs": -0.0349,
+              "delta_pct": -0.2832,
+              "delta_pp": -3.49,
               "direcao": "piorou",
-              "material": false
+              "material": true
             }
           }
         }
       },
       "por_campanha": [
         {
-          "spend": 380.94,
-          "impr": 19874.0,
-          "clicks": 1065.0,
+          "spend": 439.71,
+          "impr": 24585.0,
+          "clicks": 1335.0,
           "seguidores": null,
-          "cpm": 19.17,
-          "ctr": 0.0536,
-          "cpc": 0.36,
+          "cpm": 17.89,
+          "ctr": 0.0543,
+          "cpc": 0.33,
           "cps": null,
           "txseg": null,
           "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar"
         }
       ],
       "por_conjunto": [
+        {
+          "spend": 115.17,
+          "impr": 5484.0,
+          "clicks": 322.0,
+          "seguidores": null,
+          "cpm": 21.0,
+          "ctr": 0.0587,
+          "cpc": 0.36,
+          "cps": null,
+          "txseg": null,
+          "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
+          "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Fazer algo sozinha"
+        },
         {
           "spend": 113.82,
           "impr": 3879.0,
@@ -3705,43 +3925,43 @@
           "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Se você reconhece esses comportamentos"
         },
         {
-          "spend": 94.84,
-          "impr": 4662.0,
-          "clicks": 281.0,
+          "spend": 41.41,
+          "impr": 1126.0,
+          "clicks": 43.0,
           "seguidores": null,
-          "cpm": 20.34,
-          "ctr": 0.0603,
-          "cpc": 0.34,
+          "cpm": 36.77,
+          "ctr": 0.0382,
+          "cpc": 0.96,
           "cps": null,
           "txseg": null,
           "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
-          "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Fazer algo sozinha"
+          "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Você pode reconhecer o valor"
         },
         {
-          "spend": 27.18,
-          "impr": 3094.0,
-          "clicks": 220.0,
+          "spend": 39.51,
+          "impr": 5201.0,
+          "clicks": 354.0,
           "seguidores": null,
-          "cpm": 8.78,
-          "ctr": 0.0711,
-          "cpc": 0.12,
+          "cpm": 7.6,
+          "ctr": 0.0681,
+          "cpc": 0.11,
           "cps": null,
           "txseg": null,
           "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
           "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Dizer não pode dar culpa"
         },
         {
-          "spend": 27.06,
-          "impr": 722.0,
-          "clicks": 32.0,
+          "spend": 21.09,
+          "impr": 2299.0,
+          "clicks": 136.0,
           "seguidores": null,
-          "cpm": 37.48,
-          "ctr": 0.0443,
-          "cpc": 0.85,
+          "cpm": 9.17,
+          "ctr": 0.0592,
+          "cpc": 0.16,
           "cps": null,
           "txseg": null,
           "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
-          "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Você pode reconhecer o valor"
+          "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Você pode ter orgulho de cuidar"
         },
         {
           "spend": 19.46,
@@ -3822,19 +4042,6 @@
           "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | V3 | Se você reconhece esses comportamentos — Cópia"
         },
         {
-          "spend": 9.32,
-          "impr": 921.0,
-          "clicks": 52.0,
-          "seguidores": null,
-          "cpm": 10.12,
-          "ctr": 0.0565,
-          "cpc": 0.18,
-          "cps": null,
-          "txseg": null,
-          "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
-          "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Você pode ter orgulho de cuidar"
-        },
-        {
           "spend": 8.02,
           "impr": 732.0,
           "clicks": 54.0,
@@ -3863,6 +4070,20 @@
       ],
       "por_anuncio": [
         {
+          "spend": 115.17,
+          "impr": 5484.0,
+          "clicks": 322.0,
+          "seguidores": null,
+          "cpm": 21.0,
+          "ctr": 0.0587,
+          "cpc": 0.36,
+          "cps": null,
+          "txseg": null,
+          "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
+          "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Fazer algo sozinha",
+          "anuncio": "Fazer algo sozinha"
+        },
+        {
           "spend": 113.82,
           "impr": 3879.0,
           "clicks": 185.0,
@@ -3877,27 +4098,27 @@
           "anuncio": "Se você reconhece esses comportamentos"
         },
         {
-          "spend": 94.84,
-          "impr": 4662.0,
-          "clicks": 281.0,
+          "spend": 41.41,
+          "impr": 1126.0,
+          "clicks": 43.0,
           "seguidores": null,
-          "cpm": 20.34,
-          "ctr": 0.0603,
-          "cpc": 0.34,
+          "cpm": 36.77,
+          "ctr": 0.0382,
+          "cpc": 0.96,
           "cps": null,
           "txseg": null,
           "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
-          "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Fazer algo sozinha",
-          "anuncio": "Fazer algo sozinha"
+          "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Você pode reconhecer o valor",
+          "anuncio": "Você pode reconhecer o valor"
         },
         {
-          "spend": 27.18,
-          "impr": 3094.0,
-          "clicks": 220.0,
+          "spend": 39.51,
+          "impr": 5201.0,
+          "clicks": 354.0,
           "seguidores": null,
-          "cpm": 8.78,
-          "ctr": 0.0711,
-          "cpc": 0.12,
+          "cpm": 7.6,
+          "ctr": 0.0681,
+          "cpc": 0.11,
           "cps": null,
           "txseg": null,
           "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
@@ -3905,18 +4126,18 @@
           "anuncio": "Dizer não pode dar culpa"
         },
         {
-          "spend": 27.06,
-          "impr": 722.0,
-          "clicks": 32.0,
+          "spend": 21.09,
+          "impr": 2299.0,
+          "clicks": 136.0,
           "seguidores": null,
-          "cpm": 37.48,
-          "ctr": 0.0443,
-          "cpc": 0.85,
+          "cpm": 9.17,
+          "ctr": 0.0592,
+          "cpc": 0.16,
           "cps": null,
           "txseg": null,
           "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
-          "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Você pode reconhecer o valor",
-          "anuncio": "Você pode reconhecer o valor"
+          "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Você pode ter orgulho de cuidar",
+          "anuncio": "Você pode ter orgulho de cuidar"
         },
         {
           "spend": 19.46,
@@ -4003,20 +4224,6 @@
           "anuncio": "Se você reconhece esses comportamentos"
         },
         {
-          "spend": 9.32,
-          "impr": 921.0,
-          "clicks": 52.0,
-          "seguidores": null,
-          "cpm": 10.12,
-          "ctr": 0.0565,
-          "cpc": 0.18,
-          "cps": null,
-          "txseg": null,
-          "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
-          "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Você pode ter orgulho de cuidar",
-          "anuncio": "Você pode ter orgulho de cuidar"
-        },
-        {
           "spend": 8.02,
           "impr": 732.0,
           "clicks": 54.0,
@@ -4093,44 +4300,22 @@
               "conjunto": "IG | M | 35 a 54 | SUDESTE | EMPRESÁRIAS | Fazer algo sozinha"
             }
           ],
-          "spend": 114.3,
-          "impr": 5695.0,
-          "clicks": 331.0,
-          "cpm": 20.07,
-          "ctr": 0.0581,
-          "cpc": 0.35,
+          "spend": 134.63,
+          "impr": 6517.0,
+          "clicks": 372.0,
+          "cpm": 20.66,
+          "ctr": 0.0571,
+          "cpc": 0.36,
           "melhor_estrutura": {
             "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
             "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Fazer algo sozinha",
-            "cpc": 0.34
+            "cpc": 0.36
           },
           "pior_estrutura": {
             "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
             "conjunto": "IG | M | 35 a 54 | SUDESTE | EMPRESÁRIAS | Fazer algo sozinha",
             "cpc": 0.39
           }
-        },
-        {
-          "anuncio": "Dizer não pode dar culpa",
-          "n_estruturas": 1,
-          "estruturas": [
-            {
-              "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
-              "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Dizer não pode dar culpa"
-            }
-          ],
-          "spend": 27.18,
-          "impr": 3094.0,
-          "clicks": 220.0,
-          "cpm": 8.78,
-          "ctr": 0.0711,
-          "cpc": 0.12,
-          "melhor_estrutura": {
-            "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
-            "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Dizer não pode dar culpa",
-            "cpc": 0.12
-          },
-          "pior_estrutura": null
         },
         {
           "anuncio": "Você pode reconhecer o valor",
@@ -4141,16 +4326,60 @@
               "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Você pode reconhecer o valor"
             }
           ],
-          "spend": 27.06,
-          "impr": 722.0,
-          "clicks": 32.0,
-          "cpm": 37.48,
-          "ctr": 0.0443,
-          "cpc": 0.85,
+          "spend": 41.41,
+          "impr": 1126.0,
+          "clicks": 43.0,
+          "cpm": 36.78,
+          "ctr": 0.0382,
+          "cpc": 0.96,
           "melhor_estrutura": {
             "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
             "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Você pode reconhecer o valor",
-            "cpc": 0.85
+            "cpc": 0.96
+          },
+          "pior_estrutura": null
+        },
+        {
+          "anuncio": "Dizer não pode dar culpa",
+          "n_estruturas": 1,
+          "estruturas": [
+            {
+              "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
+              "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Dizer não pode dar culpa"
+            }
+          ],
+          "spend": 39.51,
+          "impr": 5201.0,
+          "clicks": 354.0,
+          "cpm": 7.6,
+          "ctr": 0.0681,
+          "cpc": 0.11,
+          "melhor_estrutura": {
+            "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
+            "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Dizer não pode dar culpa",
+            "cpc": 0.11
+          },
+          "pior_estrutura": null
+        },
+        {
+          "anuncio": "Você pode ter orgulho de cuidar",
+          "n_estruturas": 1,
+          "estruturas": [
+            {
+              "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
+              "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Você pode ter orgulho de cuidar"
+            }
+          ],
+          "spend": 21.09,
+          "impr": 2299.0,
+          "clicks": 136.0,
+          "cpm": 9.17,
+          "ctr": 0.0592,
+          "cpc": 0.16,
+          "melhor_estrutura": {
+            "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
+            "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Você pode ter orgulho de cuidar",
+            "cpc": 0.16
           },
           "pior_estrutura": null
         },
@@ -4217,28 +4446,6 @@
             "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
             "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | O movimento me ajuda a sair",
             "cpc": 0.49
-          },
-          "pior_estrutura": null
-        },
-        {
-          "anuncio": "Você pode ter orgulho de cuidar",
-          "n_estruturas": 1,
-          "estruturas": [
-            {
-              "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
-              "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Você pode ter orgulho de cuidar"
-            }
-          ],
-          "spend": 9.32,
-          "impr": 921.0,
-          "clicks": 52.0,
-          "cpm": 10.12,
-          "ctr": 0.0565,
-          "cpc": 0.18,
-          "melhor_estrutura": {
-            "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
-            "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Você pode ter orgulho de cuidar",
-            "cpc": 0.18
           },
           "pior_estrutura": null
         },
@@ -4644,15 +4851,15 @@
         }
       ],
       "nota_saude": {
-        "nota": 9.0,
+        "nota": 8.5,
         "provisoria": false,
         "classificacao": "Excelente",
         "motivo": "",
         "subnotas": {
-          "aquisicao": 7.5,
-          "custo_clique": 8.7,
+          "aquisicao": 6.0,
+          "custo_clique": 7.3,
           "custo_seguidor": 10.0,
-          "consistencia": 8.9,
+          "consistencia": 9.2,
           "confiabilidade_dados": 10.0
         }
       },
@@ -4668,41 +4875,41 @@
         "seguidores": "194",
         "custo_por_seguidor": "R$ 3,42",
         "conv_clique_seguidor": "12,8%",
-        "saude_funil": "9.0/10 — Excelente"
+        "saude_funil": "8.5/10 — Excelente"
       },
       "comparativos": {
         "7d": {
-          "spend": 120.01,
-          "impr": 7391.0,
-          "clicks": 433.0,
-          "seguidores": 24.0,
-          "cpm": 16.24,
+          "spend": 172.52,
+          "impr": 11834.0,
+          "clicks": 694.0,
+          "seguidores": 47.0,
+          "cpm": 14.58,
           "ctr": 0.0586,
-          "cpc": 0.28,
-          "cps": 3.75,
-          "txseg": 0.0848
+          "cpc": 0.25,
+          "cps": 3.37,
+          "txseg": 0.075
         },
         "14d": {
-          "spend": 198.52,
-          "impr": 11904.0,
-          "clicks": 712.0,
-          "seguidores": 47.0,
-          "cpm": 16.68,
-          "ctr": 0.0598,
-          "cpc": 0.28,
-          "cps": 3.58,
-          "txseg": 0.0836
+          "spend": 240.54,
+          "impr": 15546.0,
+          "clicks": 916.0,
+          "seguidores": 67.0,
+          "cpm": 15.47,
+          "ctr": 0.0589,
+          "cpc": 0.26,
+          "cps": 3.38,
+          "txseg": 0.0789
         },
         "30d": {
-          "spend": 433.98,
-          "impr": 21218.0,
-          "clicks": 1126.0,
-          "seguidores": 104.0,
-          "cpm": 20.45,
-          "ctr": 0.0531,
-          "cpc": 0.39,
-          "cps": 3.88,
-          "txseg": 0.1066
+          "spend": 471.5,
+          "impr": 25396.0,
+          "clicks": 1376.0,
+          "seguidores": 124.0,
+          "cpm": 18.57,
+          "ctr": 0.0542,
+          "cpc": 0.34,
+          "cps": 3.69,
+          "txseg": 0.0947
         },
         "periodo_anterior": {
           "range": {
@@ -5670,44 +5877,20 @@
       "label": "Todo período",
       "range": {
         "start": "2026-06-03",
-        "end": "2026-10-24"
+        "end": "2026-10-26"
       },
       "totais": {
-        "spend": 4642.23,
-        "impr": 158478.0,
-        "clicks": 8980.0,
-        "seguidores": 495.0,
-        "cpm": 29.29,
+        "spend": 4701.0,
+        "impr": 163189.0,
+        "clicks": 9250.0,
+        "seguidores": 519.0,
+        "cpm": 28.81,
         "ctr": 0.0567,
-        "cpc": 0.52,
-        "cps": 3.82,
-        "txseg": 0.1043
+        "cpc": 0.51,
+        "cps": 3.79,
+        "txseg": 0.1017
       },
       "serie_diaria": [
-        {
-          "d": "2026-08-24",
-          "spend": 44.14,
-          "impr": 1842.0,
-          "clicks": 118.0,
-          "seguidores": 9.0,
-          "cpm": 23.96,
-          "ctr": 0.0641,
-          "cpc": 0.37,
-          "cps": 4.9,
-          "txseg": 0.0763
-        },
-        {
-          "d": "2026-08-25",
-          "spend": 31.13,
-          "impr": 1226.0,
-          "clicks": 92.0,
-          "seguidores": 6.0,
-          "cpm": 25.39,
-          "ctr": 0.075,
-          "cpc": 0.34,
-          "cps": 5.19,
-          "txseg": 0.0652
-        },
         {
           "d": "2026-08-26",
           "spend": 32.05,
@@ -6397,171 +6580,195 @@
           "spend": 30.07,
           "impr": 2537.0,
           "clicks": 150.0,
-          "seguidores": null,
+          "seguidores": 7.0,
           "cpm": 11.85,
           "ctr": 0.0591,
           "cpc": 0.2,
+          "cps": 4.3,
+          "txseg": 0.0467
+        },
+        {
+          "d": "2026-10-25",
+          "spend": 44.42,
+          "impr": 3498.0,
+          "clicks": 203.0,
+          "seguidores": 17.0,
+          "cpm": 12.7,
+          "ctr": 0.058,
+          "cpc": 0.22,
+          "cps": 2.61,
+          "txseg": 0.0837
+        },
+        {
+          "d": "2026-10-26",
+          "spend": 14.35,
+          "impr": 1213.0,
+          "clicks": 67.0,
+          "seguidores": null,
+          "cpm": 11.83,
+          "ctr": 0.0552,
+          "cpc": 0.21,
           "cps": null,
           "txseg": null
         }
       ],
       "nota_saude": {
-        "nota": 8.3,
+        "nota": 7.8,
         "provisoria": false,
-        "classificacao": "Excelente",
+        "classificacao": "Saudável, com atenção",
         "motivo": "",
         "subnotas": {
-          "aquisicao": 6.0,
-          "custo_clique": 6.6,
-          "custo_seguidor": 10.0,
-          "consistencia": 8.9,
+          "aquisicao": 4.7,
+          "custo_clique": 5.2,
+          "custo_seguidor": 9.7,
+          "consistencia": 9.2,
           "confiabilidade_dados": 10.0
         }
       },
       "whatsapp_numeros": {
         "periodo_label": "Todo período",
-        "periodo_range": "03/06/2026 a 24/10/2026",
-        "gasto": "R$ 4.642,23",
-        "cpm": "R$ 29,29",
+        "periodo_range": "03/06/2026 a 26/10/2026",
+        "gasto": "R$ 4.701,00",
+        "cpm": "R$ 28,81",
         "ctr": "5,7%",
-        "impressoes": "158.478",
-        "cliques": "8.980",
-        "cpc": "R$ 0,52",
-        "seguidores": "495",
-        "custo_por_seguidor": "R$ 3,82",
-        "conv_clique_seguidor": "10,4%",
-        "saude_funil": "8.3/10 — Excelente"
+        "impressoes": "163.189",
+        "cliques": "9.250",
+        "cpc": "R$ 0,51",
+        "seguidores": "519",
+        "custo_por_seguidor": "R$ 3,79",
+        "conv_clique_seguidor": "10,2%",
+        "saude_funil": "7.8/10 — Saudável, com atenção"
       },
       "comparativos": {
         "7d": {
-          "spend": 120.01,
-          "impr": 7391.0,
-          "clicks": 433.0,
-          "seguidores": 24.0,
-          "cpm": 16.24,
+          "spend": 172.52,
+          "impr": 11834.0,
+          "clicks": 694.0,
+          "seguidores": 47.0,
+          "cpm": 14.58,
           "ctr": 0.0586,
-          "cpc": 0.28,
-          "cps": 3.75,
-          "txseg": 0.0848
+          "cpc": 0.25,
+          "cps": 3.37,
+          "txseg": 0.075
         },
         "14d": {
-          "spend": 198.52,
-          "impr": 11904.0,
-          "clicks": 712.0,
-          "seguidores": 47.0,
-          "cpm": 16.68,
-          "ctr": 0.0598,
-          "cpc": 0.28,
-          "cps": 3.58,
-          "txseg": 0.0836
+          "spend": 240.54,
+          "impr": 15546.0,
+          "clicks": 916.0,
+          "seguidores": 67.0,
+          "cpm": 15.47,
+          "ctr": 0.0589,
+          "cpc": 0.26,
+          "cps": 3.38,
+          "txseg": 0.0789
         },
         "30d": {
-          "spend": 433.98,
-          "impr": 21218.0,
-          "clicks": 1126.0,
-          "seguidores": 104.0,
-          "cpm": 20.45,
-          "ctr": 0.0531,
-          "cpc": 0.39,
-          "cps": 3.88,
-          "txseg": 0.1066
+          "spend": 471.5,
+          "impr": 25396.0,
+          "clicks": 1376.0,
+          "seguidores": 124.0,
+          "cpm": 18.57,
+          "ctr": 0.0542,
+          "cpc": 0.34,
+          "cps": 3.69,
+          "txseg": 0.0947
         },
         "periodo_anterior": {
           "range": {
             "start": "2026-06-03",
-            "end": "2026-08-13"
+            "end": "2026-08-14"
           },
           "metodo": "metade mais antiga do histórico vs. metade mais recente",
           "totais": {
-            "spend": 2898.67,
-            "impr": 89488.0,
-            "clicks": 4492.0,
-            "seguidores": 64.0,
-            "cpm": 32.39,
-            "ctr": 0.0502,
+            "spend": 2930.11,
+            "impr": 90117.0,
+            "clicks": 4537.0,
+            "seguidores": 78.0,
+            "cpm": 32.51,
+            "ctr": 0.0503,
             "cpc": 0.65,
-            "cps": 2.78,
-            "txseg": 0.1561
+            "cps": 2.68,
+            "txseg": 0.1714
           },
           "variacao": {
             "spend": {
-              "atual": 4642.23375,
-              "anterior": 2898.66654,
-              "delta_abs": 1743.5672,
-              "delta_pct": 0.6015,
+              "atual": 4701.00312,
+              "anterior": 2930.11191,
+              "delta_abs": 1770.8912,
+              "delta_pct": 0.6044,
               "delta_pp": null,
               "direcao": "piorou",
               "material": true
             },
             "impr": {
-              "atual": 158478.0,
-              "anterior": 89488.0,
-              "delta_abs": 68990.0,
-              "delta_pct": 0.7709,
+              "atual": 163189.0,
+              "anterior": 90117.0,
+              "delta_abs": 73072.0,
+              "delta_pct": 0.8109,
               "delta_pp": null,
               "direcao": "melhorou",
               "material": true
             },
             "clicks": {
-              "atual": 8980.0,
-              "anterior": 4492.0,
-              "delta_abs": 4488.0,
-              "delta_pct": 0.9991,
+              "atual": 9250.0,
+              "anterior": 4537.0,
+              "delta_abs": 4713.0,
+              "delta_pct": 1.0388,
               "delta_pp": null,
               "direcao": "melhorou",
               "material": true
             },
             "seguidores": {
-              "atual": 495.0,
-              "anterior": 64.0,
-              "delta_abs": 431.0,
-              "delta_pct": 6.7344,
+              "atual": 519.0,
+              "anterior": 78.0,
+              "delta_abs": 441.0,
+              "delta_pct": 5.6538,
               "delta_pp": null,
               "direcao": "melhorou",
               "material": true
             },
             "cpm": {
-              "atual": 29.292606860258207,
-              "anterior": 32.39167866082603,
-              "delta_abs": -3.0991,
-              "delta_pct": -0.0957,
+              "atual": 28.807107832022993,
+              "anterior": 32.51453011085589,
+              "delta_abs": -3.7074,
+              "delta_pct": -0.114,
               "delta_pp": null,
               "direcao": "melhorou",
-              "material": false
+              "material": true
             },
             "ctr": {
-              "atual": 0.056664016456542864,
-              "anterior": 0.050196674414446626,
-              "delta_abs": 0.0065,
-              "delta_pct": 0.1288,
-              "delta_pp": 0.65,
+              "atual": 0.05668274209658739,
+              "anterior": 0.050345661750835026,
+              "delta_abs": 0.0063,
+              "delta_pct": 0.1259,
+              "delta_pp": 0.63,
               "direcao": "melhorou",
               "material": false
             },
             "cpc": {
-              "atual": 0.5169525334075724,
-              "anterior": 0.6452953116651826,
-              "delta_abs": -0.1283,
-              "delta_pct": -0.1989,
+              "atual": 0.5082165535135136,
+              "anterior": 0.6458258562927045,
+              "delta_abs": -0.1376,
+              "delta_pct": -0.2131,
               "delta_pp": null,
               "direcao": "melhorou",
               "material": true
             },
             "cps": {
-              "atual": 3.8202540000000003,
-              "anterior": 2.7750937500000004,
-              "delta_abs": 1.0452,
-              "delta_pct": 0.3766,
+              "atual": 3.787124826589596,
+              "anterior": 2.6801457692307693,
+              "delta_abs": 1.107,
+              "delta_pct": 0.413,
               "delta_pp": null,
               "direcao": "piorou",
               "material": true
             },
             "txseg": {
-              "atual": 0.10425442291491153,
-              "anterior": 0.15609756097560976,
-              "delta_abs": -0.0518,
-              "delta_pct": -0.3321,
-              "delta_pp": -5.18,
+              "atual": 0.10174475593020976,
+              "anterior": 0.17142857142857143,
+              "delta_abs": -0.0697,
+              "delta_pct": -0.4065,
+              "delta_pp": -6.97,
               "direcao": "piorou",
               "material": true
             }
@@ -6594,13 +6801,13 @@
           "campanha": "LM | E1-DIST |  | ENGJ | ABO | 2026-08-07 | Visitas no Perfil"
         },
         {
-          "spend": 840.53,
-          "impr": 36285.0,
-          "clicks": 2046.0,
+          "spend": 899.3,
+          "impr": 40996.0,
+          "clicks": 2316.0,
           "seguidores": null,
-          "cpm": 23.16,
-          "ctr": 0.0564,
-          "cpc": 0.41,
+          "cpm": 21.94,
+          "ctr": 0.0565,
+          "cpc": 0.39,
           "cps": null,
           "txseg": null,
           "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar"
@@ -6712,6 +6919,19 @@
           "conjunto": "2 - IG | M | 35+ | Sudeste | Publico High Ticket"
         },
         {
+          "spend": 115.17,
+          "impr": 5484.0,
+          "clicks": 322.0,
+          "seguidores": null,
+          "cpm": 21.0,
+          "ctr": 0.0587,
+          "cpc": 0.36,
+          "cps": null,
+          "txseg": null,
+          "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
+          "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Fazer algo sozinha"
+        },
+        {
           "spend": 105.37,
           "impr": 4668.0,
           "clicks": 261.0,
@@ -6751,19 +6971,6 @@
           "conjunto": "04 - IG | M | 35+ | Centro - Sul - Sudeste | Publico High Ticket | Lista MC LLK — Cópia"
         },
         {
-          "spend": 94.84,
-          "impr": 4662.0,
-          "clicks": 281.0,
-          "seguidores": null,
-          "cpm": 20.34,
-          "ctr": 0.0603,
-          "cpc": 0.34,
-          "cps": null,
-          "txseg": null,
-          "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
-          "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Fazer algo sozinha"
-        },
-        {
           "spend": 90.28,
           "impr": 3220.0,
           "clicks": 118.0,
@@ -6790,30 +6997,30 @@
           "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Nem tudo que parece força"
         },
         {
-          "spend": 27.18,
-          "impr": 3094.0,
-          "clicks": 220.0,
+          "spend": 41.41,
+          "impr": 1126.0,
+          "clicks": 43.0,
           "seguidores": null,
-          "cpm": 8.78,
-          "ctr": 0.0711,
-          "cpc": 0.12,
-          "cps": null,
-          "txseg": null,
-          "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
-          "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Dizer não pode dar culpa"
-        },
-        {
-          "spend": 27.06,
-          "impr": 722.0,
-          "clicks": 32.0,
-          "seguidores": null,
-          "cpm": 37.48,
-          "ctr": 0.0443,
-          "cpc": 0.85,
+          "cpm": 36.77,
+          "ctr": 0.0382,
+          "cpc": 0.96,
           "cps": null,
           "txseg": null,
           "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
           "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Você pode reconhecer o valor"
+        },
+        {
+          "spend": 39.51,
+          "impr": 5201.0,
+          "clicks": 354.0,
+          "seguidores": null,
+          "cpm": 7.6,
+          "ctr": 0.0681,
+          "cpc": 0.11,
+          "cps": null,
+          "txseg": null,
+          "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
+          "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Dizer não pode dar culpa"
         },
         {
           "spend": 25.32,
@@ -6866,6 +7073,19 @@
           "txseg": null,
           "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
           "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | A mulher potente também cansa..."
+        },
+        {
+          "spend": 21.09,
+          "impr": 2299.0,
+          "clicks": 136.0,
+          "seguidores": null,
+          "cpm": 9.17,
+          "ctr": 0.0592,
+          "cpc": 0.16,
+          "cps": null,
+          "txseg": null,
+          "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
+          "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Você pode ter orgulho de cuidar"
         },
         {
           "spend": 20.96,
@@ -6970,19 +7190,6 @@
           "txseg": null,
           "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
           "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | V3 | Se você reconhece esses comportamentos — Cópia"
-        },
-        {
-          "spend": 9.32,
-          "impr": 921.0,
-          "clicks": 52.0,
-          "seguidores": null,
-          "cpm": 10.12,
-          "ctr": 0.0565,
-          "cpc": 0.18,
-          "cps": null,
-          "txseg": null,
-          "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
-          "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Você pode ter orgulho de cuidar"
         },
         {
           "spend": 8.02,
@@ -7097,6 +7304,20 @@
           "anuncio": "Reels - Na sua vida hoje"
         },
         {
+          "spend": 115.17,
+          "impr": 5484.0,
+          "clicks": 322.0,
+          "seguidores": null,
+          "cpm": 21.0,
+          "ctr": 0.0587,
+          "cpc": 0.36,
+          "cps": null,
+          "txseg": null,
+          "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
+          "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Fazer algo sozinha",
+          "anuncio": "Fazer algo sozinha"
+        },
+        {
           "spend": 102.64,
           "impr": 2608.0,
           "clicks": 189.0,
@@ -7123,20 +7344,6 @@
           "campanha": "LM | E1-DIST |  | ENGJ | ABO | 2026-06-02 | Visitas no Perfil",
           "conjunto": "4 - IG | M | 35+ | Sudeste | Publico High Ticket — Iphone",
           "anuncio": "AD 05 | Vc pode ter conquistas"
-        },
-        {
-          "spend": 94.84,
-          "impr": 4662.0,
-          "clicks": 281.0,
-          "seguidores": null,
-          "cpm": 20.34,
-          "ctr": 0.0603,
-          "cpc": 0.34,
-          "cps": null,
-          "txseg": null,
-          "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
-          "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Fazer algo sozinha",
-          "anuncio": "Fazer algo sozinha"
         },
         {
           "spend": 82.13,
@@ -7279,6 +7486,20 @@
           "anuncio": "Reels - O trabalho pode ocupar"
         },
         {
+          "spend": 41.41,
+          "impr": 1126.0,
+          "clicks": 43.0,
+          "seguidores": null,
+          "cpm": 36.77,
+          "ctr": 0.0382,
+          "cpc": 0.96,
+          "cps": null,
+          "txseg": null,
+          "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
+          "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Você pode reconhecer o valor",
+          "anuncio": "Você pode reconhecer o valor"
+        },
+        {
           "spend": 40.56,
           "impr": 1202.0,
           "clicks": 81.0,
@@ -7293,6 +7514,20 @@
           "anuncio": "AD 01 | Cansaço, dúvida, emoção…"
         },
         {
+          "spend": 39.51,
+          "impr": 5201.0,
+          "clicks": 354.0,
+          "seguidores": null,
+          "cpm": 7.6,
+          "ctr": 0.0681,
+          "cpc": 0.11,
+          "cps": null,
+          "txseg": null,
+          "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
+          "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Dizer não pode dar culpa",
+          "anuncio": "Dizer não pode dar culpa"
+        },
+        {
           "spend": 32.49,
           "impr": 843.0,
           "clicks": 50.0,
@@ -7305,34 +7540,6 @@
           "campanha": "LM | E1-DIST |  | ENGJ | ABO | 2026-06-02 | Visitas no Perfil",
           "conjunto": "6 - IG | M | 35+ | Sudeste | Publico High Ticket | Lista MC LLK",
           "anuncio": "AD 05 | Vc pode ter conquistas"
-        },
-        {
-          "spend": 27.18,
-          "impr": 3094.0,
-          "clicks": 220.0,
-          "seguidores": null,
-          "cpm": 8.78,
-          "ctr": 0.0711,
-          "cpc": 0.12,
-          "cps": null,
-          "txseg": null,
-          "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
-          "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Dizer não pode dar culpa",
-          "anuncio": "Dizer não pode dar culpa"
-        },
-        {
-          "spend": 27.06,
-          "impr": 722.0,
-          "clicks": 32.0,
-          "seguidores": null,
-          "cpm": 37.48,
-          "ctr": 0.0443,
-          "cpc": 0.85,
-          "cps": null,
-          "txseg": null,
-          "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
-          "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Você pode reconhecer o valor",
-          "anuncio": "Você pode reconhecer o valor"
         },
         {
           "spend": 25.32,
@@ -7403,6 +7610,20 @@
           "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
           "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | A mulher potente também cansa...",
           "anuncio": "A mulher potente também cansa..."
+        },
+        {
+          "spend": 21.09,
+          "impr": 2299.0,
+          "clicks": 136.0,
+          "seguidores": null,
+          "cpm": 9.17,
+          "ctr": 0.0592,
+          "cpc": 0.16,
+          "cps": null,
+          "txseg": null,
+          "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
+          "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Você pode ter orgulho de cuidar",
+          "anuncio": "Você pode ter orgulho de cuidar"
         },
         {
           "spend": 20.96,
@@ -7557,20 +7778,6 @@
           "campanha": "LM | E1-DIST |  | ENGJ | ABO | 2026-08-07 | Visitas no Perfil",
           "conjunto": "00 - IG | M | 35+ | Sudeste | Publico High Ticket | Lista MC LLK",
           "anuncio": "Reels - Nem todo problema"
-        },
-        {
-          "spend": 9.32,
-          "impr": 921.0,
-          "clicks": 52.0,
-          "seguidores": null,
-          "cpm": 10.12,
-          "ctr": 0.0565,
-          "cpc": 0.18,
-          "cps": null,
-          "txseg": null,
-          "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
-          "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Você pode ter orgulho de cuidar",
-          "anuncio": "Você pode ter orgulho de cuidar"
         },
         {
           "spend": 8.61,
@@ -8039,16 +8246,16 @@
               "conjunto": "IG | M | 35 a 54 | SUDESTE | EMPRESÁRIAS | Fazer algo sozinha"
             }
           ],
-          "spend": 114.3,
-          "impr": 5695.0,
-          "clicks": 331.0,
-          "cpm": 20.07,
-          "ctr": 0.0581,
-          "cpc": 0.35,
+          "spend": 134.63,
+          "impr": 6517.0,
+          "clicks": 372.0,
+          "cpm": 20.66,
+          "ctr": 0.0571,
+          "cpc": 0.36,
           "melhor_estrutura": {
             "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
             "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Fazer algo sozinha",
-            "cpc": 0.34
+            "cpc": 0.36
           },
           "pior_estrutura": {
             "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
@@ -8243,6 +8450,28 @@
           "pior_estrutura": null
         },
         {
+          "anuncio": "Você pode reconhecer o valor",
+          "n_estruturas": 1,
+          "estruturas": [
+            {
+              "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
+              "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Você pode reconhecer o valor"
+            }
+          ],
+          "spend": 41.41,
+          "impr": 1126.0,
+          "clicks": 43.0,
+          "cpm": 36.78,
+          "ctr": 0.0382,
+          "cpc": 0.96,
+          "melhor_estrutura": {
+            "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
+            "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Você pode reconhecer o valor",
+            "cpc": 0.96
+          },
+          "pior_estrutura": null
+        },
+        {
           "anuncio": "AD 01 | Cansaço, dúvida, emoção…",
           "n_estruturas": 1,
           "estruturas": [
@@ -8273,38 +8502,16 @@
               "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Dizer não pode dar culpa"
             }
           ],
-          "spend": 27.18,
-          "impr": 3094.0,
-          "clicks": 220.0,
-          "cpm": 8.78,
-          "ctr": 0.0711,
-          "cpc": 0.12,
+          "spend": 39.51,
+          "impr": 5201.0,
+          "clicks": 354.0,
+          "cpm": 7.6,
+          "ctr": 0.0681,
+          "cpc": 0.11,
           "melhor_estrutura": {
             "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
             "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Dizer não pode dar culpa",
-            "cpc": 0.12
-          },
-          "pior_estrutura": null
-        },
-        {
-          "anuncio": "Você pode reconhecer o valor",
-          "n_estruturas": 1,
-          "estruturas": [
-            {
-              "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
-              "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Você pode reconhecer o valor"
-            }
-          ],
-          "spend": 27.06,
-          "impr": 722.0,
-          "clicks": 32.0,
-          "cpm": 37.48,
-          "ctr": 0.0443,
-          "cpc": 0.85,
-          "melhor_estrutura": {
-            "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
-            "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Você pode reconhecer o valor",
-            "cpc": 0.85
+            "cpc": 0.11
           },
           "pior_estrutura": null
         },
@@ -8393,6 +8600,28 @@
             "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
             "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | A mulher potente também cansa...",
             "cpc": 0.75
+          },
+          "pior_estrutura": null
+        },
+        {
+          "anuncio": "Você pode ter orgulho de cuidar",
+          "n_estruturas": 1,
+          "estruturas": [
+            {
+              "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
+              "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Você pode ter orgulho de cuidar"
+            }
+          ],
+          "spend": 21.09,
+          "impr": 2299.0,
+          "clicks": 136.0,
+          "cpm": 9.17,
+          "ctr": 0.0592,
+          "cpc": 0.16,
+          "melhor_estrutura": {
+            "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
+            "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Você pode ter orgulho de cuidar",
+            "cpc": 0.16
           },
           "pior_estrutura": null
         },
@@ -8595,28 +8824,6 @@
             "conjunto": "04 - IG | M | 35+ | Centro - Sul - Sudeste | Publico High Ticket | Lista MC LLK — Cópia",
             "cpc": 0.6
           }
-        },
-        {
-          "anuncio": "Você pode ter orgulho de cuidar",
-          "n_estruturas": 1,
-          "estruturas": [
-            {
-              "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
-              "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Você pode ter orgulho de cuidar"
-            }
-          ],
-          "spend": 9.32,
-          "impr": 921.0,
-          "clicks": 52.0,
-          "cpm": 10.12,
-          "ctr": 0.0565,
-          "cpc": 0.18,
-          "melhor_estrutura": {
-            "campanha": "LM | E1-DIST | P2-FRIO | TRFG | ABO | 2026-09-03 | Impulsionar",
-            "conjunto": "IG | M | 35 a 54 | SUDESTE | LAL 1% | Você pode ter orgulho de cuidar",
-            "cpc": 0.18
-          },
-          "pior_estrutura": null
         },
         {
           "anuncio": "Você pode ter orgulho de cuidar de todos",
