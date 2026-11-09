@@ -70,7 +70,10 @@ SPREADSHEET_CONTROLE = "1ESPchuMZHmXrDIyl5N8Kzy9i20Et0-9EkDVXe_DhSNs"
 # "Setembro". O gestor cria a aba do mes a mao, entao quando um mes novo comeca
 # e' preciso acrescentar o nome aqui — sem isso os seguidores do mes
 # simplesmente param (foi o que aconteceu com outubro ate 05/10/2026).
-ABAS_CONTROLE = ["📈 Ago", "📈 Setembro", "📈 Outubro"]
+# Os nomes NAO seguem um padrao: o gestor abrevia uns e escreve outros por
+# extenso ("Ago", "Setembro", "Outubro", "Nov"), entao nao da' para derivar o
+# nome do mes — a lista e' conferida a mao a cada virada.
+ABAS_CONTROLE = ["📈 Ago", "📈 Setembro", "📈 Outubro", "📈 Nov"]
 
 GVIZ_URL = ("https://docs.google.com/spreadsheets/d/{sid}/gviz/tq"
             "?tqx=out:csv&headers=0&sheet={aba}")
@@ -451,6 +454,7 @@ def process_controle(abas_rows):
     por_dia: dict[str, dict] = {}
     for aba, rows in abas_rows:
         valida_layout_controle(aba, rows)
+        lidas = 0
         for row in rows:
             d = parse_date(cell(row, COL_CTRL_DATA))
             if not d:
@@ -467,6 +471,16 @@ def process_controle(abas_rows):
                 continue
             por_dia[d] = {"d": d, "seg": seg, "segOk": seg > 0,
                           "inv_ctrl": round(inv, 2), "aba": aba}
+            lidas += 1
+        # Nome de aba que nao existe NAO da' erro: o gviz devolve a PRIMEIRA aba
+        # da planilha (a de configuracao), que nao tem data nenhuma — some em
+        # silencio. Acontece quando o gestor renomeia a aba do mes, e e'
+        # justamente o caso que o build nao pode deixar passar calado.
+        if not lidas:
+            print(f"  !! ATENCAO: a aba {aba!r} nao trouxe nenhuma linha com data. "
+                  f"Ou o mes esta vazio, ou a aba foi renomeada e o gviz caiu na "
+                  f"primeira aba da planilha — confira o nome em ABAS_CONTROLE.",
+                  file=sys.stderr)
     return [por_dia[d] for d in sorted(por_dia)]
 
 
